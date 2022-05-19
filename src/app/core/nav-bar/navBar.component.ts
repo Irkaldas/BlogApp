@@ -1,4 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './dialog.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,9 +16,13 @@ export class NavBarComponent {
     { nav: "edit profile", icon: "account_circle" }
 
   ]
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   @Output()
-  showSearchBar: boolean = true;
+  showSearchBar: boolean = false;
+
+  openDialog() {
+    this.dialog.open(DialogComponent)
+  }
 
 }

@@ -7,10 +7,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavBarComponent } from './nav-bar/navBar.component';
 import { RouterModule } from '@angular/router';
 import { PostComponent } from './post/post.component';
+import { DialogComponent } from './nav-bar/dialog.component';
 
 
 @NgModule({
-  declarations: [BlogComponent, NavBarComponent, PostComponent],
+  declarations: [BlogComponent, NavBarComponent, PostComponent, DialogComponent],
   imports: [
     BrowserModule,
     CommonModule,

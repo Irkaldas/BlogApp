@@ -13,20 +13,24 @@
             <button mat-button (click)="sidenav.toggle()">
                 <mat-icon>dehaze</mat-icon>
             </button>
-            <mat-form-field appearance="standard" [class.is-hidden]="showSearchBar" class="flex-width">
-                <mat-label>Search</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <button mat-button (click)="showSearchBar=!showSearchBar" [class.is-hidden]="showSearchBar">
-                <mat-icon>close</mat-icon>
-            </button>
-            <button mat-button (click)="showSearchBar=!showSearchBar" [class.is-hidden]="!showSearchBar">
-                <mat-icon>search</mat-icon>
-            </button>
-            <span class="flex-width" [class.is-hidden]="!showSearchBar"></span>
-            <button mat-button [class.is-hidden]="!showSearchBar">
-                REGISTER / LOG IN
-            </button>
+            <ng-container *ngIf="showSearchBar; else elseBlock">
+                <mat-form-field appearance="standard" class="flex-width">
+                    <mat-label>Search</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <button mat-button (click)="showSearchBar=!showSearchBar">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </ng-container>
+            <ng-template #elseBlock>
+                <button mat-button (click)="showSearchBar=!showSearchBar">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <span class="flex-width">BLOG APP</span>
+                <button mat-button (click)="openDialog()">
+                    REGISTER / LOG IN
+                </button>
+            </ng-template>
         </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
