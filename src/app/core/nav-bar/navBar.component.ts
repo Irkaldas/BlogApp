@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from './dialog.component';
+import { LogInDialogComponent } from './logInDialog.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -22,7 +22,9 @@ export class NavBarComponent {
   showSearchBar: boolean = false;
 
   openDialog() {
-    this.dialog.open(DialogComponent)
+    this.dialog.open(LogInDialogComponent, {
+      width: '600px',
+      height: '400px',
+    });
   }
-
 }

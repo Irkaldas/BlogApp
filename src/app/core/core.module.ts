@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogComponent } from './blog.component';
+import { HomeComponent } from './home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavBarComponent } from './nav-bar/navBar.component';
 import { RouterModule } from '@angular/router';
-import { PostComponent } from './post/post.component';
-import { DialogComponent } from './nav-bar/dialog.component';
+import { ArticleDetailsComponent } from './article/articleDetails.component';
+import { LogInDialogComponent } from './nav-bar/logInDialog.component';
 
 
 @NgModule({
-  declarations: [BlogComponent, NavBarComponent, PostComponent, DialogComponent],
+  declarations: [HomeComponent, NavBarComponent, ArticleDetailsComponent, LogInDialogComponent],
   imports: [
     BrowserModule,
     CommonModule,
@@ -19,6 +19,6 @@ import { DialogComponent } from './nav-bar/dialog.component';
     FlexLayoutModule,
     RouterModule
   ],
-  exports: [BlogComponent]
+  exports: [HomeComponent]
 })
 export class CoreModule { }
