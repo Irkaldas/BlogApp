@@ -15,8 +15,7 @@ const childRoutes: Routes = [
 const routes: Routes = [
     {
         path: "", component: NavBarComponent, children: childRoutes
-    },
-
+    }
 ];
 
 export const routing = RouterModule.forRoot(routes);

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Post, PostModel } from 'src/app/model/post.model';
-import { PostsRepository } from 'src/app/model/posts.repository.model';
+import { Article } from 'src/app/model/article.model';
+import { ArticlesRepository } from 'src/app/model/articles.repository.model';
 
 @Component({
   selector: 'app-article-details',
@@ -10,10 +10,10 @@ import { PostsRepository } from 'src/app/model/posts.repository.model';
 })
 export class ArticleDetailsComponent {
 
-  public post: Post = new Post();
-  constructor(private activeRoute: ActivatedRoute, private postRepository: PostsRepository) {
+  public article: Article = new Article();
+  constructor(private activeRoute: ActivatedRoute, private articleRepository: ArticlesRepository) {
     let id = this.activeRoute.snapshot.params["id"];
-    this.postRepository.GetPost(id).subscribe(
-      post => this.post = post);
+    this.articleRepository.GetArticle(id).subscribe(
+      article => this.article = article);
   }
 }

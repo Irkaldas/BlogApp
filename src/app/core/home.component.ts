@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { Post, PostModel } from "../model/post.model";
+import { Article } from "../model/article.model";
+import { ArticlesRepository } from "../model/articles.repository.model";
 
 
 @Component({
@@ -10,8 +11,10 @@ import { Post, PostModel } from "../model/post.model";
 
 export class HomeComponent {
 
-    constructor(private postModel: PostModel) { }
-    getPosts(): Post[] {
-        return this.postModel.posts;
+    public articles: Article[] = [];
+    constructor(private articlesRepository: ArticlesRepository) {
+        this.articlesRepository.GetArticles().subscribe(
+            articles => this.articles = articles
+        );
     }
 }

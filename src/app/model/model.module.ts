@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { provideRoutes } from '@angular/router';
-import { PostsRepository, REST_URL } from './posts.repository.model';
-import { PostModel } from './post.model';
-
+import { ArticlesRepository, REST_URL } from './articles.repository.model';
 
 
 @NgModule({
@@ -12,8 +9,7 @@ import { PostModel } from './post.model';
     CommonModule,
   ],
   providers: [
-    PostModel,
-    PostsRepository,
+    ArticlesRepository,
     { provide: REST_URL, useValue: `https://jsonplaceholder.typicode.com` }
   ]
 })
