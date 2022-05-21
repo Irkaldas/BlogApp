@@ -1,0 +1,37 @@
+<mat-sidenav-container [hasBackdrop]="true">
+    <mat-sidenav #sidenav [mode]="'over'" fixedInViewport="true">
+        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let option of navBarOptions" [routerLink]="[option.nav]">
+                <mat-icon>{{ option.icon }}</mat-icon>
+                <span>{{ option.nav | titlecase }}</span>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="sticky" color="primary">
+            <button mat-button (click)="sidenav.toggle()">
+                <mat-icon>dehaze</mat-icon>
+            </button>
+            <ng-container *ngIf="showSearchBar; else elseBlock">
+                <mat-form-field appearance="standard" class="flex-width">
+                    <mat-label>Search</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <button mat-button (click)="showSearchBar=!showSearchBar">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </ng-container>
+            <ng-template #elseBlock>
+                <button mat-button (click)="showSearchBar=!showSearchBar">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <span class="flex-width">BLOG APP</span>
+                <button mat-button (click)="openDialog()">
+                    REGISTER / LOG IN
+                </button>
+            </ng-template>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,16 @@
+<div class="dialog-container">
+    <span>Sign in to continue. </span><span>Not a member?<a> Register
+            now!</a></span>
+    <mat-form-field appearance="fill" class="flex-width">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="pat@example.com" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+    <button mat-flat-button color="primary" class="full-width">LOG IN</button>
+</div>

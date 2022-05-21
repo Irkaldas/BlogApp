@@ -1,0 +1,18 @@
+.dialog-container {
+    margin: 10px auto;
+    text-align: center;
+    width: 70%;
+}
+
+mat-form-field {
+    width: 100%;
+    margin: 5px;
+}
+
+button {
+    width: 100%;
+}
+
+a {
+    color: red;
+}
