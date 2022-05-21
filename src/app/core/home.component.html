@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-card class="article-card" *ngFor="let article of articles">
+    <mat-card class="article-card" *ngFor="let article of articles | async">
         <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
         <mat-card-header>
             <div mat-card-avatar class="avatar-image"></div>

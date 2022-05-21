@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 import { Article } from "../model/article.model";
 import { ArticlesRepository } from "../model/articles.repository.model";
 
@@ -9,12 +10,13 @@ import { ArticlesRepository } from "../model/articles.repository.model";
     styleUrls: ["home.component.scss"]
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+    public articles: Observable<Article[]> = new Observable<Article[]>();
 
-    public articles: Article[] = [];
     constructor(private articlesRepository: ArticlesRepository) {
-        this.articlesRepository.GetArticles().subscribe(
-            articles => this.articles = articles
-        );
+    }
+
+    ngOnInit() {
+        this.articles = this.articlesRepository.GetArticles();
     }
 }
