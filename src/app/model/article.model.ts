@@ -1,5 +1,3 @@
-import { Injectable } from "@angular/core";
-import { ArticlesRepository } from "./articles.repository.model";
 
 export class Article {
     constructor(

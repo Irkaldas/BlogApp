@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { Article } from "../model/article.model";
 import { ArticlesRepository } from "../model/articles.repository.model";
@@ -11,12 +11,14 @@ import { ArticlesRepository } from "../model/articles.repository.model";
 })
 
 export class HomeComponent implements OnInit {
-    public articles: Observable<Article[]> = new Observable<Article[]>();
-
+    public articles$: Observable<Article[]> = new Observable<Article[]>();
+    public loadMore: boolean = false;
+    @Input()
+    public page: number = 1;
     constructor(private articlesRepository: ArticlesRepository) {
     }
 
-    ngOnInit() {
-        this.articles = this.articlesRepository.GetArticles();
+    ngOnInit(): void {
+        this.articles$ = this.articlesRepository.GetArticles(this.page);
     }
 }

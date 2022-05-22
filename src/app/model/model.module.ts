@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticlesRepository, REST_URL } from './articles.repository.model';
+import { CommentsRepository } from './comments.repository.model';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { ArticlesRepository, REST_URL } from './articles.repository.model';
   ],
   providers: [
     ArticlesRepository,
+    CommentsRepository,
     { provide: REST_URL, useValue: `https://jsonplaceholder.typicode.com` }
   ]
 })

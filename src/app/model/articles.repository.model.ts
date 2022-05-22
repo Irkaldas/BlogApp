@@ -17,8 +17,8 @@ export class ArticlesRepository {
         return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
     }
 
-    GetArticles() {
-        return this.SendRequest<Article[]>("GET", `${this.url}/posts`);
+    GetArticles(page: number) {
+        return this.SendRequest<Article[]>("GET", `${this.url}/posts?_page=${page}`);
     }
 
     GetArticle(articleId: number): Observable<Article> {
@@ -33,7 +33,7 @@ export class ArticlesRepository {
         return this.SendRequest<Article>("DELETE", `${this.url}/${articleId}`)
     }
 
-    private SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
+    SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
         return this.http.request<T>(method, url, {
             body: body
         })

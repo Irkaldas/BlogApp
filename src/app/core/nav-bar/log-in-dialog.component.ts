@@ -1,15 +1,15 @@
 import { Component, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-logIn-Dialog',
-  templateUrl: './logInDialog.component.html',
-  styleUrls: ['./logInDialog.component.css']
+  selector: 'app-log-in-dialog',
+  templateUrl: './log-in-dialog.component.html',
+  styleUrls: ['./log-in-dialog.component.css']
 })
 export class LogInDialogComponent {
 
   constructor() { }
 
-  @Output()
+
   hide: boolean = true;
 
 }

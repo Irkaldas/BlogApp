@@ -1,0 +1,23 @@
+<ng-container *ngIf="!showComments; else comments">
+    <button mat-raised-button (click)="showComments=true">Load Comments</button>
+</ng-container>
+<ng-template #comments>
+    <table>
+        <thead>
+            <td>id</td>
+            <td>postId</td>
+            <td>email</td>
+            <td>name</td>
+            <td>body</td>
+        </thead>
+        <tbody>
+            <tr *ngFor="let comment of comments$ | async">
+                <td>{{comment.id}}</td>
+                <td>{{comment.postId}}</td>
+                <td>{{comment.email}}</td>
+                <td>{{comment.name}}</td>
+                <td>{{comment.body}}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>

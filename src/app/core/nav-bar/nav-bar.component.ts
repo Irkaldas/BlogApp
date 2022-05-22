@@ -1,13 +1,15 @@
 import { Component, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LogInDialogComponent } from './logInDialog.component';
+import { LogInDialogComponent } from './log-in-dialog.component';
 
 @Component({
   selector: 'app-nav-bar',
-  templateUrl: './navBar.component.html',
-  styleUrls: ['./navBar.component.scss']
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+
+  showSearchBar: boolean = false;
 
   public navBarOptions = [
     { nav: "home", icon: "home" },
@@ -16,10 +18,8 @@ export class NavBarComponent {
     { nav: "edit profile", icon: "account_circle" }
 
   ]
-  constructor(private dialog: MatDialog) { }
 
-  @Output()
-  showSearchBar: boolean = false;
+  constructor(private dialog: MatDialog) { }
 
   openDialog() {
     this.dialog.open(LogInDialogComponent, {
