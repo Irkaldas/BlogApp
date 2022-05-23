@@ -17,8 +17,8 @@ export class ArticlesRepository {
         return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
     }
 
-    GetArticles(page: number) {
-        return this.SendRequest<Article[]>("GET", `${this.url}/posts?_page=${page}`);
+    GetArticles() {
+        return this.SendRequest<Article[]>("GET", `${this.url}/posts`);
     }
 
     GetArticle(articleId: number): Observable<Article> {

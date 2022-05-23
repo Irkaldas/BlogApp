@@ -9,15 +9,16 @@ import { Comment } from 'src/app/model/comment.model';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit {
-  public comments$: Observable<Comment[]> = new Observable<Comment[]>();
+export class CommentsComponent {
+  public comments$: Observable<Comment[]>;
   public showComments: boolean = false;
 
-  constructor(private commentsRepository: CommentsRepository, private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit(): void {
+  constructor(private commentsRepository: CommentsRepository, private activatedRoute: ActivatedRoute) {
     let id = this.activatedRoute.snapshot.params["id"];
     this.comments$ = this.commentsRepository.GetComments(id);
   }
 
+  commentsTruckBy(index: number, value: any) {
+    return index;
+  }
 }

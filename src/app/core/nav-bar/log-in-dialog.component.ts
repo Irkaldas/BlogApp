@@ -8,8 +8,5 @@ import { Component, OnInit, Output } from '@angular/core';
 export class LogInDialogComponent {
 
   constructor() { }
-
-
   hide: boolean = true;
-
 }

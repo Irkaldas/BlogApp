@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-card class="article-card" *ngFor="let article of articles$ | async">
+    <mat-card class="article-card" *ngFor="let article of articles$ | async; trackBy: articlesTruckBy ">
         <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
         <mat-card-header>
             <div mat-card-avatar class="avatar-image"></div>
@@ -23,9 +23,3 @@
         </mat-card-actions>
     </mat-card>
 </div>
-<ng-container *ngIf="!loadMore; else load">
-    <button mat-raised-button (click)="loadMore=true">Load Comments</button>
-</ng-container>
-<ng-template #load>
-    <home-component [page]="page + 1"></home-component>
-</ng-template>

@@ -1,0 +1,7 @@
+<ng-container *ngIf="!showComments; else comments">
+    <button mat-raised-button (click)="showComments=true">Load Comments</button>
+</ng-container>
+<ng-template #comments>
+    <app-comment *ngFor="let comment of comments$ | async; trackBy:commentsTruckBy" [comment]="comment">
+    </app-comment>
+</ng-template>
