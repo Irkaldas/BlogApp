@@ -1,0 +1,15 @@
+mat-card {
+    max-width: 600px;
+    margin: 5px;
+}
+
+button {
+    &.thumb-up {
+        color: green;
+    }
+
+    &.thumb-down {
+        color: red;
+    }
+
+}

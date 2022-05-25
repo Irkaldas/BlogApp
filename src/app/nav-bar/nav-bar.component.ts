@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LogInDialogComponent } from './log-in-dialog.component';
 
@@ -14,8 +14,8 @@ export class NavBarComponent {
   public navBarOptions = [
     { nav: "home", icon: "home" },
     { nav: "favorite", icon: "favorite" },
-    { nav: "followed users", icon: "supervised_user_circle" },
-    { nav: "edit profile", icon: "account_circle" }
+    { nav: "followed", icon: "supervised_user_circle" },
+    { nav: "profile", icon: "account_circle" }
 
   ]
 

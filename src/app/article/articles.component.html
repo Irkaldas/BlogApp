@@ -1,0 +1,4 @@
+<div class="container">
+    <app-article *ngFor="let article of articles$ | async; trackBy:getArticleKey" [article]="article">
+    </app-article>
+</div>

@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
-import { NavBarComponent } from "./core/nav-bar/nav-bar.component";
-import { ArticleDetailsComponent } from "./core/article/article-details.component";
-import { ArticlesComponent } from "./core/article/articles.component";
+import { ArticleDetailsComponent } from "./article/article-details.component";
+import { ArticlesComponent } from "./article/articles.component";
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
 
 const childRoutes: Routes = [
     {
@@ -9,7 +9,10 @@ const childRoutes: Routes = [
     },
     {
         path: "article/:id", component: ArticleDetailsComponent
-    }
+    },
+    {
+        path: "home", redirectTo: ""
+    },
 ]
 
 const routes: Routes = [

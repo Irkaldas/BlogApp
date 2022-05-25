@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject, Injectable, InjectionToken } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Comment } from "./comment.model";

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Observable } from "rxjs";
 import { Article } from "src/app/model/article.model";
 import { ArticlesRepository } from "src/app/model/articles.repository.model";
@@ -17,7 +17,7 @@ export class ArticlesComponent {
         this.articles$ = this.articlesRepository.GetArticles();
     }
 
-    articlesTruckBy(index: number, value: any) {
+    getArticleKey(index: number, article: Article) {
         return index;
     }
 }

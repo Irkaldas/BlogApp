@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 const material = [
   MatTableModule,
   MatCardModule,
@@ -26,6 +27,7 @@ const material = [
   MatFormFieldModule,
   MatInputModule,
   MatDialogModule,
+  MatExpansionModule,
 ]
 
 @NgModule({

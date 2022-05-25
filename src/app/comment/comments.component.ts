@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommentsRepository } from 'src/app/model/comments.repository.model';
@@ -7,7 +7,7 @@ import { Comment } from 'src/app/model/comment.model';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css']
+  styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent {
   public comments$: Observable<Comment[]>;
@@ -18,7 +18,7 @@ export class CommentsComponent {
     this.comments$ = this.commentsRepository.GetComments(id);
   }
 
-  commentsTruckBy(index: number, value: any) {
+  getCommentKey(index: number, comment: Comment) {
     return index;
   }
 }
