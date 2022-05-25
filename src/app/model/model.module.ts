@@ -12,7 +12,7 @@ import { CommentsRepository } from './comments.repository.model';
   providers: [
     ArticlesRepository,
     CommentsRepository,
-    { provide: REST_URL, useValue: `https://jsonplaceholder.typicode.com` }
+    { provide: REST_URL, useValue: `http://${location.hostname}:3000` }
   ]
 })
 export class ModelModule { }

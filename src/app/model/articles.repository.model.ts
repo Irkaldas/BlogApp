@@ -18,11 +18,11 @@ export class ArticlesRepository {
     }
 
     GetArticles() {
-        return this.SendRequest<Article[]>("GET", `${this.url}/posts`);
+        return this.SendRequest<Article[]>("GET", `${this.url}/articles`);
     }
 
     GetArticle(articleId: number): Observable<Article> {
-        return this.SendRequest<Article>("GET", `${this.url}/posts/${articleId}`);
+        return this.SendRequest<Article>("GET", `${this.url}/articles/${articleId}`);
     }
 
     UpdateArticle(article: Article) {

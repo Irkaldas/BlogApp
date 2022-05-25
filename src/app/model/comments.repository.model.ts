@@ -17,11 +17,11 @@ export class CommentsRepository {
     }
 
     GetComments(articleId: number) {
-        return this.SendRequest<Comment[]>("GET", `${this.url}/comments?postId=${articleId}`);
+        return this.SendRequest<Comment[]>("GET", `${this.url}/comments?articles.id=${articleId}`);
     }
 
     GetComment(CommentId: number): Observable<Comment> {
-        return this.SendRequest<Comment>("GET", `${this.url}/posts/${CommentId}`);
+        return this.SendRequest<Comment>("GET", `${this.url}/comments/${CommentId}`);
     }
 
     UpdateComment(Comment: Comment) {
