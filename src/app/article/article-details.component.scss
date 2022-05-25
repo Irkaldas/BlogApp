@@ -1,13 +1,6 @@
 .container {
+    display: block;
     max-width: calc(100% - 60rem);
     margin: 5rem auto;
     border: solid green;
-}
-
-.comment-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 800px;
-    margin: 0 auto;
 }
