@@ -1,4 +1,4 @@
-<div class="container">
+<div class="article-details-container">
     <ng-container *ngIf="(article$ | async) as article; else loading">
         <h1>{{article.title | titlecase}}</h1>
         <p>{{article.body | titlecase}}</p>
@@ -7,5 +7,5 @@
     <ng-template #loading>
         <div>Loading article...</div>
     </ng-template>
+    <app-comments></app-comments>
 </div>
-<app-comments></app-comments>

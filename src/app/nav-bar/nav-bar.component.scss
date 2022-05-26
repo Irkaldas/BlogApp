@@ -1,16 +1,14 @@
-.sticky {
-    position: fixed;
-    z-index: 3;
-}
-
-.flex-width {
-    flex: 1;
-}
-
 span {
     text-align: center;
 }
 
-mat-sidenav-content {
-    max-height: 100%;
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.sticky {
+    position: fixed;
+    /* Ensure that content doesn't overlap the toolbar */
+    z-index: 1000;
+    top: 0;
 }

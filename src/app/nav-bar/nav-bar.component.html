@@ -14,7 +14,7 @@
                 <mat-icon>dehaze</mat-icon>
             </button>
             <ng-container *ngIf="showSearchBar; else elseBlock">
-                <mat-form-field appearance="standard" class="flex-width">
+                <mat-form-field appearance="standard" class="toolbar-spacer">
                     <mat-label>Search</mat-label>
                     <input matInput>
                 </mat-form-field>
@@ -26,7 +26,7 @@
                 <button mat-button (click)="showSearchBar=!showSearchBar">
                     <mat-icon>search</mat-icon>
                 </button>
-                <span class="flex-width">BLOG APP</span>
+                <span class="toolbar-spacer">BLOG APP</span>
                 <button mat-button (click)="openDialog()">
                     REGISTER / LOG IN
                 </button>

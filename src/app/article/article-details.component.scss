@@ -1,6 +1,7 @@
-.container {
+.article-details-container {
     display: block;
-    max-width: calc(100% - 60rem);
+    max-width: 1000px;
+    justify-items: center;
+    text-align: center;
     margin: 5rem auto;
-    border: solid green;
 }
