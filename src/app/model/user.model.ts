@@ -1,9 +1,9 @@
 
-export class UserModel {
+export class User {
     constructor(
-        public Id?: number,
-        public Name?: string,
-        public Surname?: string,
-        public Nickname?: string
+        public id?: number,
+        public name?: string,
+        public email?: string,
+        public password?: string,
     ) { }
 }

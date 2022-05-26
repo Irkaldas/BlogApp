@@ -12,10 +12,11 @@ export class NavBarComponent {
   showSearchBar: boolean = false;
 
   public navBarOptions = [
-    { nav: "home", icon: "home" },
-    { nav: "favorite", icon: "favorite" },
-    { nav: "followed", icon: "supervised_user_circle" },
-    { nav: "profile", icon: "account_circle" }
+    { nav: "Home", icon: "home", route: "" },
+    { nav: "Favorite articles", icon: "favorite", route: "favorites" },
+    { nav: "Followed users", icon: "supervised_user_circle", route: "followed" },
+    { nav: "My profile", icon: "account_circle", route: "profile" },
+    { nav: "Create article", icon: "article", route: "crateArticle" }
 
   ]
 

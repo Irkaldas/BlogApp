@@ -2,7 +2,7 @@
     <mat-sidenav #sidenav [mode]="'over'" fixedInViewport="true">
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <mat-nav-list>
-            <mat-list-item *ngFor="let option of navBarOptions" [routerLink]="[option.nav]">
+            <mat-list-item *ngFor="let option of navBarOptions" [routerLink]="[option.route]">
                 <mat-icon>{{ option.icon }}</mat-icon>
                 <span>{{ option.nav | titlecase }}</span>
             </mat-list-item>
@@ -13,6 +13,7 @@
             <button mat-button (click)="sidenav.toggle()">
                 <mat-icon>dehaze</mat-icon>
             </button>
+            <button mat-flat-button [routerLink]="['']" color="primary">Home</button>
             <ng-container *ngIf="showSearchBar; else elseBlock">
                 <mat-form-field appearance="standard" class="toolbar-spacer">
                     <mat-label>Search</mat-label>
@@ -26,7 +27,12 @@
                 <button mat-button (click)="showSearchBar=!showSearchBar">
                     <mat-icon>search</mat-icon>
                 </button>
-                <span class="toolbar-spacer">BLOG APP</span>
+                <span class="toolbar-spacer">BLOG APP</span><button mat-icon-button>
+                    <mat-icon>notifications</mat-icon>
+                </button>
+                <button mat-icon-button>
+                    <mat-icon>account_circle</mat-icon>
+                </button>
                 <button mat-button (click)="openDialog()">
                     REGISTER / LOG IN
                 </button>

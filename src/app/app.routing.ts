@@ -10,9 +10,6 @@ const childRoutes: Routes = [
     {
         path: "article/:id", component: ArticleDetailsComponent
     },
-    {
-        path: "home", redirectTo: ""
-    },
 ]
 
 const routes: Routes = [

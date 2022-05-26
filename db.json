@@ -94,19 +94,27 @@
     "users": [
         {
             "id": "1",
-            "Name": "Kapitan Bomba"
+            "name": "Kapitan Bomba",
+            "email": "bomba@gmail.com",
+            "password": "1234"
         },
         {
             "id": "2",
-            "Name": "Sułtan kosmitów"
+            "name": "Sułtan kosmitów",
+            "email": "sułtan@gmail.com",
+            "password": "donnamama"
         },
         {
             "id": "3",
-            "Name": "Grande Nigero 1.2"
+            "name": "Grande Diabolo 1.2",
+            "email": "diabel@gmail.com",
+            "password": "unoduo"
         },
         {
             "id": "4",
-            "Name": "Generał Gwiezdnej Floty"
+            "name": "Generał Gwiezdnej Floty",
+            "email": "ggw@gmail.com",
+            "password": "flotaggw"
         }
     ]
 }

@@ -9,4 +9,5 @@ export class LogInDialogComponent {
 
   constructor() { }
   hide: boolean = true;
+  isLogInDialog: boolean = true;
 }

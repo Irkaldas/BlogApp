@@ -1,6 +1,29 @@
 <div class="dialog-container">
-    <span>Sign in to continue. </span><span>Not a member?<a> Register
+    <ng-container *ngIf="isLogInDialog; else register">
+        <span>Sign in to continue. </span><span>Not a member?<a (click)="isLogInDialog=!isLogInDialog"> Register
+                now!</a></span>
+        <mat-form-field appearance="fill" class="flex-width">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-flat-button color="primary" class="full-width">LOG IN</button>
+    </ng-container>
+</div>
+
+<ng-template #register>
+    <span>Register </span><span>Are you a member?<a (click)="isLogInDialog=!isLogInDialog"> Login
             now!</a></span>
+    <mat-form-field appearance="fill" class="flex-width">
+        <mat-label>User name</mat-label>
+        <input matInput placeholder="pat@example.com" required>
+    </mat-form-field>
     <mat-form-field appearance="fill" class="flex-width">
         <mat-label>Enter your email</mat-label>
         <input matInput placeholder="pat@example.com" required>
@@ -12,5 +35,5 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
-    <button mat-flat-button color="primary" class="full-width">LOG IN</button>
-</div>
+    <button mat-flat-button color="primary" class="full-width">Register</button>
+</ng-template>
