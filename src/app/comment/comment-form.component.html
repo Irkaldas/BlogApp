@@ -1,6 +1,10 @@
-<form class="comment-form">
-    <mat-form-field appearance="fill" class="full-width">
+<form class="comment-form" id="commentForm">
+    <mat-form-field appearance="outline" class="full-width">
         <mat-label>Leave a comment</mat-label>
-        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+        <textarea matInput #commentarea maxlength="200" placeholder="Ex. It makes me feel..."></textarea>
+        <mat-hint align="end">{{commentarea.value?.length || 0}}/{{maxCharacters}}</mat-hint>
     </mat-form-field>
 </form>
+<button mat-flat-button color="primary" form="commentForm" type="submit"
+    [disabled]="(commentarea.value?.length || 0) < minCharacters">Post comment</button>
+<button mat-flat-button color="primary">Cancel</button>
