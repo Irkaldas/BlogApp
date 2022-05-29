@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -18,24 +18,27 @@ export class CommentFormComponent {
   constructor(private commentsRepository: CommentsRepository,
     private actieveRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
-  public commentFormGroup: CommentFormGroup = new CommentFormGroup();
-  public newComment: Comment = new Comment();
-
+  private newComment: Comment = new Comment();
   private snackBarDurationInSeconds = 5;
+
+  public commentFormGroup: CommentFormGroup = new CommentFormGroup();
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
 
+  @Output() commentSubmitted = new EventEmitter<Comment>();
+
   ngOnInit(): void {
-    this.newComment = {
-      userId: 2,
-      articleId: this.actieveRoute.snapshot.params["id"],
-      downVotes: 0,
-      upVotes: 0,
-    }
+
   }
 
   submitComment(): void {
     if (this.commentFormGroup.valid) {
+      this.newComment = {
+        userId: 2,
+        articleId: this.actieveRoute.snapshot.params["id"],
+        downVotes: 0,
+        upVotes: 0,
+      }
       Object.keys(this.commentFormGroup.controls)
         .forEach(c => {
           this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value;
@@ -47,6 +50,7 @@ export class CommentFormComponent {
         }))
         .subscribe((comment: Comment) => {
           this.openCommentSnackBar("Your comment was successfully posted! :)", false);
+          this.commentSubmitted.emit(comment);
         });
       this.newComment = new Comment();
       this.commentFormGroup.reset();

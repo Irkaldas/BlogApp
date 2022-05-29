@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Observable, Subject, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 import { Comment } from "./comment.model";
 import { REST_URL } from "./articles.repository.model";
 
@@ -12,8 +12,15 @@ export class CommentsRepository {
         private http: HttpClient
     ) { }
 
+    public refreshComments$ = new Subject<void>();
+
     AddComment(comment: Comment): Observable<Comment> {
-        return this.SendRequest<Comment>("POST", `${this.url}/comments`, comment);
+        return this.SendRequest<Comment>("POST", `${this.url}/comments`, comment)
+            .pipe(
+                tap(() => {
+                    this.refreshComments$.next();
+                })
+            );
     }
 
     GetComments(articleId: number) {
@@ -34,13 +41,9 @@ export class CommentsRepository {
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
         return this.http.request<T>(method, url, {
-            body: body,
-            headers: new HttpHeaders({
-
-            })
+            body: body
         })
             .pipe(catchError((error: Response) =>
-                throwError(`Błąd sieci: ${error.statusText} ${error.status}`)));
+                throwError(`Error: ${error.statusText} ${error.status}`)));
     }
-
 }
