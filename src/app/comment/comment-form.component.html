@@ -1,10 +1,16 @@
-<form class="comment-form" id="commentForm">
+<form class="comment-form" novalidate [formGroup]="commentFormGroup" (ngSubmit)="submitComment()">
     <mat-form-field appearance="outline" class="full-width">
         <mat-label>Leave a comment</mat-label>
-        <textarea matInput #commentarea maxlength="200" placeholder="Ex. It makes me feel..."></textarea>
+        <textarea matInput #commentarea name="body" formControlName="body" maxlength="200"
+            placeholder="Ex. It makes me feel..."></textarea>
         <mat-hint align="end">{{commentarea.value?.length || 0}}/{{maxCharacters}}</mat-hint>
     </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit"
+        [disabled]="(commentarea.value?.length || 0) < minCharacters">Post comment</button>
+    <button mat-flat-button color="primary" type="reset">Cancel</button>
 </form>
-<button mat-flat-button color="primary" form="commentForm" type="submit"
-    [disabled]="(commentarea.value?.length || 0) < minCharacters">Post comment</button>
-<button mat-flat-button color="primary">Cancel</button>
+
+<button mat-flat-button color="primary"
+    (click)="openCommentSnackBar('Error occured. Couldn\'t add your comment. Pleas try again later.', true)">snack
+    bar</button>

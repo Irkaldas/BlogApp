@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    align-items: baseline;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.error {
+    color: hotpink;
+}
+
+.success {
+    color: green;
+}

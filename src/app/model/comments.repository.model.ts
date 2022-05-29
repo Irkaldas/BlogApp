@@ -13,7 +13,7 @@ export class CommentsRepository {
     ) { }
 
     AddComment(Comment: Comment): Observable<Comment> {
-        return this.SendRequest<Comment>("PUT", `${this.url}/${Comment.id}`);
+        return this.SendRequest<Comment>("POST", `${this.url}/comments`);
     }
 
     GetComments(articleId: number) {

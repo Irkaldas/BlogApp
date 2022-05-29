@@ -1,6 +1,12 @@
-<mat-sidenav-container [hasBackdrop]="true">
-    <mat-sidenav #sidenav [mode]="'over'" fixedInViewport="true">
-        <mat-toolbar color="primary">Menu</mat-toolbar>
+<mat-sidenav-container [hasBackdrop]="true" autosize="true" fullscreen>
+    <mat-sidenav #sidenav mode="over" fixedInViewport="true" autoFocus="false">
+        <mat-toolbar color="primary">
+            Menu
+            <span class="toolbar-spacer"></span>
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar>
         <mat-nav-list>
             <mat-list-item *ngFor="let option of navBarOptions" [routerLink]="[option.route]">
                 <mat-icon>{{ option.icon }}</mat-icon>
@@ -27,7 +33,8 @@
                 <button mat-button (click)="showSearchBar=!showSearchBar">
                     <mat-icon>search</mat-icon>
                 </button>
-                <span class="toolbar-spacer">BLOG APP</span><button mat-icon-button>
+                <span class="toolbar-spacer">BLOG APP</span>
+                <button mat-icon-button>
                     <mat-icon>notifications</mat-icon>
                 </button>
                 <button mat-icon-button>
