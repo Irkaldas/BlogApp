@@ -25,24 +25,28 @@ export class CommentFormComponent {
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
 
+  ngOnInit(): void {
+    this.newComment = {
+      userId: 2,
+      articleId: this.actieveRoute.snapshot.params["id"],
+      downVotes: 0,
+      upVotes: 0,
+    }
+  }
+
   submitComment(): void {
     if (this.commentFormGroup.valid) {
       Object.keys(this.commentFormGroup.controls)
-        .forEach(c => this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value);
-      this.newComment = {
-        articleId: this.actieveRoute.snapshot.params["id"],
-        downVotes: 0,
-        upVotes: 0,
-        userId: 2
-      };
-      console.log(this.newComment);
+        .forEach(c => {
+          this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value;
+        });
       this.commentsRepository.AddComment(this.newComment)
         .pipe(catchError(err => {
           this.openCommentSnackBar("Error occured. Couldn\'t add your comment. Try again later.", true);
           return throwError(err);
         }))
         .subscribe((comment: Comment) => {
-          this.openCommentSnackBar("Your comment was successfully added :)", false);
+          this.openCommentSnackBar("Your comment was successfully posted! :)", false);
         });
       this.newComment = new Comment();
       this.commentFormGroup.reset();
@@ -88,11 +92,15 @@ class CommentFormControl extends FormControl {
 class CommentFormGroup extends FormGroup {
   constructor() {
     super({
-      body: new CommentFormControl("body", "body", "",
+      body: new CommentFormControl("Body", "body", "",
         Validators.compose([
           Validators.required,
           Validators.minLength(5)
         ])),
     });
+  }
+
+  getCommentValidatorMessages(name: string): string[] {
+    return (this.controls[name] as CommentFormControl).getCommentValidatorMessages();
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -12,8 +12,8 @@ export class CommentsRepository {
         private http: HttpClient
     ) { }
 
-    AddComment(Comment: Comment): Observable<Comment> {
-        return this.SendRequest<Comment>("POST", `${this.url}/comments`);
+    AddComment(comment: Comment): Observable<Comment> {
+        return this.SendRequest<Comment>("POST", `${this.url}/comments`, comment);
     }
 
     GetComments(articleId: number) {
@@ -34,7 +34,10 @@ export class CommentsRepository {
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
         return this.http.request<T>(method, url, {
-            body: body
+            body: body,
+            headers: new HttpHeaders({
+
+            })
         })
             .pipe(catchError((error: Response) =>
                 throwError(`Błąd sieci: ${error.statusText} ${error.status}`)));

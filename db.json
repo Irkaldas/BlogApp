@@ -91,7 +91,12 @@
       "articleId": "4"
     },
     {
-      "id": "8tGSlZb"
+      "userId": 2,
+      "articleId": "1",
+      "downVotes": 0,
+      "upVotes": 0,
+      "body": "asdasdasdasdasdasd",
+      "id": "28VZ4mB"
     }
   ],
   "users": [
