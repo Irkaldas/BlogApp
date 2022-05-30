@@ -8,10 +8,13 @@ import { MaterialModule } from './material/material.module';
 import { ModelModule } from './model/model.module';
 import { routing } from './app.routing';
 import { NavBarModule } from './nav-bar/nav-bar.module';
+import { SingleItemResolverResolver } from './common/single-item-resolver.resolver';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,7 @@ import { NavBarModule } from './nav-bar/nav-bar.module';
     NavBarModule,
     routing
   ],
-  providers: [],
+  providers: [SingleItemResolverResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

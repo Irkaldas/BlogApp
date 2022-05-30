@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, Subject, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { catchError } from "rxjs/operators";
 import { Comment } from "./comment.model";
 import { REST_URL } from "./articles.repository.model";
 
@@ -12,31 +12,24 @@ export class CommentsRepository {
         private http: HttpClient
     ) { }
 
-    public refreshComments$ = new Subject<void>();
-
     AddComment(comment: Comment): Observable<Comment> {
-        return this.SendRequest<Comment>("POST", `${this.url}/comments`, comment)
-            .pipe(
-                tap(() => {
-                    this.refreshComments$.next();
-                })
-            );
+        return this.SendRequest<Comment>("POST", `${this.url}/comments`, comment);
     }
 
     GetComments(articleId: number) {
         return this.SendRequest<Comment[]>("GET", `${this.url}/comments?articleId=${articleId}`);
     }
 
-    GetComment(CommentId: number): Observable<Comment> {
-        return this.SendRequest<Comment>("GET", `${this.url}/posts/${CommentId}`);
+    GetComment(commentId: number): Observable<Comment> {
+        return this.SendRequest<Comment>("GET", `${this.url}/comments/${commentId}`);
     }
 
-    UpdateComment(Comment: Comment) {
-        return this.SendRequest<Comment>("PUT", `${this.url}/${Comment.id}`);
+    UpdateComment(comment: Comment) {
+        return this.SendRequest<Comment>("PUT", `${this.url}/${comment.id}`);
     }
 
-    DeleteComment(CommentId: number) {
-        return this.SendRequest<Comment>("DELETE", `${this.url}/${CommentId}`)
+    DeleteComment(commentId: number) {
+        return this.SendRequest<Comment>("DELETE", `${this.url}/${commentId}`)
     }
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {

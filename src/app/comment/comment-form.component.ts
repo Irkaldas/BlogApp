@@ -25,11 +25,8 @@ export class CommentFormComponent {
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
 
-  @Output() commentSubmitted = new EventEmitter<Comment>();
-
-  ngOnInit(): void {
-
-  }
+  @Output()
+  commentSubmitted = new EventEmitter<Comment>();
 
   submitComment(): void {
     if (this.commentFormGroup.valid) {
@@ -48,7 +45,7 @@ export class CommentFormComponent {
           this.openCommentSnackBar("Error occured. Couldn\'t add your comment. Try again later.", true);
           return throwError(err);
         }))
-        .subscribe((comment: Comment) => {
+        .subscribe((comment) => {
           this.openCommentSnackBar("Your comment was successfully posted! :)", false);
           this.commentSubmitted.emit(comment);
         });

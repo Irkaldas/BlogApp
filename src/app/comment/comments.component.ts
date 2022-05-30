@@ -1,31 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { CommentsRepository } from 'src/app/model/comments.repository.model';
 import { Comment } from 'src/app/model/comment.model';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })
-export class CommentsComponent {
-  private readonly refreshComments$ = new BehaviorSubject<Comment>(new Comment());
-  public readonly comments$: Observable<Comment[]>;
+export class CommentsComponent implements OnInit, OnDestroy {
+
+  public comments$: BehaviorSubject<Comment[]> = new BehaviorSubject<Comment[]>([]);
+  public commentSubsryption: Subscription = new Subscription();
   public showComments: boolean = false;
 
-  constructor(private commentsRepository: CommentsRepository, private activatedRoute: ActivatedRoute) {
+  constructor(private commentsRepository: CommentsRepository,
+    private activatedRoute: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
     let id = this.activatedRoute.snapshot.params["id"];
-    this.comments$ = this.refreshComments$.pipe(
-      switchMap(() => this.commentsRepository.GetComments(id)));
+    this.commentSubsryption.add(this.commentsRepository.GetComments(id)
+      .subscribe(comments => this.comments$.next(comments)));
   }
 
   refreshComments(comment: Comment): void {
-    this.refreshComments$.next(comment);
+    this.comments$.next([...this.comments$.value, comment]);
   }
 
   getCommentKey(index: number, comment: Comment) {
     return comment.id;
+  }
+
+  ngOnDestroy(): void {
+    this.commentSubsryption.unsubscribe();
   }
 }
