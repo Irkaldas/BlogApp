@@ -9,7 +9,7 @@ import { Comment } from 'src/app/model/comment.model';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })
-export class CommentsComponent implements OnInit, OnDestroy {
+export class CommentsComponent implements OnDestroy {
 
   public comments$: BehaviorSubject<Comment[]> = new BehaviorSubject<Comment[]>([]);
   public commentSubsryption: Subscription = new Subscription();
@@ -19,10 +19,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  loadComments(): void {
     let id = this.activatedRoute.snapshot.params["id"];
     this.commentSubsryption.add(this.commentsRepository.GetComments(id)
       .subscribe(comments => this.comments$.next(comments)));
+    this.showComments = true;
   }
 
   refreshComments(comment: Comment): void {
