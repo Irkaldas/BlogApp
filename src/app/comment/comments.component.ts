@@ -1,40 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { CommentsRepository } from 'src/app/model/comments.repository.model';
 import { Comment } from 'src/app/model/comment.model';
+import { Store } from '@ngrx/store';
+import { selectAllComments } from '../store/comment/comment.selectors';
+import { AppState } from '../store/app.state';
+import { loadComments } from '../store/comment/comment.actions';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentsComponent implements OnDestroy {
+export class CommentsComponent {
 
-  public comments$: BehaviorSubject<Comment[]> = new BehaviorSubject<Comment[]>([]);
-  public commentSubsryption: Subscription = new Subscription();
+  public comments$ = this.store.select(selectAllComments);
   public showComments: boolean = false;
 
-  constructor(private commentsRepository: CommentsRepository,
-    private activatedRoute: ActivatedRoute) {
-  }
+  constructor(private activatedRoute: ActivatedRoute, private store: Store<AppState>) { }
 
   loadComments(): void {
-    let id = this.activatedRoute.snapshot.params["id"];
-    this.commentSubsryption.add(this.commentsRepository.GetComments(id)
-      .subscribe(comments => this.comments$.next(comments)));
     this.showComments = true;
-  }
-
-  refreshComments(comment: Comment): void {
-    this.comments$.next([...this.comments$.value, comment]);
+    let id = this.activatedRoute.snapshot.params["id"];
+    this.store.dispatch(loadComments({ articleId: id }));
   }
 
   getCommentKey(index: number, comment: Comment) {
     return comment.id;
-  }
-
-  ngOnDestroy(): void {
-    this.commentSubsryption.unsubscribe();
   }
 }

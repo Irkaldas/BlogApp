@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Article } from 'src/app/model/article.model';
@@ -6,7 +6,7 @@ import { Article } from 'src/app/model/article.model';
 @Component({
   selector: 'app-article-details',
   templateUrl: './article-details.component.html',
-  styleUrls: ['./article-details.component.scss']
+  styleUrls: ['./article-details.component.scss'],
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
   public article$: BehaviorSubject<Article> = new BehaviorSubject<Article>(new Article());

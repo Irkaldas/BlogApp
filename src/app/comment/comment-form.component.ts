@@ -1,32 +1,26 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { Comment } from '../model/comment.model';
-import { CommentsRepository } from '../model/comments.repository.model';
-import { CommentSnackBarComponent } from './comment-snack-bar.component';
+import { AppState } from '../store/app.state';
+import { addComment } from '../store/comment/comment.actions';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
-  styleUrls: ['./comment-form.component.scss']
+  styleUrls: ['./comment-form.component.scss'],
 })
 export class CommentFormComponent {
-
-  constructor(private commentsRepository: CommentsRepository,
-    private actieveRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
+  constructor(
+    private actieveRoute: ActivatedRoute,
+    private store: Store<AppState>) { }
 
   private newComment: Comment = new Comment();
-  private snackBarDurationInSeconds = 5;
 
   public commentFormGroup: CommentFormGroup = new CommentFormGroup();
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
-
-  @Output()
-  commentSubmitted = new EventEmitter<Comment>();
 
   submitComment(): void {
     if (this.commentFormGroup.valid) {
@@ -40,27 +34,13 @@ export class CommentFormComponent {
         .forEach(c => {
           this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value;
         });
-      this.commentsRepository.AddComment(this.newComment)
-        .pipe(catchError(err => {
-          this.openCommentSnackBar("Error occured. Couldn\'t add your comment. Try again later.", true);
-          return throwError(err);
-        }))
-        .subscribe((comment) => {
-          this.openCommentSnackBar("Your comment was successfully posted! :)", false);
-          this.commentSubmitted.emit(comment);
-        });
+      this.store.dispatch(addComment({ comment: this.newComment }));
       this.newComment = new Comment();
       this.commentFormGroup.reset();
     }
   }
-
-  openCommentSnackBar(message: string, err: boolean): void {
-    this.snackBar.openFromComponent(CommentSnackBarComponent, {
-      duration: this.snackBarDurationInSeconds * 1000,
-      data: { message, err }
-    })
-  }
 }
+
 class CommentFormControl extends FormControl {
   public label: string;
   public modelProperty: string;
@@ -104,4 +84,6 @@ class CommentFormGroup extends FormGroup {
   getCommentValidatorMessages(name: string): string[] {
     return (this.controls[name] as CommentFormControl).getCommentValidatorMessages();
   }
+
+
 }

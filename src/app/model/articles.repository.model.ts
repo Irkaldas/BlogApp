@@ -8,6 +8,7 @@ export const REST_URL = new InjectionToken("rest_url");
 
 @Injectable()
 export class ArticlesRepository {
+
     constructor(
         @Inject(REST_URL) private url: string,
         private http: HttpClient

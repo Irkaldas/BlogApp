@@ -2,11 +2,11 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Comment } from "./comment.model";
-import { REST_URL } from "./articles.repository.model";
+import { Comment } from "../model/comment.model";
+import { REST_URL } from "../model/articles.repository.model";
 
 @Injectable()
-export class CommentsRepository {
+export class CommentsService {
 
     constructor(
         @Inject(REST_URL) private url: string,
@@ -17,7 +17,7 @@ export class CommentsRepository {
         return this.SendRequest<Comment>("POST", `${this.url}/comments`, comment);
     }
 
-    GetComments(articleId: number) {
+    GetComments(articleId: number): Observable<Comment[]> {
         return this.SendRequest<Comment[]>("GET", `${this.url}/comments?articleId=${articleId}`);
     }
 

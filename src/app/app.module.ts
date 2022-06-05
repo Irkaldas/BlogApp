@@ -8,9 +8,10 @@ import { MaterialModule } from './material/material.module';
 import { ModelModule } from './model/model.module';
 import { routing } from './app.routing';
 import { NavBarModule } from './nav-bar/nav-bar.module';
-import { SingleItemResolverResolver } from './common/single-item-resolver.resolver';
+import { SingleItemResolverResolver } from './resolvers/single-item-resolver.resolver';
 import { ErrorComponent } from './error/error.component';
-
+import { ServicesModule } from './services/services.module';
+import { StateModule } from './store/state.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,9 @@ import { ErrorComponent } from './error/error.component';
     MaterialModule,
     ModelModule,
     NavBarModule,
-    routing
+    StateModule,
+    ServicesModule,
+    routing,
   ],
   providers: [SingleItemResolverResolver],
   bootstrap: [AppComponent]

@@ -1,8 +1,8 @@
 .dialog-container {
     display: flex;
     flex-direction: column;
-    max-width: 80%;
     margin: 0 auto;
+    max-width: 80%;
 }
 
 a {
@@ -11,4 +11,20 @@ a {
     &:hover {
         color: blue;
     }
+}
+
+ul.error-container {
+    color: rgb(184, 28, 17);
+}
+
+form.log-in-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+    margin: 5px auto;
 }

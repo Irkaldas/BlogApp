@@ -5,6 +5,7 @@ import { LogInDialogComponent } from './log-in-dialog.component';
 import { ArticleModule } from '../article/article.module';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -14,7 +15,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ArticleModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [NavBarComponent]
 })
