@@ -17,7 +17,6 @@ export class CommentEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store<AppState>,
     private commentsService: CommentsService,
     private snackBar: MatSnackBar
   ) { }
@@ -28,8 +27,10 @@ export class CommentEffects {
       switchMap((actionParameter) =>
         this.commentsService.GetComments(actionParameter.articleId)
           .pipe(
-            map((comments) =>
-              loadCommentsSuccess({ comments: comments })
+            map((comments) => {
+              console.log(comments);
+              return loadCommentsSuccess({ comments: comments })
+            }
             ),
             catchError((error) => of(loadCommentsFailure({ error })))
           ))

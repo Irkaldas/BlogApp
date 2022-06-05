@@ -40,7 +40,7 @@ export const commentReducer = createReducer(
   })),
   on(loadCommentsSuccess, (state, { comments }) => ({
     ...state,
-    comments: [...comments],
+    comments: comments,
     status: 'success'
   })),
   on(loadCommentsFailure, (state, { error }) => ({
