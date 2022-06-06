@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "server-json": "json-server --watch db.json",
-    "server-json-auth": "json-server-auth db.json"
+    "server-json-auth": "json-server-auth --watch db.json"
   },
   "private": true,
   "dependencies": {

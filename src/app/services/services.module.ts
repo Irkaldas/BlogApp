@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../model/auth.service';
 import { CommentsService } from './comments.service';
-
-
+import { AuthService } from './auth.service';
+import { ArticlesService } from './articles.service';
+import { REST_URL } from './articles.service';
 
 @NgModule({
   declarations: [],
@@ -12,7 +12,9 @@ import { CommentsService } from './comments.service';
   ],
   providers: [
     AuthService,
-    CommentsService
+    CommentsService,
+    ArticlesService,
+    { provide: REST_URL, useValue: `http://${location.hostname}:3000` }
   ]
 })
 export class ServicesModule { }

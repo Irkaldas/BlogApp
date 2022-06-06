@@ -2,12 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Article } from "./article.model";
+import { Article } from "../model/article.model";
 
 export const REST_URL = new InjectionToken("rest_url");
 
 @Injectable()
-export class ArticlesRepository {
+export class ArticlesService {
 
     constructor(
         @Inject(REST_URL) private url: string,
@@ -18,7 +18,7 @@ export class ArticlesRepository {
         return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
     }
 
-    GetArticles() {
+    GetArticles(): Observable<Article[]> {
         return this.SendRequest<Article[]>("GET", `${this.url}/articles`);
     }
 

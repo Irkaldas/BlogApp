@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
-import { AuthService } from '../model/auth.service';
+import { AuthService } from '../services/auth.service';
 import { User } from '../model/user.model';
 
 @Component({

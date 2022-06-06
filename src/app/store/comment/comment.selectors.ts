@@ -8,7 +8,6 @@ export interface AppState {
 export const selectComments = (state: AppState) => state.comments;
 export const selectAllComments = createSelector(
     selectComments,
-    (state: CommentsState) => {
-        return state.comments;
-    }
+    (state: CommentsState) => state.comments
+
 )

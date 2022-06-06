@@ -1,8 +1,10 @@
-import { Component } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { Article } from "src/app/model/article.model";
-import { ArticlesRepository } from "src/app/model/articles.repository.model";
-
+import { AppState } from "../store/app.state";
+import { loadArticles } from "../store/article/article.actions";
+import { selectAllArticles } from "../store/article/article.selectors";
+import { selectAllComments } from "../store/comment/comment.selectors";
 
 @Component({
     selector: "articles-component",
@@ -10,14 +12,16 @@ import { ArticlesRepository } from "src/app/model/articles.repository.model";
     styleUrls: ["articles.component.scss"],
 })
 
-export class ArticlesComponent {
-    public articles$: Observable<Article[]>;
+export class ArticlesComponent implements OnInit {
+    public articles$ = this.store.select(selectAllArticles)
 
-    constructor(private articlesRepository: ArticlesRepository) {
-        this.articles$ = this.articlesRepository.GetArticles();
+    constructor(private store: Store<AppState>) {
     }
 
+    ngOnInit(): void {
+        this.store.dispatch(loadArticles())
+    }
     getArticleKey(index: number, article: Article) {
-        return index;
+        return article.id;
     }
 }

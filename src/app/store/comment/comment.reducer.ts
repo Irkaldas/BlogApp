@@ -1,5 +1,4 @@
 import { createReducer, on } from '@ngrx/store';
-import { CommentsComponent } from 'src/app/comment/comments.component';
 import { Comment } from 'src/app/model/comment.model';
 import {
   addComment, addCommentFailure, addCommentSuccess,

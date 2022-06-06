@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subject, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Comment } from "../model/comment.model";
-import { REST_URL } from "../model/articles.repository.model";
+import { REST_URL } from "./articles.service";
 
 @Injectable()
 export class CommentsService {

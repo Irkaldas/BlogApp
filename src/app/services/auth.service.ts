@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { User } from "oidc-client";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { REST_URL } from "../model/articles.repository.model";
+import { REST_URL } from "./articles.service";
 
 @Injectable()
 export class AuthService {

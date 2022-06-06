@@ -27,12 +27,10 @@ export class CommentEffects {
       switchMap((actionParameter) =>
         this.commentsService.GetComments(actionParameter.articleId)
           .pipe(
-            map((comments) => {
-              console.log(comments);
-              return loadCommentsSuccess({ comments: comments })
-            }
+            map((comments) =>
+              loadCommentsSuccess({ comments: comments })
             ),
-            catchError((error) => of(loadCommentsFailure({ error })))
+            catchError((error) => of(loadCommentsFailure({ error: error })))
           ))
     )
   })
@@ -49,7 +47,7 @@ export class CommentEffects {
             }),
             catchError((error) => {
               this.openCommentSnackBar("Error occured. Couldn\'t add your comment. Try again later.", true)
-              return of(addCommentFailure({ error }))
+              return of(addCommentFailure({ error: error }))
             })
           ))
     )
