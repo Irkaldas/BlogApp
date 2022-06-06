@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { User } from "oidc-client";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { User } from "../model/user.model";
 import { REST_URL } from "./articles.service";
 
 @Injectable()
@@ -22,8 +22,8 @@ export class AuthService {
         return this.SendRequest("POST", `${this.url}/users`, user);
     }
 
-    Login(user: string, password: string): Observable<any> {
-        return this.SendRequest("POST", `${this.url}/login`, { user, password });
+    Login(email: string, password: string): Observable<any> {
+        return this.SendRequest("POST", `${this.url}/login`, { email, password });
     }
 
     Signin(user: User): Observable<User> {

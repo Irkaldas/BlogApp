@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../model/user.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.state';
+import { loginUser } from '../store/user/user.actions';
 
 @Component({
   selector: 'app-log-in-dialog',
@@ -10,9 +11,9 @@ import { User } from '../model/user.model';
   styleUrls: ['./log-in-dialog.component.scss']
 })
 export class LogInDialogComponent {
-  private userLogin: User = new User();
+  private user: User = new User();
 
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store<AppState>) { }
 
   public logInDialogFormGroup: LogInDialogFormGroup = new LogInDialogFormGroup();
   hide: boolean = true;
@@ -20,16 +21,15 @@ export class LogInDialogComponent {
 
   login(): void {
     if (this.logInDialogFormGroup.valid) {
-
-
-      this.authService.Login('asdasd', "asdasd").pipe(
-        tap((reposnse: any) => {
-          localStorage.setItem('user auth', reposnse.token)
-        })
-      )
+      Object.keys(this.logInDialogFormGroup.controls)
+        .forEach(c => {
+          this.user[c as keyof User] = this.logInDialogFormGroup.controls[c].value;
+        });
+      this.store.dispatch(loginUser({ email: this.user.email as string, password: this.user.password as string }))
     }
+    this.logInDialogFormGroup.reset();
+    this.user = new User();
   }
-
 }
 
 class LogInDialogControl extends FormControl {

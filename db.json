@@ -96,25 +96,25 @@
       "id": "1",
       "name": "Kapitan Bomba",
       "email": "bomba@gmail.com",
-      "password": "1234"
+      "password": "$2a$12$yir.7d.1gWsvNcFPIdf8Gu52XWUL4br4a7l7Qbid6QadL1TClXOMa"
     },
     {
       "id": "2",
       "name": "Sułtan kosmitów",
-      "email": "sułtan@gmail.com",
-      "password": "donnamama"
+      "email": "sultan@gmail.com",
+      "password": "$2a$12$nCgditb8basEYck00Xi2guSooymzK7n8P71uC.G2dC/kSssTSCNgS"
     },
     {
       "id": "3",
       "name": "Grande Diabolo 1.2",
       "email": "diabel@gmail.com",
-      "password": "unoduo"
+      "password": "$2a$12$8hK4sq6uThIPOStoQCNuC.Oz0gLnerGGE7591yCQQOyq4.52Iz1n6"
     },
     {
       "id": "4",
       "name": "Generał Gwiezdnej Floty",
       "email": "ggw@gmail.com",
-      "password": "flotaggw"
+      "password": "$2a$12$IMUHHydGrdk/excw5UrBBuPDMzKPbdk1S8Sz9.73.XRcARfe1i.fy"
     }
   ]
 }
