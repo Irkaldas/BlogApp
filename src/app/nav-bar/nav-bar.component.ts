@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LogInDialogComponent } from './log-in-dialog.component';
+import { AuthComponent } from '../auth/auth.component';
+import { LoginDialogComponent } from '../auth/login-dialog.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,8 +10,9 @@ import { LogInDialogComponent } from './log-in-dialog.component';
 })
 export class NavBarComponent {
 
-  showSearchBar: boolean = false;
+  constructor(private dialog: MatDialog) { }
 
+  showSearchBar: boolean = false;
   public navBarOptions = [
     { nav: "Home", icon: "home", route: "" },
     { nav: "Favorite articles", icon: "favorite", route: "favorites" },
@@ -20,10 +22,8 @@ export class NavBarComponent {
 
   ]
 
-  constructor(private dialog: MatDialog) { }
-
   openDialog() {
-    this.dialog.open(LogInDialogComponent, {
+    this.dialog.open(AuthComponent, {
       width: "30%",
     });
   }

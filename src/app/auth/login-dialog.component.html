@@ -1,0 +1,14 @@
+<form class="log-in-form" novalidate [formGroup]="loginDialogFormGroup" (ngSubmit)="login()">
+    <ng-container *ngFor="let control of loginDialogFormGroup.getLogInControls()">
+        <mat-form-field appearance="fill">
+            <mat-label>{{control.label}}</mat-label>
+            <input matInput name="{{control.propertyName}}" formControlName="{{control.propertyName}}" required>
+        </mat-form-field>
+        <ul class="error-container" *ngIf="control.dirty && control.invalid">
+            <li *ngFor="let error of control.getLogInValidatorMessages()">
+                {{error}}
+            </li>
+        </ul>
+    </ng-container>
+    <button mat-flat-button color="primary" type="submit">LOG IN</button>
+</form>

@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { ModelModule } from './model/model.module';
 import { routing } from './app.routing';
 import { NavBarModule } from './nav-bar/nav-bar.module';
 import { SingleItemResolverResolver } from './resolvers/single-item-resolver.resolver';
@@ -23,7 +22,6 @@ import { StateModule } from './store/state.module';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ModelModule,
     NavBarModule,
     StateModule,
     ServicesModule,

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, shareReplay } from "rxjs/operators";
 import { User } from "../model/user.model";
 import { REST_URL } from "./articles.service";
 
@@ -22,8 +22,8 @@ export class AuthService {
         return this.SendRequest("POST", `${this.url}/users`, user);
     }
 
-    Login(email: string, password: string): Observable<any> {
-        return this.SendRequest("POST", `${this.url}/login`, { email, password });
+    Login(user: User): Observable<User> {
+        return this.SendRequest("POST", `${this.url}/login`, { email: user.email, password: user.password });
     }
 
     Signin(user: User): Observable<User> {
@@ -34,7 +34,8 @@ export class AuthService {
         return this.http.request<T>(method, url, {
             body: body
         })
-            .pipe(catchError((error: Response) =>
-                throwError(`Błąd sieci: ${error.statusText} ${error.status}`)));
+            .pipe(
+                catchError((error: Response) =>
+                    throwError(`Błąd sieci: ${error.statusText} ${error.status}`)));
     }
 }

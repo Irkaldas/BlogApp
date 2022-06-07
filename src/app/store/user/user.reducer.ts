@@ -7,12 +7,14 @@ export const userFeatureKey = 'user';
 
 export interface UserState {
   user: User,
+  token: string,
   status: 'online' | 'offline' | 'login' | 'logout' | 'error'
   error: string
 }
 
 export const initialState: UserState = {
   user: new User(),
+  token: '',
   status: 'offline',
   error: ''
 };
@@ -24,6 +26,6 @@ export const reducer = createReducer(
   })),
   on(loginUserSuccess, (state, { user }) => ({
     ...state,
-    user: user
+    user: user,
   }))
 );

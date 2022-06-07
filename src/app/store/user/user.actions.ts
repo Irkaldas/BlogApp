@@ -3,7 +3,7 @@ import { User } from 'src/app/model/user.model';
 
 export const loginUser = createAction(
   '[User] Login User',
-  props<{ email: string, password: string }>()
+  props<{ user: User }>()
 );
 
 export const loginUserSuccess = createAction(
