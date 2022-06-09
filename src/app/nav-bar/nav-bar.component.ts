@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { AuthComponent } from '../auth/auth.component';
-import { LoginDialogComponent } from '../auth/login-dialog.component';
+import { AuthService } from '../services/auth.service';
+import { AppState } from '../store/app.state';
+import { logoutUser } from '../store/user/user.actions';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,19 +13,25 @@ import { LoginDialogComponent } from '../auth/login-dialog.component';
 })
 export class NavBarComponent {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) { }
 
-  showSearchBar: boolean = false;
+  public isLoggedIn$ = this.authService.isLoggedIn$;
+  public showSearchBar: boolean = false;
   public navBarOptions = [
-    { nav: "Home", icon: "home", route: "" },
     { nav: "Favorite articles", icon: "favorite", route: "favorites" },
     { nav: "Followed users", icon: "supervised_user_circle", route: "followed" },
     { nav: "My profile", icon: "account_circle", route: "profile" },
     { nav: "Create article", icon: "article", route: "crateArticle" }
-
   ]
 
-  openDialog() {
+  logOut(): void {
+    this.store.dispatch(logoutUser());
+  }
+
+  openAuthDialog() {
     this.dialog.open(AuthComponent, {
       width: "30%",
     });

@@ -7,14 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { routing } from './app.routing';
 import { NavBarModule } from './nav-bar/nav-bar.module';
-import { SingleItemResolverResolver } from './resolvers/single-item-resolver.resolver';
+import { ArticleResolverResolver } from './resolvers/article-resolver.resolver';
 import { ErrorComponent } from './error/error.component';
 import { ServicesModule } from './services/services.module';
 import { StateModule } from './store/state.module';
+import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorComponent
+    ErrorComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,7 @@ import { StateModule } from './store/state.module';
     ServicesModule,
     routing,
   ],
-  providers: [SingleItemResolverResolver],
+  providers: [ArticleResolverResolver, { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

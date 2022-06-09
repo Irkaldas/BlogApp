@@ -14,7 +14,7 @@ import { UserModule } from './user/user.module';
     EffectsModule.forRoot([]),
     CommentModule,
     ArticleModule,
-    UserModule
+    UserModule,
   ]
 })
 export class StateModule { }

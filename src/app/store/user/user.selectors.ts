@@ -11,3 +11,8 @@ export const selectUserStatus = createSelector(
     selectUser,
     (state: UserState) => state.status
 )
+
+export const selectUserId = createSelector(
+    selectUser,
+    (state: UserState) => state.user.id
+)

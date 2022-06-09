@@ -6,13 +6,10 @@ import { CommentFormComponent } from './comment-form.component';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommentSnackBarComponent } from './comment-snack-bar.component';
-import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-
 
 
 @NgModule({
-  declarations: [CommentsComponent, CommentComponent, CommentFormComponent, CommentSnackBarComponent],
+  declarations: [CommentsComponent, CommentComponent, CommentFormComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -20,7 +17,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+  providers: [],
   exports: [CommentsComponent]
 })
 export class CommentModule { }

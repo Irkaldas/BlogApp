@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { EMPTY, from, of, scheduled } from 'rxjs';
 import { catchError, concatMap, map, switchMap, tap } from 'rxjs/operators';
-import { CommentSnackBarComponent } from 'src/app/comment/comment-snack-bar.component';
+import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
 import { CommentsService } from 'src/app/services/comments.service';
 import { AppState } from '../app.state';
 import {
@@ -54,7 +54,7 @@ export class CommentEffects {
   })
 
   private openCommentSnackBar(message: string, err: boolean): void {
-    this.snackBar.openFromComponent(CommentSnackBarComponent, {
+    this.snackBar.openFromComponent(SnackBarComponent, {
       duration: 5 * 1000,
       data: { message, err }
     })

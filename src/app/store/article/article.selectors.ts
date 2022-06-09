@@ -2,8 +2,8 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { ArticlesState } from './article.reducer';
 
-export const selectArticles = (state: AppState) => state.articles;
-export const selectAllArticles = createSelector(
-    selectArticles,
+export const selectArticlesState = (state: AppState) => state.articles;
+export const selectArticles = createSelector(
+    selectArticlesState,
     (state: ArticlesState) => state.articles
 )

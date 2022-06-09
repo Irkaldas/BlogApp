@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectAllComments } from '../store/comment/comment.selectors';
 import { AppState } from '../store/app.state';
 import { loadComments } from '../store/comment/comment.actions';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -15,9 +16,13 @@ import { loadComments } from '../store/comment/comment.actions';
 export class CommentsComponent {
 
   public comments$ = this.store.select(selectAllComments);
+  public isLoggedIn$ = this.authService.isLoggedIn$;
   public showComments: boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private store: Store<AppState>) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private store: Store<AppState>,
+    private authService: AuthService
+  ) { }
 
   loadComments(): void {
     this.showComments = true;

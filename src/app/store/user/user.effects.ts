@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { loginUser, loginUserFailure, loginUserSuccess } from './user.actions';
+import { loginUser, loginUserFailure, loginUserSuccess, logoutUser } from './user.actions';
 
 
 
@@ -20,17 +20,24 @@ export class UserEffects {
       switchMap((actionParameter) =>
         this.authService.Login(actionParameter.user)
           .pipe(
-            tap((res) => {
-              console.log(res);
+            tap((res: any) => {
+              localStorage.setItem("accessToken", res.accessToken);
+              this.authService.isLoggedIn$.next(true);
             }),
-            map((user) => {
-              console.log(user);
-              return loginUserSuccess({ user: user });
-            }
+            map((user) =>
+              loginUserSuccess({ user: user })
             ),
             catchError((error) => of(loginUserFailure({ error: error })))
           )
       ))
-  }
-  )
+  })
+
+  logOutUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logoutUser),
+      tap(() => {
+        localStorage.removeItem("accessToken");
+        this.authService.isLoggedIn$.next(false);
+      }),
+    ), { dispatch: false });
 }

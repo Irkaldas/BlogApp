@@ -1,33 +1,32 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { catchError, shareReplay } from "rxjs/operators";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 import { User } from "../model/user.model";
 import { REST_URL } from "./articles.service";
 
 @Injectable()
 export class AuthService {
-    constructor(@Inject(REST_URL) private url: string,
-        private http: HttpClient) { }
+
+    constructor(
+        @Inject(REST_URL) private url: string,
+        private http: HttpClient) {
+        let token = localStorage.getItem("accessToken");
+        this.isLoggedIn$.next(!!token);
+    }
+
+    public isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
     Register(user: User): Observable<User> {
         return this.SendRequest("POST", `${this.url}/register`, user);
-    }
-
-    Signup(user: User): Observable<User> {
-        return this.SendRequest("POST", `${this.url}/signup`, user);
-    }
-
-    GetUsers(user: User): Observable<User> {
-        return this.SendRequest("POST", `${this.url}/users`, user);
     }
 
     Login(user: User): Observable<User> {
         return this.SendRequest("POST", `${this.url}/login`, { email: user.email, password: user.password });
     }
 
-    Signin(user: User): Observable<User> {
-        return this.SendRequest("POST", `${this.url}/signin`, user);
+    GetUsers(user: User): Observable<User> {
+        return this.SendRequest("POST", `${this.url}/users`, user);
     }
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
