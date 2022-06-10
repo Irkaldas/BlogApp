@@ -1,0 +1,15 @@
+ul.error-container {
+    color: rgb(184, 28, 17);
+}
+
+form.register-form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+    margin: 5px auto;
+}

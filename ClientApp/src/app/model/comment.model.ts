@@ -1,8 +1,10 @@
-export class CommentModel {
+export class Comment {
     constructor(
         public id?: number, //PK
-        public articleId?: number, //FK
+        public body?: string,
+        public upVotes?: number,
+        public downVotes?: number,
         public userId?: number, //FK
-        public body?: string
+        public articleId?: number, //FK
     ) { }
 }

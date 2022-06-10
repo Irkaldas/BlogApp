@@ -1,0 +1,20 @@
+mat-card {
+    margin: 5px auto;
+    text-align: left;
+}
+
+button {
+    &.thumb-up {
+        color: green;
+    }
+
+    &.thumb-down {
+        color: red;
+    }
+
+}
+
+.avatar-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}

@@ -1,0 +1,21 @@
+.article-card {
+    max-width: 400px;
+    margin: 10px 10px;
+}
+
+mat-card-content {
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.avatar-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+mat-card-title {
+    min-height: 60px;
+}

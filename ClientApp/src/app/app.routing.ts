@@ -1,22 +1,28 @@
 import { RouterModule, Routes } from "@angular/router";
-import { BlogComponent } from "./core/blog.component";
-import { NavBarComponent } from "./core/nav-bar/navBar.component";
+import { ArticleDetailsComponent } from "./article/article-details.component";
+import { ArticlesComponent } from "./article/articles.component";
+import { ArticleResolverResolver } from "./resolvers/article-resolver.resolver";
+import { ErrorComponent } from "./error/error.component";
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
 
 const childRoutes: Routes = [
     {
-        path: "", component: BlogComponent
+        path: "", component: ArticlesComponent, data: { viewOption: "all" }
     },
     {
-        path: "posts", component: BlogComponent
+        path: "favorites", component: ArticlesComponent, data: { viewOption: "favorites" }
+    },
+    {
+        path: "article/:id", component: ArticleDetailsComponent, resolve: { model: ArticleResolverResolver }
+    },
+    {
+        path: "**", component: ErrorComponent
     }
 ]
 
 const routes: Routes = [
     {
         path: "", component: NavBarComponent, children: childRoutes
-    },
-    {
-        path: "home", component: BlogComponent
     }
 ];
 

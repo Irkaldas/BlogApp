@@ -1,0 +1,18 @@
+<form class="comment-form" novalidate [formGroup]="commentFormGroup" (ngSubmit)="submitComment()">
+    <ul class="error-container"
+        *ngIf="commentFormGroup.controls['body'].dirty && commentFormGroup.controls['body'].invalid">
+        <li *ngFor="let error of commentFormGroup.getCommentValidatorMessages('body')">
+            {{error}}
+        </li>
+    </ul>
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Leave a comment</mat-label>
+        <textarea matInput #commentarea maxlength="200" name="Body" placeholder="Ex. It makes me feel..."
+            formControlName="body"></textarea>
+        <mat-hint align="end">{{commentarea.value?.length || 0}}/{{maxCharacters}}</mat-hint>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit"
+        [disabled]="(commentarea.value?.length || 0) < minCharacters">Post comment</button>
+    <button mat-flat-button color="primary" type="reset">Cancel</button>
+</form>

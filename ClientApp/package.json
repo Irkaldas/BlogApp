@@ -11,7 +11,8 @@
     "build:ssr": "ng run BlogApp:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server-json": "json-server --watch db.json"
+    "server-json": "json-server --watch db.json",
+    "server-json-auth": "json-server-auth --watch db.json"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +28,8 @@
     "@angular/platform-browser-dynamic": "~13.1.1",
     "@angular/platform-server": "~13.1.1",
     "@angular/router": "~13.1.1",
+    "@ngrx/effects": "^13.2.0",
+    "@ngrx/store": "^13.2.0",
     "jquery": "^3.6.0",
     "oidc-client": "^1.11.5",
     "popper.js": "^1.16.0",
@@ -39,6 +42,7 @@
     "@angular-devkit/build-angular": "~13.1.2",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.1",
+    "@ngrx/schematics": "^13.2.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^12.11.1",
