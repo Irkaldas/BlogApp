@@ -14,7 +14,7 @@ import { REST_URL } from './articles.service';
     AuthService,
     CommentsService,
     ArticlesService,
-    { provide: REST_URL, useValue: `http://${location.hostname}:3000` }
+    { provide: REST_URL, useValue: `https://localhost:7095` }
   ]
 })
 export class ServicesModule { }

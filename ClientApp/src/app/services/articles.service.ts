@@ -19,7 +19,7 @@ export class ArticlesService {
     }
 
     GetArticles(): Observable<Article[]> {
-        return this.SendRequest<Article[]>("GET", `${this.url}/articles`);
+        return this.SendRequest<Article[]>("GET", `${this.url}/api/article`);
     }
 
     GetArticle(articleId: number): Observable<Article> {

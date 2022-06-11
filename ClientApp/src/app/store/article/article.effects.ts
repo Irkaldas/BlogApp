@@ -18,16 +18,16 @@ export class ArticleEffects {
   loadArticles$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadArticles),
-      switchMap(() => (
-        this.activatedRoute.snapshot.data.viewOption == "favorite"
-          ? this.articlesService.GetArticles()
-          : this.articlesService.GetArticles()
-      ).pipe(
-        map((articles) =>
-          loadArticlesSuccess({ articles: articles })
-        ),
-        catchError((error) => of(loadCommentsFailure({ error: error })))
-      )
+      switchMap(() =>
+        this.articlesService.GetArticles()
+          .pipe(
+            map((articles) => {
+              console.log(articles);
+              return loadArticlesSuccess({ articles: articles })
+            }
+            ),
+            catchError((error) => of(loadCommentsFailure({ error: error })))
+          )
       )
     )
   })
