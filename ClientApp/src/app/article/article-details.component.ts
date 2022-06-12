@@ -16,6 +16,8 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.activeRoute.snapshot.params["id"]);
+
     this.articleSubscribtion.add(this.activeRoute.data.subscribe((data: any) => {
       this.article$.next(data['model']);
     }));

@@ -34,6 +34,7 @@ export class CommentFormComponent {
         .forEach(c => {
           this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value;
         });
+      console.log(this.newComment);
       this.store.dispatch(addComment({ comment: this.newComment }));
       this.newComment = new Comment();
       this.commentFormGroup.reset();

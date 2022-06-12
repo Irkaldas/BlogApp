@@ -1,16 +1,17 @@
 using BlogApp.Model;
 using Microsoft.EntityFrameworkCore;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors(options => options.AddPolicy(name: MyAllowSpecificOrigins,
+builder.Services.AddCors(options => options.AddDefaultPolicy(
                       policy =>
                       {
-                          policy.WithOrigins("https://localhost:44493");
+                          policy.WithOrigins("https://localhost:44493")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
                       }));
+
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<BlogAppDbContext>(options =>
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<BlogAppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("BlogAppConnection"));
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,11 +33,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+    pattern: "{controller}/{id:long?}");
 
 app.MapFallbackToFile("index.html"); ;
 

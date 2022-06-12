@@ -14,24 +14,12 @@ export class ArticlesService {
         private http: HttpClient
     ) { }
 
-    AddArticle(article: Article): Observable<Article> {
-        return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
-    }
-
     GetArticles(): Observable<Article[]> {
-        return this.SendRequest<Article[]>("GET", `${this.url}/api/article`);
+        return this.SendRequest<Article[]>("GET", `${this.url}/article`);
     }
 
     GetArticle(articleId: number): Observable<Article> {
-        return this.SendRequest<Article>("GET", `${this.url}/articles/${articleId}`);
-    }
-
-    UpdateArticle(article: Article) {
-        return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
-    }
-
-    DeleteArticle(articleId: number) {
-        return this.SendRequest<Article>("DELETE", `${this.url}/${articleId}`)
+        return this.SendRequest<Article>("GET", `${this.url}/article/${articleId}`);
     }
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
