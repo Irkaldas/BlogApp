@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BlogApp.Model
@@ -15,6 +16,7 @@ namespace BlogApp.Model
         public long DownVotes { get; set; }
         public long UserId { get; set; }
         public long ArticleId { get; set; }
+        [JsonIgnore]
         public Article? Article { get; set; }
     }
 }

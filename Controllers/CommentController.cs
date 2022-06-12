@@ -1,5 +1,6 @@
 using BlogApp.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Controllers
 {
@@ -13,19 +14,32 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Comment> GetComments(long id)
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComments(long id)
         {
-            return blogAppDbContext.Comments
-                .Where(c => c.ArticleId == id);
+            try
+            {
+                return Ok(await blogAppDbContext.Comments
+                    .Where(c => c.ArticleId == id)
+                    .ToListAsync());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving comments from the database");
+            }
         }
 
         [HttpPost]
-        public async Task PostComment([FromBody] Comment c)
+        public async Task<ActionResult<Comment>> PostComment([FromBody] Comment c)
         {
-            c.Article = default;
-            blogAppDbContext.Comments.Add(c);
-            await blogAppDbContext.SaveChangesAsync();
-        }
 
+            // try
+            // {
+            c.Article = default;
+            var newComment = await blogAppDbContext.Comments.AddAsync(c);
+            await blogAppDbContext.SaveChangesAsync();
+
+            return Ok(await blogAppDbContext.Comments.FirstOrDefaultAsync(c => c.Id == newComment.Entity.Id));
+        }
     }
 }
