@@ -33,13 +33,20 @@ namespace BlogApp.Controllers
         public async Task<ActionResult<Comment>> PostComment([FromBody] Comment c)
         {
 
-            // try
-            // {
-            c.Article = default;
-            var newComment = await blogAppDbContext.Comments.AddAsync(c);
-            await blogAppDbContext.SaveChangesAsync();
+            try
+            {
+                c.Article = default;
+                var newComment = await blogAppDbContext.Comments.AddAsync(c);
+                await blogAppDbContext.SaveChangesAsync();
 
-            return Ok(await blogAppDbContext.Comments.FirstOrDefaultAsync(c => c.Id == newComment.Entity.Id));
+                return Ok(await blogAppDbContext.Comments.FirstOrDefaultAsync(c => c.Id == newComment.Entity.Id));
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error occured during posting comment");
+            }
         }
+
     }
 }
