@@ -7,7 +7,10 @@ import { Comment } from 'src/app/model/comment.model';
   styleUrls: ['./comment.component.scss'],
 })
 export class CommentComponent {
+
   constructor() { }
+
   @Input()
   public comment: Comment = new Comment();
+
 }

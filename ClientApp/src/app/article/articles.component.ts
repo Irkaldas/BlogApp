@@ -13,9 +13,11 @@ import { selectArticles } from "../store/article/article.selectors";
 })
 
 export class ArticlesComponent implements OnInit {
-    public articles$ = this.store.select(selectArticles);
+
     constructor(private store: Store<AppState>, private activeRoute: ActivatedRoute) {
     }
+
+    public articles$ = this.store.select(selectArticles);
 
     ngOnInit(): void {
         this.store.dispatch(loadArticles());

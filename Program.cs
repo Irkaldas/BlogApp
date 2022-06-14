@@ -1,6 +1,6 @@
 using BlogApp.Model;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,14 +11,23 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
                                 .AllowAnyMethod()
                                 .AllowAnyHeader();
                       }));
-
-builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BlogAppDbContext>(options =>
 {
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("BlogAppConnection"));
 });
+
+builder.Services.AddDbContext<IdentityContext>(options =>
+{
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("IdentityConnection"));
+});
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityContext>();
 
 var app = builder.Build();
 

@@ -21,7 +21,7 @@ export class NavBarComponent {
     @Inject(REST_URL) private url: string
   ) { }
 
-  public isLoggedIn$ = this.authService.isLoggedIn$;
+  public isLoggedIn$ = false;
   public showSearchBar: boolean = false;
   public navBarOptions = [
     { nav: "Favorite articles", icon: "favorite", route: "favorites" },

@@ -16,7 +16,7 @@ import { AuthService } from '../services/auth.service';
 export class CommentsComponent {
 
   public comments$ = this.store.select(selectAllComments);
-  public isLoggedIn$ = this.authService.isLoggedIn$;
+  public isLoggedIn$ = false;
   public showComments: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -33,4 +33,5 @@ export class CommentsComponent {
   getCommentKey(index: number, comment: Comment) {
     return comment.id;
   }
+
 }

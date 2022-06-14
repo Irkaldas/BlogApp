@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class CommentController : Controller
     {

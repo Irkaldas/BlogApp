@@ -19,8 +19,8 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<Article> GetArticle(long id)
+    public async Task<ActionResult<Article>> GetArticle(long id)
     {
-        return await blogAppDbContext.Articles.FindAsync(id);
+        return Ok(await blogAppDbContext.Articles.FindAsync(id));
     }
 }

@@ -13,7 +13,7 @@
                 <span>Home</span>
             </mat-list-item>
             <ng-container *ngFor="let option of navBarOptions">
-                <mat-list-item *ngIf="!!(isLoggedIn$ | async)" [routerLink]="[option.route]">
+                <mat-list-item *ngIf="isLoggedIn$ " [routerLink]="[option.route]">
                     <mat-icon>{{ option.icon }}</mat-icon>
                     <span>{{ option.nav | titlecase }}</span>
                 </mat-list-item>
@@ -34,7 +34,7 @@
                     <mat-icon>search</mat-icon>
                 </button>
                 <span class="toolbar-spacer">BLOG APP</span>
-                <ng-container *ngIf="!!(isLoggedIn$ | async); else notLoggedIn">
+                <ng-container *ngIf="isLoggedIn$; else notLoggedIn">
                     <button mat-icon-button>
                         <mat-icon>notifications</mat-icon>
                     </button>

@@ -6,8 +6,6 @@ import { LoginDialogComponent } from './login-dialog.component';
 import { RegisterComponent } from './register.component';
 import { AuthComponent } from './auth.component';
 
-
-
 @NgModule({
   declarations: [LoginDialogComponent, RegisterComponent, AuthComponent],
   imports: [

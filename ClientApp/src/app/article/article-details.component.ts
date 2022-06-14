@@ -9,11 +9,13 @@ import { Article } from 'src/app/model/article.model';
   styleUrls: ['./article-details.component.scss'],
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
-  public article$: BehaviorSubject<Article> = new BehaviorSubject<Article>(new Article());
-  private articleSubscribtion: Subscription = new Subscription();
+
+  private articleSubscribtion!: Subscription;
 
   constructor(private activeRoute: ActivatedRoute, private route: Router) {
   }
+
+  public article$!: BehaviorSubject<Article>;
 
   ngOnInit(): void {
     console.log(this.activeRoute.snapshot.params["id"]);

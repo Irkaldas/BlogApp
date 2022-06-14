@@ -13,7 +13,7 @@ export class ArticleComponent {
 
   constructor(private authService: AuthService, private store: Store<AppState>) { }
 
-  public isLoggedIn$ = this.authService.isLoggedIn$;
+  public isLoggedIn$ = false;
   public isfavorite: boolean = false;
   public icon: string = "favorite_outline";
 
@@ -22,6 +22,8 @@ export class ArticleComponent {
     this.icon = this.isfavorite ? "favorite" : "favorite_outline";
     console.log(this.isfavorite)
   }
+
   @Input()
   article: Article = new Article();
+
 }

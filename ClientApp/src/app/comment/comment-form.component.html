@@ -1,7 +1,7 @@
 <form class="comment-form" novalidate [formGroup]="commentFormGroup" (ngSubmit)="submitComment()">
     <ul class="error-container"
         *ngIf="commentFormGroup.controls['body'].dirty && commentFormGroup.controls['body'].invalid">
-        <li *ngFor="let error of commentFormGroup.getCommentValidatorMessages('body')">
+        <li *ngFor="let error of commentFormGroup.getValidatorMessages('body')">
             {{error}}
         </li>
     </ul>
