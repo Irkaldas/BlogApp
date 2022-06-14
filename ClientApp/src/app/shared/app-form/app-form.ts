@@ -34,7 +34,7 @@ export class AppFormControl extends FormControl {
             for (let error in this.errors) {
                 switch (error) {
                     case "required":
-                        errorMessages.push(`${this.label} field cannot be empty.`);
+                        errorMessages.push(`${this.label} cannot be empty.`);
                         break;
                     case "minlength":
                         errorMessages.push(`${this.label} must be at least 
