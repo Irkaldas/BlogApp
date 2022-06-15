@@ -1,28 +1,13 @@
-<form class="register-form" novalidate [formGroup]="registerFormGroup">
+<form class="register-form" novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
     <ng-container *ngFor="let control of registerFormGroup.formControls">
-        <ng-container
-            *ngIf="control.modelProperty != 'password' && control.modelProperty != 'confirmPassword'; else passwordBlock">
-            <mat-form-field appearance="fill">
-                <mat-label>{{control.label}}</mat-label>
-                <input matInput class="form-control" name="{{control.modelProperty}}"
-                    formControlName="{{control.modelProperty}}" />
-                <mat-hint *ngFor="let error of control.getValidatorMessages()" color="warn">
-                    <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
-                </mat-hint>
-            </mat-form-field>
-        </ng-container>
-        <ng-template #passwordBlock>
-            <mat-form-field appearance="fill">
-                <mat-label>{{control.label}}</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-hint *ngFor="let error of control.getValidatorMessages()">
-                    <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
-                </mat-hint>
-            </mat-form-field>
-        </ng-template>
+        <mat-form-field appearance="fill">
+            <mat-label>{{control.label}}</mat-label>
+            <input matInput required class="form-control" name="{{control.modelProperty}}"
+                formControlName="{{control.modelProperty}}" />
+            <mat-hint *ngFor="let error of control.getValidatorMessages()">
+                <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
+            </mat-hint>
+        </mat-form-field>
     </ng-container>
     <button mat-flat-button color="primary">Register</button>
 </form>

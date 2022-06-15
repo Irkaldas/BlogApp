@@ -1,5 +1,5 @@
-<form class="log-in-form" novalidate [formGroup]="loginDialogFormGroup" (ngSubmit)="login()">
-    <ng-container *ngFor="let control of loginDialogFormGroup.getLogInControls()">
+<form class="log-in-form" novalidate [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <ng-container *ngFor="let control of loginFormGroup.getLogInControls()">
         <mat-form-field appearance="fill">
             <mat-label>{{control.label}}</mat-label>
             <input matInput name="{{control.propertyName}}" formControlName="{{control.propertyName}}" required>
@@ -10,5 +10,5 @@
             </li>
         </ul>
     </ng-container>
-    <button mat-flat-button color="primary" type="submit">LOG IN</button>
+    <button mat-flat-button color="primary" type="submit" [attr.disabled]="loginFormGroup.valid">LOG IN</button>
 </form>

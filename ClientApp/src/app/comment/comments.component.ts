@@ -15,22 +15,21 @@ import { AuthService } from '../services/auth.service';
 })
 export class CommentsComponent {
 
-  public comments$ = this.store.select(selectAllComments);
-  public isLoggedIn$ = false;
-  public showComments: boolean = false;
-
   constructor(private activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private authService: AuthService
   ) { }
 
-  loadComments(): void {
+  public comments$ = this.store.select(selectAllComments);
+  public isLoggedIn$ = true;
+  public showComments: boolean = false;
+
+  public loadComments(): void {
     this.showComments = true;
     let id = this.activatedRoute.snapshot.params["id"];
     this.store.dispatch(loadComments({ articleId: id }));
   }
 
-  getCommentKey(index: number, comment: Comment) {
+  public getCommentKey(index: number, comment: Comment) {
     return comment.id;
   }
 

@@ -10,16 +10,13 @@ import { Article } from 'src/app/model/article.model';
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
-  private articleSubscribtion!: Subscription;
+  constructor(private activeRoute: ActivatedRoute) { }
 
-  constructor(private activeRoute: ActivatedRoute, private route: Router) {
-  }
+  public article$: BehaviorSubject<Article> = new BehaviorSubject<Article>(new Article());
 
-  public article$!: BehaviorSubject<Article>;
+  private articleSubscribtion: Subscription = new Subscription();
 
   ngOnInit(): void {
-    console.log(this.activeRoute.snapshot.params["id"]);
-
     this.articleSubscribtion.add(this.activeRoute.data.subscribe((data: any) => {
       this.article$.next(data['model']);
     }));

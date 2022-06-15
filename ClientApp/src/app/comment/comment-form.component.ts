@@ -14,15 +14,15 @@ import { addComment } from '../store/comment/comment.actions';
 })
 export class CommentFormComponent implements OnInit {
 
-  private newComment: Comment = new Comment();
-
   constructor(
     private actieveRoute: ActivatedRoute,
     private store: Store<AppState>) { }
 
-  public commentFormGroup!: AppFormGroup;
+  public commentFormGroup: AppFormGroup = new AppFormGroup({});
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
+
+  private newComment: Comment = new Comment();
 
   ngOnInit(): void {
     this.commentFormGroup = new AppFormGroup({

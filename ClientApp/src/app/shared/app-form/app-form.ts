@@ -1,11 +1,12 @@
-import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, AbstractControlOptions, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 
 
 export class AppFormGroup extends FormGroup {
     constructor(
-        controls: { [key: string]: AppFormControl }
+        controls: { [key: string]: AppFormControl },
+        validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null
     ) {
-        super(controls);
+        super(controls, validatorOrOpts);
     }
 
     get formControls(): AppFormControl[] {
@@ -34,18 +35,22 @@ export class AppFormControl extends FormControl {
             for (let error in this.errors) {
                 switch (error) {
                     case "required":
-                        errorMessages.push(`${this.label} cannot be empty.`);
+                        errorMessages.push(`${this.label} cannot be empty. `);
                         break;
                     case "minlength":
                         errorMessages.push(`${this.label} must be at least 
-                            ${this.errors['minlength'].requiredLength} characters long.`);
+                            ${this.errors['minlength'].requiredLength} characters long. `);
                         break;
                     case "maxlength":
                         errorMessages.push(`${this.label} can't have more than
-                            ${this.errors['maxlength'].maxLength} characters.`);
+                            ${this.errors['maxlength'].maxLength} characters. `);
                         break;
                     case "email":
-                        errorMessages.push(`${this.label} must have correct format.`);
+                        errorMessages.push(`${this.label} must have correct format. `);
+                        break;
+                    case "notMatch":
+                        console.log(error);
+                        errorMessages.push(`Passwords must match. `);
                         break;
                 }
             }

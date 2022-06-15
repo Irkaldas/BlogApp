@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { registrationResponse } from "../model/registrationResponse.model";
-import { userRegistration } from "../model/userRegistration.model";
+import { UserRegistration } from "../model/userRegistration.model";
 import { REST_URL } from "./articles.service";
 
 @Injectable()
@@ -13,8 +13,8 @@ export class AuthService {
         @Inject(REST_URL) private url: string,
         private http: HttpClient) {
     }
-    Register(user: userRegistration): Observable<registrationResponse> {
-        return this.SendRequest<registrationResponse>("POST", `${this.url}/register`, user);
+    Register(user: UserRegistration): Observable<registrationResponse> {
+        return this.SendRequest<registrationResponse>("POST", `${this.url}/auth/register`, user);
     }
 
     SendRequest<T>(method: string, url: string, body?: any): Observable<T> {

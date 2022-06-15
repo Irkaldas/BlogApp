@@ -1,4 +1,4 @@
-export class userRegistration {
+export class UserRegistration {
     constructor(
         public fullName?: string,
         public email?: string,

@@ -6,32 +6,32 @@ import { AppState } from '../store/app.state';
 import { loginUser } from '../store/user/user.actions';
 
 @Component({
-  selector: 'app-login-dialog',
-  templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginDialogComponent {
+export class LoginComponent {
   private user: User = new User();
 
   constructor(private store: Store<AppState>) { }
 
-  public loginDialogFormGroup: LoginDialogFormGroup = new LoginDialogFormGroup();
+  public loginFormGroup: LoginFormGroup = new LoginFormGroup();
   public hide: boolean = true;
 
   login(): void {
-    if (this.loginDialogFormGroup.valid) {
-      Object.keys(this.loginDialogFormGroup.controls)
+    if (this.loginFormGroup.valid) {
+      Object.keys(this.loginFormGroup.controls)
         .forEach(c => {
-          this.user[c as keyof User] = this.loginDialogFormGroup.controls[c].value;
+          this.user[c as keyof User] = this.loginFormGroup.controls[c].value;
         });
       this.store.dispatch(loginUser({ user: this.user }))
     }
-    this.loginDialogFormGroup.reset();
+    this.loginFormGroup.reset();
     this.user = new User();
   }
 }
 
-class LoginDialogControl extends FormControl {
+class LoginControl extends FormControl {
   public label: string;
   public propertyName: string;
 
@@ -53,25 +53,25 @@ class LoginDialogControl extends FormControl {
   }
 }
 
-class LoginDialogFormGroup extends FormGroup {
+class LoginFormGroup extends FormGroup {
   constructor() {
     super({
-      email: new LoginDialogControl("Email", "email", "", Validators.compose([
+      email: new LoginControl("Email", "email", "", Validators.compose([
         Validators.required,
       ])),
-      password: new LoginDialogControl("Password", "password", "", Validators.compose([
+      password: new LoginControl("Password", "password", "", Validators.compose([
         Validators.required,
       ]))
     })
   }
 
   getLogInValidatorMessages(name: string): string[] {
-    return (this.controls[name] as LoginDialogControl).getLogInValidatorMessages();
+    return (this.controls[name] as LoginControl).getLogInValidatorMessages();
   }
 
-  getLogInControls(): LoginDialogControl[] {
+  getLogInControls(): LoginControl[] {
     return Object.keys(this.controls).
-      map(c => this.controls[c] as LoginDialogControl);
+      map(c => this.controls[c] as LoginControl);
   }
 
 }

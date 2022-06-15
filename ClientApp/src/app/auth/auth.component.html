@@ -2,7 +2,7 @@
     <ng-container *ngIf="isLoginDialog; else register">
         <span>Sign in to continue. </span><span>Not a member?<a (click)="isLoginDialog=!isLoginDialog"> Register
                 now!</a></span>
-        <app-login-dialog></app-login-dialog>
+        <app-login></app-login>
     </ng-container>
 </div>
 <ng-template #register>
