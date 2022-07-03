@@ -1,11 +1,12 @@
 using BlogApp.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class CommentController : Controller
     {
         private BlogAppDbContext blogAppDbContext;
@@ -31,6 +32,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Comment>> PostComment([FromBody] Comment c)
         {
 

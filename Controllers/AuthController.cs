@@ -6,6 +6,8 @@ using BlogApp.Model;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using BlogApp.JwtFeatures;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BlogApp.Controllers
 {
@@ -13,12 +15,12 @@ namespace BlogApp.Controllers
     [ApiController]
     public class AuthController : Controller
     {
-        private readonly ILogger<AuthController> _logger;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        public AuthController(ILogger<AuthController> logger, IMapper mapper, UserManager<User> userManager)
+        private readonly JwtHandler _jwtHandler;
+        public AuthController(JwtHandler jwtHandler, IMapper mapper, UserManager<User> userManager)
         {
-            _logger = logger;
+            _jwtHandler = jwtHandler;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -26,7 +28,7 @@ namespace BlogApp.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegistration userRegistration)
         {
-            if (userRegistration == null || !ModelState.IsValid)
+            if (userRegistration is null || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -41,6 +43,35 @@ namespace BlogApp.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
+        {
+            var user = await _userManager.FindByEmailAsync(userLogin.Email);
+
+            if (user is null || !await _userManager.CheckPasswordAsync(user, userLogin.Password))
+            {
+                return Unauthorized(new AuthResponse { ErrorMessage = "Authorization error." });
+            }
+
+            var signingCredentials = _jwtHandler.GetSigningCredentials();
+            var claims = _jwtHandler.GetClaims(user);
+            var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return Ok(
+                new
+                {
+                    AuthResponse = new AuthResponse { IsAuthSuccessful = true, Token = token },
+                    User = new
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FullName = user.FullName
+                    }
+                });
+
         }
     }
 }

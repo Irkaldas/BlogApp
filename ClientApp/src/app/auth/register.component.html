@@ -1,9 +1,15 @@
 <form class="register-form" novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
-    <ng-container *ngFor="let control of registerFormGroup.formControls">
+    <ng-container *ngFor="let control of registerFormGroup.formControls()">
         <mat-form-field appearance="fill">
             <mat-label>{{control.label}}</mat-label>
             <input matInput required class="form-control" name="{{control.modelProperty}}"
-                formControlName="{{control.modelProperty}}" />
+                formControlName="{{control.modelProperty}}" [type]="hide && 
+                (control.modelProperty == 'password' || control.modelProperty == 'confirmPassword') 
+                ? 'password' : 'text'" />
+            <button *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
+                mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
             <mat-hint *ngFor="let error of control.getValidatorMessages()">
                 <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
             </mat-hint>

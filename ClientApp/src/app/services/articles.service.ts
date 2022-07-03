@@ -26,8 +26,6 @@ export class ArticlesService {
         return this.http.request<T>(method, url, {
             body: body
         })
-            .pipe(catchError((error: Response) =>
-                throwError(`Błąd sieci: ${error.statusText} ${error.status}`)));
     }
 
 }

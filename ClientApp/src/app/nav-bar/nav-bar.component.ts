@@ -7,6 +7,7 @@ import { REST_URL } from '../services/articles.service';
 import { AuthService } from '../services/auth.service';
 import { AppState } from '../store/app.state';
 import { logoutUser } from '../store/user/user.actions';
+import { selectUserStatus } from '../store/user/user.selectors';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,7 +22,7 @@ export class NavBarComponent {
     @Inject(REST_URL) private url: string
   ) { }
 
-  public isLoggedIn$ = false;
+  public isLoggedIn$ = this.store.select(selectUserStatus);
   public showSearchBar: boolean = false;
   public navBarOptions = [
     { nav: "Favorite articles", icon: "favorite", route: "favorites" },
@@ -38,11 +39,5 @@ export class NavBarComponent {
     this.dialog.open(AuthComponent, {
       width: "30%",
     });
-  }
-  private articles: Article[] = [];
-  sendRequest(): void {
-    console.log("Request send.");
-    this.authService.SendRequest<Article[]>("GET", `${this.url}/articles?id=favorites.articleId&favorites.userId=1`)
-      .subscribe(articles => this.articles = articles);
   }
 }

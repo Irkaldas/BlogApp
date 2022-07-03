@@ -13,6 +13,8 @@ import { ServicesModule } from './services/services.module';
 import { StateModule } from './store/state.module';
 import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { httpInterceptorProviders } from './shared/interceptors/interceptors.index';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,11 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
     ServicesModule,
     routing,
   ],
-  providers: [ArticleResolverResolver, { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+  providers: [
+    ArticleResolverResolver,
+    { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

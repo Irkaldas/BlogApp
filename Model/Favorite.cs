@@ -7,9 +7,9 @@ namespace BlogApp.Model
 {
     public class Favorite
     {
-        public long Id { get; set; }
-        public long UserId { get; set; }
-        public long ArticleId { get; set; }
+        public long? Id { get; set; }
+        public long? UserId { get; set; }
+        public long? ArticleId { get; set; }
         public Article? Article { get; set; }
     }
 }

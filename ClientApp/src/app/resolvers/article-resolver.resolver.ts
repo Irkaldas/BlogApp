@@ -17,7 +17,7 @@ export class ArticleResolverResolver implements Resolve<any> {
   resolve(activatedRouteSnapshot: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return this.articlesService.GetArticle(activatedRouteSnapshot.params['id']).pipe(
       catchError(err => {
-        // this.router.navigate(["notfound"]);
+        this.router.navigate(["notfound"]);
         return err;
       })
     )

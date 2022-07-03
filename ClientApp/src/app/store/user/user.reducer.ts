@@ -6,14 +6,14 @@ import { loginUser, loginUserSuccess, logoutUser } from './user.actions';
 export const userFeatureKey = 'user';
 
 export interface UserState {
-  user: User,
-  status: 'online' | 'offline' | 'error'
-  error: string
+  user?: User,
+  isLoggedIn?: boolean,
+  error?: string
 }
 
 export const initialState: UserState = {
   user: new User(),
-  status: 'offline',
+  isLoggedIn: false,
   error: ''
 };
 
@@ -22,10 +22,10 @@ export const userReducer = createReducer(
   on(loginUser, (state) => ({
     ...state,
   })),
-  on(loginUserSuccess, (state, { user }) => ({
+  on(loginUserSuccess, (state, { user, authResponse }) => ({
     ...state,
     user: user,
-    status: 'online'
+    isLoggedIn: authResponse.isAuthSuccessful
   })),
   on(logoutUser, (state) => ({
     ...state,

@@ -7,6 +7,7 @@ namespace BlogApp.Controllers;
 public class ArticleController : ControllerBase
 {
     private BlogAppDbContext blogAppDbContext;
+
     public ArticleController(BlogAppDbContext blogAppDbContext)
     {
         this.blogAppDbContext = blogAppDbContext;

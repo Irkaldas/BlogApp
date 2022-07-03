@@ -9,7 +9,7 @@ export class AppFormGroup extends FormGroup {
         super(controls, validatorOrOpts);
     }
 
-    get formControls(): AppFormControl[] {
+    formControls(): AppFormControl[] {
         return Object.keys(this.controls)
             .map(c => this.controls[c] as AppFormControl);
     }
@@ -20,14 +20,15 @@ export class AppFormGroup extends FormGroup {
 }
 
 export class AppFormControl extends FormControl {
-    public label: string;
-    public modelProperty: string;
 
     constructor(label: string, property: string, value: any, validator: any) {
         super(value, validator);
         this.label = label;
         this.modelProperty = property;
     }
+
+    public label: string;
+    public modelProperty: string;
 
     getValidatorMessages() {
         let errorMessages: string[] = [];
