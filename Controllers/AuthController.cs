@@ -25,7 +25,7 @@ namespace BlogApp.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistration userRegistration)
         {
             if (userRegistration is null || !ModelState.IsValid)

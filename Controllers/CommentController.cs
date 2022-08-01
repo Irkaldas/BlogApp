@@ -18,13 +18,16 @@ namespace BlogApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments(long id)
         {
-            try
-            {
-                return Ok(await blogAppDbContext.Comments
+
+            var comments = await blogAppDbContext.Comments
                     .Where(c => c.ArticleId == id)
-                    .ToListAsync());
+                    .ToListAsync();
+
+            if (comments.Count > 0)
+            {
+                return Ok(comments);
             }
-            catch
+            else
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving comments from the database");
@@ -33,18 +36,18 @@ namespace BlogApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Comment>> PostComment([FromBody] Comment c)
+        public async Task<ActionResult<Comment>> PostComment([FromBody] Comment comment)
         {
 
-            try
+            if (comment is not null)
             {
-                c.Article = default;
-                var newComment = await blogAppDbContext.Comments.AddAsync(c);
+                comment.Article = default;
+                var newComment = await blogAppDbContext.Comments.AddAsync(comment);
                 await blogAppDbContext.SaveChangesAsync();
 
                 return Ok(await blogAppDbContext.Comments.FirstOrDefaultAsync(c => c.Id == newComment.Entity.Id));
             }
-            catch
+            else
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                         "Error occured during posting comment");

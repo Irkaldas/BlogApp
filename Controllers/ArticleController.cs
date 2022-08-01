@@ -24,4 +24,39 @@ public class ArticleController : ControllerBase
     {
         return Ok(await blogAppDbContext.Articles.FindAsync(id));
     }
+
+
+
+    [HttpPost]
+    public async Task<ActionResult<string>> AddArticleToFavorites([FromBody] Favorite favorite)
+    {
+        await blogAppDbContext.Favorites.AddAsync(favorite);
+        try
+        {
+            await blogAppDbContext.SaveChangesAsync();
+
+            return Ok("Item added successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Couldn't add item.");
+        }
+
+    }
+    [HttpPost]
+    public async Task<ActionResult<string>> DeleteArticleFromFavorites(Favorite favorite)
+    {
+        await blogAppDbContext.Favorites.AddAsync(favorite);
+        try
+        {
+            await blogAppDbContext.SaveChangesAsync();
+
+            return Ok("Item removed successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Couldn't remove item.");
+        }
+
+    }
 }

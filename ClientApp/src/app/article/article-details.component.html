@@ -3,6 +3,9 @@
         <h1>{{article.title | titlecase}}</h1>
         <p>{{article.body | titlecase}}</p>
         <h4>{{article.id}}</h4>
+        <button mat-icon-button (click)="addArticleToFavorites(article.id)">
+            <mat-icon>favorite</mat-icon>
+        </button>
     </ng-container>
     <ng-template #loading>
         <div>Loading article...</div>

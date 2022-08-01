@@ -3,6 +3,7 @@ import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Article } from "../model/article.model";
+import { Favorite } from "../model/favorite.model";
 
 export const REST_URL = new InjectionToken("rest_url");
 
@@ -20,6 +21,10 @@ export class ArticlesService {
 
     GetArticle(articleId: number): Observable<Article> {
         return this.SendRequest<Article>("GET", `${this.url}/article/${articleId}`);
+    }
+
+    AddArticleToFavorites(favorite: Favorite): Observable<Favorite | string> {
+        return this.SendRequest<Favorite | string>("POST", `$`)
     }
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
