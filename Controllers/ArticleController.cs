@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BlogApp.Model;
+using Microsoft.EntityFrameworkCore;
 namespace BlogApp.Controllers;
 
 [ApiController]
@@ -25,37 +26,39 @@ public class ArticleController : ControllerBase
         return Ok(await blogAppDbContext.Articles.FindAsync(id));
     }
 
-
+    [HttpGet]
+    public IEnumerable<Favorite> GetFavorites()
+    {
+        return blogAppDbContext.Favorites;
+    }
 
     [HttpPost]
     public async Task<ActionResult<string>> AddArticleToFavorites([FromBody] Favorite favorite)
     {
-        await blogAppDbContext.Favorites.AddAsync(favorite);
+        var newFavorite = await blogAppDbContext.Favorites.AddAsync(favorite);
         try
         {
             await blogAppDbContext.SaveChangesAsync();
-
-            return Ok("Item added successfully");
+            return Ok(await blogAppDbContext.Favorites.FirstOrDefaultAsync(f => f.Id == newFavorite.Entity.Id));
         }
         catch (Exception ex)
         {
-            return BadRequest("Couldn't add item.");
+            return BadRequest();
         }
 
     }
     [HttpPost]
     public async Task<ActionResult<string>> DeleteArticleFromFavorites(Favorite favorite)
     {
-        await blogAppDbContext.Favorites.AddAsync(favorite);
+        blogAppDbContext.Favorites.Remove(favorite);
         try
         {
             await blogAppDbContext.SaveChangesAsync();
-
-            return Ok("Item removed successfully");
+            return Ok();
         }
         catch (Exception ex)
         {
-            return BadRequest("Couldn't remove item.");
+            return BadRequest();
         }
 
     }

@@ -16,6 +16,20 @@ export const loadArticlesFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadFavoriteArticles = createAction(
+  '[Article] Load Favorite Articles'
+);
+
+export const loadFavoriteArticlesSuccess = createAction(
+  '[Article] Load Favorite Articles Success',
+  props<{ favorites: Favorite[] }>()
+);
+
+export const loadFavoriteArticlesFailure = createAction(
+  '[Article] Load Favorite Articles Failure',
+  props<{ error: any }>()
+);
+
 export const addArticleToFavorites = createAction(
   '[Article] Add Article to Favorites',
   props<{ favorite: Favorite }>()
