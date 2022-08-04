@@ -8,7 +8,7 @@ import { Favorite } from '../model/favorite.model';
 import { ArticlesService } from '../services/articles.service';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
 import { AppState } from '../store/app.state';
-import { addArticleToFavorites } from '../store/article/article.actions';
+import { addArticleToFavorites } from '../store/favorite/favorite.actions';
 import { selectUserData, selectUserStatus } from '../store/user/user.selectors';
 
 @Component({
@@ -23,13 +23,16 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   public article$: BehaviorSubject<Article> = new BehaviorSubject<Article>(new Article());
+  public isFavorite$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private articleSubscribtion: Subscription = new Subscription();
   private user$ = this.store.select(selectUserData);
+
   ngOnInit(): void {
     this.articleSubscribtion.add(this.activeRoute.data.subscribe((data: any) => {
       this.article$.next(data['model']);
     }));
+
   }
 
   addArticleToFavorites(id: number | undefined): void {
