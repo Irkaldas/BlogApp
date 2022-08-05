@@ -25,41 +25,4 @@ public class ArticleController : ControllerBase
     {
         return Ok(await blogAppDbContext.Articles.FindAsync(id));
     }
-
-    [HttpGet]
-    public IEnumerable<Favorite> GetFavorites()
-    {
-        return blogAppDbContext.Favorites;
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<string>> AddArticleToFavorites([FromBody] Favorite favorite)
-    {
-        var newFavorite = await blogAppDbContext.Favorites.AddAsync(favorite);
-        try
-        {
-            await blogAppDbContext.SaveChangesAsync();
-            return Ok(await blogAppDbContext.Favorites.FirstOrDefaultAsync(f => f.Id == newFavorite.Entity.Id));
-        }
-        catch (Exception ex)
-        {
-            return BadRequest();
-        }
-
-    }
-    [HttpPost]
-    public async Task<ActionResult<string>> DeleteArticleFromFavorites(Favorite favorite)
-    {
-        blogAppDbContext.Favorites.Remove(favorite);
-        try
-        {
-            await blogAppDbContext.SaveChangesAsync();
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest();
-        }
-
-    }
 }

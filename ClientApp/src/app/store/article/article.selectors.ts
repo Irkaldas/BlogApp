@@ -9,14 +9,5 @@ export const selectArticles = createSelector(
     (state: ArticlesState) => state.articles
 )
 
-export const selectFavoriteArticles = createSelector(
-    selectArticlesState,
-    (state: ArticlesState) => state.favorites
-)
-
-export const selectFavoriteArticleById = (articleId: number) => createSelector(
-    selectArticlesState,
-    (state: ArticlesState) => state.favorites.find(f => f.articleId == articleId)
-)
 
 

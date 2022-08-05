@@ -4,6 +4,7 @@ import { CommentsService } from './comments.service';
 import { AuthService } from './auth.service';
 import { ArticlesService } from './articles.service';
 import { REST_URL } from './articles.service';
+import { FavoritesService } from './favorites.service';
 
 @NgModule({
   declarations: [],
@@ -14,6 +15,7 @@ import { REST_URL } from './articles.service';
     AuthService,
     CommentsService,
     ArticlesService,
+    FavoritesService,
     { provide: REST_URL, useValue: `https://localhost:7095/api` }
   ]
 })

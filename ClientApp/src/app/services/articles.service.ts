@@ -23,14 +23,6 @@ export class ArticlesService {
         return this.SendRequest<Article>("GET", `${this.url}/article/${articleId}`);
     }
 
-    GetFavoriteArticles(): Observable<Favorite[]> {
-        return this.SendRequest<Favorite[]>("GET", `${this.url}/`)
-    }
-
-    AddArticleToFavorites(favorite: Favorite): Observable<Favorite> {
-        return this.SendRequest<Favorite>("POST", `$`);
-    }
-
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
         return this.http.request<T>(method, url, {
             body: body

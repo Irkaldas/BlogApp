@@ -13,17 +13,17 @@ export class ArticleComponent {
 
   constructor(private authService: AuthService, private store: Store<AppState>) { }
 
+  @Input()
+  article: Article = new Article();
+
   public isLoggedIn$ = false;
   public isfavorite: boolean = false;
   public icon: string = "favorite_outline";
+
 
   addToFavorites(): void {
     this.isfavorite = !this.isfavorite;
     this.icon = this.isfavorite ? "favorite" : "favorite_outline";
     console.log(this.isfavorite)
   }
-
-  @Input()
-  article: Article = new Article();
-
 }

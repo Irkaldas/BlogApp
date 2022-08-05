@@ -8,7 +8,8 @@ import { Favorite } from '../model/favorite.model';
 import { ArticlesService } from '../services/articles.service';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
 import { AppState } from '../store/app.state';
-import { addArticleToFavorites } from '../store/favorite/favorite.actions';
+import { addArticleToFavorites, removeArticleFromFavorites } from '../store/favorite/favorite.actions';
+import { selectFavoriteById } from '../store/favorite/favorite.selectors';
 import { selectUserData, selectUserStatus } from '../store/user/user.selectors';
 
 @Component({
@@ -23,10 +24,11 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   public article$: BehaviorSubject<Article> = new BehaviorSubject<Article>(new Article());
-  public isFavorite$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isFavorite$ = this.store.select(selectFavoriteById(this.activeRoute.snapshot.params["id"]));
+  public isLoggedIn$ = this.store.select(selectUserStatus);
 
   private articleSubscribtion: Subscription = new Subscription();
-  private user$ = this.store.select(selectUserData);
+
 
   ngOnInit(): void {
     this.articleSubscribtion.add(this.activeRoute.data.subscribe((data: any) => {
@@ -49,7 +51,19 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
       this.snackBar.openFromComponent(SnackBarComponent, {
         duration: 5 * 1000,
         data: { message: "Couldn't add item to favorite list.", err: true }
-      })
+      });
+    }
+  }
+
+  removeArticleFromFavorites(id: number | undefined): void {
+    if (id != null) {
+      this.store.dispatch(removeArticleFromFavorites({ id: id }));
+    }
+    else {
+      this.snackBar.openFromComponent(SnackBarComponent, {
+        duration: 5 * 1000,
+        data: { message: "Couldn't remove item from favorite list.", err: true }
+      });
     }
   }
 
