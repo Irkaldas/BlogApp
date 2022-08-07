@@ -9,9 +9,9 @@ using BlogApp.Model;
 
 namespace BlogApp.Controllers
 {
-    [Route("[controller]")]
-    [Authorize]
-    public class FavoriteController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class FavoriteController : ControllerBase
     {
         private BlogAppDbContext blogAppDbContext;
         public FavoriteController(BlogAppDbContext blogAppDbContext)
@@ -25,26 +25,31 @@ namespace BlogApp.Controllers
             return blogAppDbContext.Favorites;
         }
 
-        [HttpPost]
-        [Route("favorite/add")]
-        public async Task<ActionResult<string>> AddArticleToFavorites([FromBody] Favorite favorite)
+        [HttpPost("add")]
+        public async Task<ActionResult<Favorite>> AddArticleToFavorites([FromBody] Favorite favorite)
         {
-            var newFavorite = await blogAppDbContext.Favorites.AddAsync(favorite);
-            try
+
+            if (favorite is not null)
             {
+                favorite.Id = default;
+                favorite.Article = default;
+                favorite.ArticleId = 1;
+                favorite.UserId = "7b98cad3-d905-4a06-862a-9efffbd2e74e";
+                var newFavorite = await blogAppDbContext.Favorites.AddAsync(favorite);
                 await blogAppDbContext.SaveChangesAsync();
                 return Ok(await blogAppDbContext.Favorites.FirstOrDefaultAsync(f => f.Id == newFavorite.Entity.Id));
             }
-            catch (Exception ex)
+            else
             {
-                return BadRequest();
+                return BadRequest("Błąd błąd");
             }
+
 
         }
 
         [HttpPost]
-        [Route("favorite/remove/{id?}")]
-        public async Task<ActionResult<string>> RemoveArticleFromFavorites(long id)
+        [Route("remove/{id?}")]
+        public async Task<ActionResult> RemoveArticleFromFavorites(long id)
         {
             Favorite newFavorite = new Favorite() { Id = id };
             blogAppDbContext.Favorites.Remove(newFavorite);
@@ -55,7 +60,7 @@ namespace BlogApp.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
 
         }
