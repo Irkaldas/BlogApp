@@ -7,7 +7,7 @@ namespace BlogApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentController : Controller
+    public class CommentController : ControllerBase
     {
         private BlogAppDbContext blogAppDbContext;
         public CommentController(BlogAppDbContext blogAppDbContext)

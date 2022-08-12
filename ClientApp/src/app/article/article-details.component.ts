@@ -9,7 +9,7 @@ import { ArticlesService } from '../services/articles.service';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
 import { AppState } from '../store/app.state';
 import { addArticleToFavorites, removeArticleFromFavorites } from '../store/favorite/favorite.actions';
-import { selectFavoriteById } from '../store/favorite/favorite.selectors';
+import { selectIsFavorite } from '../store/favorite/favorite.selectors';
 import { selectUserData, selectUserStatus } from '../store/user/user.selectors';
 
 @Component({
@@ -24,7 +24,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar) { }
 
   public article$: BehaviorSubject<Article> = new BehaviorSubject<Article>(new Article());
-  public isFavorite$ = this.store.select(selectFavoriteById(this.activeRoute.snapshot.params["id"]));
+  public isFavorite$ = this.store.select(selectIsFavorite(this.activeRoute.snapshot.params["id"]));
   public isLoggedIn$ = this.store.select(selectUserStatus);
 
   private articleSubscribtion: Subscription = new Subscription();
@@ -43,8 +43,8 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     this.articleSubscribtion.add(this.store.select(selectUserData).subscribe((user) =>
       newFavorite.userId = user?.id
     ));
-
-    if (newFavorite.id != null && newFavorite.userId != null) {
+    console.log(newFavorite);
+    if (newFavorite.articleId != null && newFavorite.userId != null) {
       this.store.dispatch(addArticleToFavorites({ favorite: newFavorite }));
     }
     else {

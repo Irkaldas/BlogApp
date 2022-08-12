@@ -8,7 +8,7 @@ export const selectFavorites = createSelector(
     (state: FavoritesState) => state.favorites
 );
 
-export const selectFavoriteById = (articleId: number) => createSelector(
+export const selectIsFavorite = (articleId: number) => createSelector(
     selectAllFavorites,
-    (state: FavoritesState) => state.favorites.find(f => f.articleId == articleId)
+    (state: FavoritesState) => state.favorites.find(f => f.articleId == articleId) ? true : false
 );

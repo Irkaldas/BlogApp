@@ -17,11 +17,12 @@ export class FavoritesService {
     }
 
     AddArticleToFavorites(favorite: Favorite): Observable<Favorite> {
-        return this.SendRequest<Favorite>("POST", `$`);
+        console.log("service favorite");
+        return this.SendRequest<Favorite>("POST", `${this.url}/favorite/add`, favorite);
     }
 
     RemoveArticleFromFavorites(id: number): Observable<any> {
-        return this.SendRequest<any>("POST", `$`);
+        return this.SendRequest<any>("POST", `${this.url}/favorite/remove/${id}`);
     }
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {

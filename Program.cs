@@ -75,10 +75,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCors();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{id:long?}");
+app.UseEndpoints(routes =>
+                {
+                    routes.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller}/{id:long?}");
+                    routes.MapControllerRoute(
+                        name: "favorite",
+                        pattern: "{controller}/add"
+                    );
+                });
 
 app.MapFallbackToFile("index.html"); ;
 

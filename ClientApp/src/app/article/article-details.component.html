@@ -4,7 +4,7 @@
         <p>{{article.body | titlecase}}</p>
         <h4>{{article.id}}</h4>
         <ng-container *ngIf="isLoggedIn$ | async">
-            <ng-container *ngIf="isFavorite$ | async; else notFavorite">
+            <ng-container *ngIf="!(isFavorite$ | async); else notFavorite">
                 <button mat-icon-button (click)="addArticleToFavorites(article.id)">
                     <mat-icon>favorite_outline</mat-icon>
                 </button>

@@ -13,7 +13,7 @@ namespace BlogApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;

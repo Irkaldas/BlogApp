@@ -37,8 +37,10 @@ export class FavoriteEffects {
   addArticleToFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addArticleToFavorites),
-      switchMap((actionParameter) =>
-        this.favoritesService.AddArticleToFavorites(actionParameter.favorite)
+      switchMap((actionParameter) => {
+        console.log("addArticleToFavorites$");
+        console.log(actionParameter.favorite);
+        return this.favoritesService.AddArticleToFavorites(actionParameter.favorite)
           .pipe(
             map((favorite) => {
               this.openCommentSnackBar("Item added succefully!", false);
@@ -48,7 +50,9 @@ export class FavoriteEffects {
               this.openCommentSnackBar("Coulnd't add item.", true);
               return of(addArticleToFavoritesFailure({ error: error }));
             })
-          ))
+          )
+      }
+      )
     );
   });
 
