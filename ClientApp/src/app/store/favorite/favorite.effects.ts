@@ -20,8 +20,8 @@ export class FavoriteEffects {
   loadFavoritesArticles$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadFavorites),
-      switchMap(() =>
-        this.favoritesService.GetFavorites()
+      switchMap((actionParameter) =>
+        this.favoritesService.GetFavorites(actionParameter.userId)
           .pipe(
             map((favorites) => {
               console.log(favorites);

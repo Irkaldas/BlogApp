@@ -25,7 +25,7 @@ export class NavBarComponent {
   public isLoggedIn$ = this.store.select(selectUserStatus);
   public showSearchBar: boolean = false;
   public navBarOptions = [
-    { nav: "Favorite articles", icon: "favorite", route: "favorites" },
+    { nav: "Favorite articles", icon: "favorite", route: "favorite" },
     { nav: "Followed users", icon: "supervised_user_circle", route: "followed" },
     { nav: "My profile", icon: "account_circle", route: "profile" },
     { nav: "Create article", icon: "article", route: "crateArticle" }

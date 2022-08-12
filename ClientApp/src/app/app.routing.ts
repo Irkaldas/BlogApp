@@ -7,10 +7,10 @@ import { NavBarComponent } from "./nav-bar/nav-bar.component";
 
 const childRoutes: Routes = [
     {
-        path: "", component: ArticlesComponent, data: { viewOption: "all" }
+        path: "", component: ArticlesComponent
     },
     {
-        path: "favorites", component: ArticlesComponent, data: { viewOption: "favorites" }
+        path: "favorite", component: FavoritesComponent
     },
     {
         path: "article/:id", component: ArticleDetailsComponent, resolve: { model: ArticleResolverResolver }

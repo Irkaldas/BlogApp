@@ -5,6 +5,7 @@ import { ArticleModule } from '../article/article.module';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
+import { FavoriteModule } from '../store/favorite/favorite.module';
 
 
 
@@ -16,6 +17,7 @@ import { AuthModule } from '../auth/auth.module';
     MaterialModule,
     RouterModule,
     AuthModule,
+    FavoriteModule
   ],
   exports: [NavBarComponent]
 })

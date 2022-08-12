@@ -12,12 +12,11 @@ export class FavoritesService {
         private http: HttpClient
     ) { }
 
-    GetFavorites(): Observable<Favorite[]> {
-        return this.SendRequest<Favorite[]>("GET", `${this.url}/`)
+    GetFavorites(userId: string): Observable<Favorite[]> {
+        return this.http.request<Favorite[]>("GET", `${this.url}`, { body: userId })
     }
 
     AddArticleToFavorites(favorite: Favorite): Observable<Favorite> {
-        console.log("service favorite");
         return this.SendRequest<Favorite>("POST", `${this.url}/favorite/add`, favorite);
     }
 

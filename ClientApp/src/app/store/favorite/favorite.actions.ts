@@ -2,7 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { Favorite } from 'src/app/model/favorite.model';
 
 export const loadFavorites = createAction(
-  '[Article] Load Favorites'
+  '[Article] Load Favorites',
+  props<{ userId: string }>()
 );
 
 export const loadFavoritesSuccess = createAction(

@@ -35,7 +35,6 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<Comment>> PostComment([FromBody] Comment comment)
         {
 

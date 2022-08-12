@@ -20,9 +20,9 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Favorite> GetFavorites()
+        public IEnumerable<Favorite> GetFavorites([FromBody] string UserId)
         {
-            return blogAppDbContext.Favorites;
+            return blogAppDbContext.Favorites.Where(f => f.UserId == UserId);
         }
 
         [HttpPost("add")]
@@ -33,8 +33,6 @@ namespace BlogApp.Controllers
             {
                 favorite.Id = default;
                 favorite.Article = default;
-                favorite.ArticleId = 1;
-                favorite.UserId = "7b98cad3-d905-4a06-862a-9efffbd2e74e";
                 var newFavorite = await blogAppDbContext.Favorites.AddAsync(favorite);
                 await blogAppDbContext.SaveChangesAsync();
                 return Ok(await blogAppDbContext.Favorites.FirstOrDefaultAsync(f => f.Id == newFavorite.Entity.Id));
