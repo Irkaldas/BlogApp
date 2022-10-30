@@ -13,11 +13,21 @@ import { ServicesModule } from './services/services.module';
 import { StateModule } from './store/state.module';
 import { SnackBarComponent } from './shared/snack-bar/snack-bar.component';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { httpInterceptorProviders } from './shared/interceptors/interceptors.index';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { ArticleModule } from './store/article/article.module';
+import { DialogComponent } from './shared/dialog/dialog.component';
+import { DialogService } from './shared/dialog/dialog.service';
+import { DialogContentAnchorDirective } from './shared/dialog/dialog-content-anchor.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    DialogComponent,
+    DialogContentAnchorDirective
   ],
   imports: [
     BrowserModule,
@@ -25,12 +35,17 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NavBarModule,
+    ArticleModule,
     StateModule,
     ServicesModule,
     routing,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
-  providers: [ArticleResolverResolver, { provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+  providers: [
+    ArticleResolverResolver, DialogService,
+    { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,26 +1,41 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Comment } from '../model/comment.model';
+import { AppFormControl, AppFormGroup } from '../shared/app-form/app-form';
 import { AppState } from '../store/app.state';
-import { addComment } from '../store/comment/comment.actions';
+import { commentsActions } from '../store/comment/comment.actions';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentFormComponent {
+export class CommentFormComponent implements OnInit {
+
   constructor(
     private actieveRoute: ActivatedRoute,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>
+  ) { }
 
-  private newComment: Comment = new Comment();
-
-  public commentFormGroup: CommentFormGroup = new CommentFormGroup();
+  public commentFormGroup: AppFormGroup = new AppFormGroup({});
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
+
+  private newComment: Comment = {};
+
+  ngOnInit(): void {
+    this.commentFormGroup = new AppFormGroup({
+      body: new AppFormControl("Body", "body", "",
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(this.minCharacters),
+          Validators.maxLength(this.maxCharacters)
+        ]))
+    })
+  }
 
   submitComment(): void {
     if (this.commentFormGroup.valid) {
@@ -30,60 +45,15 @@ export class CommentFormComponent {
         downVotes: 0,
         upVotes: 0,
       }
+
       Object.keys(this.commentFormGroup.controls)
         .forEach(c => {
           this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value;
         });
-      this.store.dispatch(addComment({ comment: this.newComment }));
-      this.newComment = new Comment();
+
+      this.store.dispatch(commentsActions.add({ comment: this.newComment }));
+      this.newComment = {};
       this.commentFormGroup.reset();
     }
   }
-}
-
-class CommentFormControl extends FormControl {
-  public label: string;
-  public modelProperty: string;
-
-  constructor(label: string, property: string, value: any, validator: any) {
-    super(value, validator);
-    this.label = label;
-    this.modelProperty = property;
-  }
-
-  getCommentValidatorMessages() {
-    let errorMessages: string[] = [];
-    if (this.errors) {
-      for (let error in this.errors) {
-        switch (error) {
-          case "required":
-            errorMessages.push(`Add text to post a comment.`);
-            break;
-          case "minlength":
-            errorMessages.push(`Comment must be at least 
-              ${this.errors['minlength'].requiredLength} characters long.`);
-            break;
-        }
-      }
-    }
-    return errorMessages;
-  }
-}
-
-class CommentFormGroup extends FormGroup {
-  constructor() {
-    super({
-      body: new CommentFormControl("Body", "body", "",
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(5)
-        ])),
-    });
-  }
-
-  getCommentValidatorMessages(name: string): string[] {
-    return (this.controls[name] as CommentFormControl).getCommentValidatorMessages();
-  }
-
-
 }

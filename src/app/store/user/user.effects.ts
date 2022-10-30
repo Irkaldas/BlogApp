@@ -1,43 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { from, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { catchError, map, switchMap, tap, exhaustMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { loginUser, loginUserFailure, loginUserSuccess, logoutUser } from './user.actions';
-
-
+import { AppState } from '../app.state';
+import { favoritesActions } from '../favorite/favorite.actions';
+import { userActions } from './user.actions';
 
 @Injectable()
 export class UserEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService
-  ) { }
+    constructor(
+        private actions$: Actions,
+        private authService: AuthService,
+        private store: Store<AppState>
+    ) { }
 
-  loginUser$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loginUser),
-      switchMap((actionParameter) =>
-        this.authService.Login(actionParameter.user)
-          .pipe(
-            tap((res: any) => {
-              localStorage.setItem("accessToken", res.accessToken);
-              this.authService.isLoggedIn$.next(true);
+    loginUser$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(userActions.login),
+            exhaustMap((actionParameter) =>
+                this.authService.Login(actionParameter.user)
+                    .pipe(
+                        map((res: any) =>
+                            userActions.loginSuccess({ user: res.user, authResponse: res.authResponse }),
+                        )
+                    )
+            )
+        )
+    });
+
+    logOutUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(userActions.logout),
+            tap(() => {
+                userActions.logoutSuccess();
             }),
-            map((user) =>
-              loginUserSuccess({ user: user })
-            ),
-            catchError((error) => of(loginUserFailure({ error: error })))
-          )
-      ))
-  })
-
-  logOutUser$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(logoutUser),
-      tap(() => {
-        localStorage.removeItem("accessToken");
-        this.authService.isLoggedIn$.next(false);
-      }),
-    ), { dispatch: false });
+        ), { dispatch: false });
 }

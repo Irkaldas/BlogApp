@@ -3,10 +3,13 @@ import { Inject, Injectable, InjectionToken } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Article } from "../model/article.model";
+import { Favorite } from "../model/favorite.model";
 
 export const REST_URL = new InjectionToken("rest_url");
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ArticlesService {
 
     constructor(
@@ -14,32 +17,18 @@ export class ArticlesService {
         private http: HttpClient
     ) { }
 
-    AddArticle(article: Article): Observable<Article> {
-        return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
-    }
-
     GetArticles(): Observable<Article[]> {
-        return this.SendRequest<Article[]>("GET", `${this.url}/articles`);
+        return this.SendRequest<Article[]>("GET", `${this.url}/article`);
     }
 
     GetArticle(articleId: number): Observable<Article> {
-        return this.SendRequest<Article>("GET", `${this.url}/articles/${articleId}`);
-    }
-
-    UpdateArticle(article: Article) {
-        return this.SendRequest<Article>("PUT", `${this.url}/${article.id}`);
-    }
-
-    DeleteArticle(articleId: number) {
-        return this.SendRequest<Article>("DELETE", `${this.url}/${articleId}`)
+        return this.SendRequest<Article>("GET", `${this.url}/article/${articleId}`);
     }
 
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
         return this.http.request<T>(method, url, {
             body: body
-        })
-            .pipe(catchError((error: Response) =>
-                throwError(`Błąd sieci: ${error.statusText} ${error.status}`)));
+        });
     }
 
 }

@@ -1,4 +1,5 @@
-<div class="articles-cotainer">
-    <app-article *ngFor="let article of articles$ | async; trackBy:getArticleKey" [article]="article">
+<div class="articles-container-grid">
+    <app-article *ngFor="let article of articles$ | async; trackBy:getArticleKey; let i = index" [article]="article"
+        [index]="i+1">
     </app-article>
 </div>

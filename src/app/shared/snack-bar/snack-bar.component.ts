@@ -7,6 +7,10 @@ import { MatSnackBar, MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/materi
   styleUrls: ['./snack-bar.component.scss']
 })
 export class SnackBarComponent {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
-    public snackBarRef: MatSnackBarRef<SnackBarComponent>) { }
+
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA) public data: any,
+    public snackBarRef: MatSnackBarRef<SnackBarComponent>
+  ) { }
+
 }

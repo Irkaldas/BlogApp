@@ -1,0 +1,16 @@
+<form class="log-in-form" novalidate [formGroup]="loginFormGroup" (ngSubmit)="login()">
+    <ng-container *ngFor="let control of loginFormGroup.formControls()">
+        <div class="form-container">
+            <div class="form-content">
+                <label for="{{control.modelProperty}}"
+                    [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
+                <input #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}"
+                    id="{{control.modelProperty}}" required />
+            </div>
+            <div class="form-hint" *ngFor="let error of control.getValidatorMessages()">
+                <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
+            </div>
+        </div>
+    </ng-container>
+    <button class="gradient-btn" type="submit"><a>LOG IN</a></button>
+</form>

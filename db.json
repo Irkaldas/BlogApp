@@ -117,6 +117,22 @@
       "password": "$2a$12$IMUHHydGrdk/excw5UrBBuPDMzKPbdk1S8Sz9.73.XRcARfe1i.fy"
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "id": "1",
+      "articleId": "1",
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "articleId": "2",
+      "userId": "1"
+    },
+    {
+      "id": "3",
+      "articleId": "3",
+      "userId": "2"
+    }
+  ],
   "followed": []
 }

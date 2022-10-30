@@ -1,4 +1,4 @@
-<mat-card>
+<!-- <mat-card>
     <mat-card-header>
         <div mat-card-avatar class="avatar-image"></div>
         <mat-card-title>{{comment.id}}</mat-card-title>
@@ -18,4 +18,25 @@
             {{comment.downVotes}}
         </div>
     </mat-card-actions>
-</mat-card>
+</mat-card> -->
+
+<div class="comment-container">
+    <div class="comment-header">
+        <img class="user-avatar"
+            src="https://as1.ftcdn.net/v2/jpg/01/16/24/44/1000_F_116244459_pywR1e0T3H7FPk3LTMjG6jsL3UchDpht.jpg">
+        <em>by</em>
+        <p class="user-name">Kapitan Bomba</p>
+        <em>on</em>
+        <p class="article-date">20.04.2020</p>
+    </div>
+    <div class="comment-content">{{comment.body}}</div>
+    <div class="comment-actions">
+        <button class="thumb-up">
+            <mat-icon>thumb_up_off_alt</mat-icon>
+            <span>{{comment.upVotes}}</span>
+        </button>
+        <button class="thumb-down">
+            <mat-icon>thumb_down_off_alt</mat-icon>
+            <span>{{comment.downVotes}}</span>
+        </button>
+    </div>

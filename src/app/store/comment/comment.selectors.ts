@@ -1,10 +1,14 @@
-import { createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from '../app.state';
-import { CommentsState } from './comment.reducer';
+import * as fromComments from './comment.reducer';
 
-export const selectComments = (state: AppState) => state.comments;
+export const selectCommentsState = createFeatureSelector<fromComments.CommentsState>('comments');
+
+const {
+    selectAll
+} = fromComments.commentsAdapter.getSelectors();
+
 export const selectAllComments = createSelector(
-    selectComments,
-    (state: CommentsState) => state.comments
-
+    selectCommentsState,
+    selectAll
 )

@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ArticleModule } from './article/article.module';
 import { UserModule } from './user/user.module';
+import { FavoriteModule } from './favorite/favorite.module';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { UserModule } from './user/user.module';
     CommentModule,
     ArticleModule,
     UserModule,
+    FavoriteModule,
   ]
 })
 export class StateModule { }

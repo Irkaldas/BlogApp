@@ -1,18 +1,22 @@
-<form class="register-form" novalidate>
-    <mat-form-field appearance="fill">
-        <mat-label>User name</mat-label>
-        <input matInput placeholder="pat@example.com" required>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="pat@example.com" required>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'">
-        <button mat-icon-button matSuffix (click)="hide = !hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-    </mat-form-field>
-    <button mat-flat-button color="primary" class="full-width">Register</button>
+<form class="register-form" novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
+    <ng-container *ngFor="let control of registerFormGroup.formControls()">
+        <div class="form-container">
+            <div class="form-content">
+                <label for="{{control.modelProperty}}"
+                    [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
+                <input #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}" [type]="hide && 
+                (control.modelProperty == 'password' || control.modelProperty == 'confirmPassword') 
+                ? 'password' : 'text'" id="{{control.modelProperty}}" required />
+                <button class="form-icon-button"
+                    *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
+                    (click)="hide = !hide">
+                    <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+                </button>
+            </div>
+            <div class="form-hint" *ngFor="let error of control.getValidatorMessages()">
+                <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
+            </div>
+        </div>
+    </ng-container>
+    <button class="gradient-btn" type="submit"><a>Register</a></button>
 </form>

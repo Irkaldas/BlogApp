@@ -7,12 +7,18 @@ export const selectUserData = createSelector(
     selectUser,
     (state: UserState) => state.user
 )
-export const selectUserStatus = createSelector(
+export const selectIsUserLoggedIn = createSelector(
     selectUser,
-    (state: UserState) => state.status
+    (state: UserState) => state.user?.isLoggedIn
 )
 
 export const selectUserId = createSelector(
     selectUser,
-    (state: UserState) => state.user.id
+    (state: UserState) => state.user?.id
 )
+
+export const selectUserName = createSelector(
+    selectUser,
+    (state: UserState) => state.user?.fullName
+)
+

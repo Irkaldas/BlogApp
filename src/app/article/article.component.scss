@@ -1,21 +1,164 @@
 .article-card {
-    max-width: 400px;
-    margin: 10px 10px;
+    padding: 70px 90px 70px 50px;
+    height: 100%;
+    margin: 0;
 }
 
-mat-card-content {
-    p {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+.article-card-left {
+    @extend .article-card;
+    padding: 70px 50px 70px 90px;
+}
+
+.article-card-mini {
+    @extend .article-card;
+    padding: 50px;
+
+    transition: all 0.5s ease-in-out;
+    border: 1px solid #E7EBED;
+
+    p:not(.user-name),
+    .gradient-btn,
+    em {
+        display: none;
+    }
+
+    .article-title {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+
+    &:hover {
+        box-shadow: 0 3px 20px 0 rgba(84, 110, 122, 0.1);
+        transform: translateY(-1px);
     }
 }
 
-.avatar-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+.card-top {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    min-height: 70px;
+    width: 100%;
+
+    p {
+        margin: 0px;
+        padding: 0px;
+        font-weight: 500;
+    }
 }
 
-mat-card-title {
-    min-height: 60px;
+.article-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 3rem;
+    margin: 0;
+    transition: 0.25s ease-in-out;
+
+    &:hover {
+        color: dodgerblue;
+    }
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+
+    .tag {
+        color: #546E7A;
+        background-color: #F5F7F8;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+        &:hover {
+            color: #343b3f;
+        }
+    }
+}
+
+.article-title,
+.user-avatar,
+.user-name,
+.tag,
+.gradient-btn,
+.favorite-btn {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.card-bot {
+
+    p {
+        width: 0;
+        min-width: 100%;
+        margin: 5px 5px;
+        min-height: calc(2rem * 4);
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-indent: 1rem;
+        line-height: 2rem;
+    }
+}
+
+.gradient-btn {
+    display: inline-flex;
+    height: 50px;
+    border-radius: 20px;
+    border: double 5px transparent;
+    background-image: linear-gradient(white, white),
+        linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    text-align: center;
+    transition: 0.2s ease-in-out;
+
+    a {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        user-select: none;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 0 50px;
+        margin: auto;
+    }
+
+    &:hover {
+        color: white;
+        background-image: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045),
+            linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+        transform: translateY(-1px);
+    }
+}
+
+.favorite-btn {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-radius: 50%;
+    border: transparent;
+    background-color: transparent;
+}
+
+.spacer {
+    flex: 1 1 auto;
 }

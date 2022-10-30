@@ -1,35 +1,41 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { combineLatest, EMPTY, of } from 'rxjs';
+import { catchError, map, switchMap, filter } from 'rxjs/operators';
 import { ArticlesService } from 'src/app/services/articles.service';
-import { loadCommentsFailure } from '../comment/comment.actions';
-import { loadArticles, loadArticlesSuccess } from './article.actions';
+import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
+import { AppState } from '../app.state';
+import { articlesActions } from './article.actions';
+import { selectHasLoaded } from './article.selectors';
 
 
 
 @Injectable()
 export class ArticleEffects {
-  constructor(private actions$: Actions,
+  constructor(
+    private actions$: Actions,
     private articlesService: ArticlesService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private store: Store<AppState>
+  ) { }
 
-  loadArticles$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loadArticles),
-      switchMap(() => (
-        this.activatedRoute.snapshot.data.viewOption == "favorite"
-          ? this.articlesService.GetArticles()
-          : this.articlesService.GetArticles()
-      ).pipe(
-        map((articles) =>
-          loadArticlesSuccess({ articles: articles })
-        ),
-        catchError((error) => of(loadCommentsFailure({ error: error })))
-      )
-
-      )
+  loadArticles$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(articlesActions.load),
+      concatLatestFrom(() => this.store.select(selectHasLoaded)),
+      filter(([action, hasLoaded]) => !hasLoaded),
+      switchMap(() =>
+        this.articlesService.GetArticles()
+          .pipe(
+            map((articles) =>
+              articlesActions.loadSuccess({ articles: articles })
+            ),
+          )
+      ),
     )
-  })
+  );
 }
