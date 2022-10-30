@@ -8,16 +8,19 @@ import { CommentModule } from '../comment/comment.module';
 import { RouterModule } from '@angular/router';
 import { ArticleFormComponent } from './article-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { FavoritesComponent } from './favorites.component';
+import { } form '@syncfusion'
 @NgModule({
-  declarations: [ArticleComponent, ArticlesComponent, ArticleDetailsComponent, ArticleFormComponent],
+  declarations: [ArticleComponent, ArticlesComponent,
+    ArticleDetailsComponent, ArticleFormComponent, FavoritesComponent],
   imports: [
     CommonModule,
     MaterialModule,
     CommentModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RichTextEditoreModule
   ],
   exports: [ArticlesComponent, ArticleDetailsComponent, ArticleFormComponent]
 })
