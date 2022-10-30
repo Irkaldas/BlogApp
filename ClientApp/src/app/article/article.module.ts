@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ArticleFormComponent } from './article-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites.component';
-import { } form '@syncfusion'
+
 @NgModule({
   declarations: [ArticleComponent, ArticlesComponent,
     ArticleDetailsComponent, ArticleFormComponent, FavoritesComponent],
@@ -20,7 +20,6 @@ import { } form '@syncfusion'
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RichTextEditoreModule
   ],
   exports: [ArticlesComponent, ArticleDetailsComponent, ArticleFormComponent]
 })
