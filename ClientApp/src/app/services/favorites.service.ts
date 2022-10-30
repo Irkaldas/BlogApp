@@ -4,7 +4,9 @@ import { Observable } from "rxjs";
 import { Favorite } from "../model/favorite.model";
 import { REST_URL } from "./articles.service";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FavoritesService {
 
     constructor(
@@ -13,7 +15,7 @@ export class FavoritesService {
     ) { }
 
     GetFavorites(userId: string): Observable<Favorite[]> {
-        return this.http.request<Favorite[]>("GET", `${this.url}`, { body: userId })
+        return this.http.request<Favorite[]>("GET", `${this.url}/favorite?userId=${userId}`);
     }
 
     AddArticleToFavorites(favorite: Favorite): Observable<Favorite> {

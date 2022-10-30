@@ -1,37 +1,41 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { Favorite } from 'src/app/model/favorite.model';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { combineLatest, EMPTY, of } from 'rxjs';
+import { catchError, map, switchMap, filter } from 'rxjs/operators';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
-import { loadCommentsFailure } from '../comment/comment.actions';
-import { loadArticles, loadArticlesSuccess } from './article.actions';
+import { AppState } from '../app.state';
+import { articlesActions } from './article.actions';
+import { selectHasLoaded } from './article.selectors';
 
 
 
 @Injectable()
 export class ArticleEffects {
-  constructor(private actions$: Actions,
+  constructor(
+    private actions$: Actions,
     private articlesService: ArticlesService,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private store: Store<AppState>
+  ) { }
 
-  loadArticles$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loadArticles),
+  loadArticles$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(articlesActions.load),
+      concatLatestFrom(() => this.store.select(selectHasLoaded)),
+      filter(([action, hasLoaded]) => !hasLoaded),
       switchMap(() =>
         this.articlesService.GetArticles()
           .pipe(
-            map((articles) => {
-              console.log(articles);
-              return loadArticlesSuccess({ articles: articles });
-            }
+            map((articles) =>
+              articlesActions.loadSuccess({ articles: articles })
             ),
-            catchError((error) => of(loadCommentsFailure({ error: error })))
-          )),
+          )
+      ),
     )
-  });
+  );
 }

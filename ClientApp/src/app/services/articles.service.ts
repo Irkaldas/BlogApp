@@ -7,7 +7,9 @@ import { Favorite } from "../model/favorite.model";
 
 export const REST_URL = new InjectionToken("rest_url");
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ArticlesService {
 
     constructor(

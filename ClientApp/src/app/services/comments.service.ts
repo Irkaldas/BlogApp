@@ -5,7 +5,9 @@ import { catchError } from "rxjs/operators";
 import { Comment } from "../model/comment.model";
 import { REST_URL } from "./articles.service";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class CommentsService {
 
     constructor(

@@ -1,35 +1,28 @@
+import { state } from '@angular/animations';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 import { Favorite } from 'src/app/model/favorite.model';
-import { addArticleToFavoritesFailure, addArticleToFavoritesSuccess, loadFavorites, loadFavoritesSuccess } from './favorite.actions';
+import { favoritesActions } from './favorite.actions';
 
 
-export const favoriteFeatureKey = 'favorite';
+export const favoriteFeatureKey = 'favorites';
 
-export interface FavoritesState {
-  favorites: Favorite[]
+export interface FavoritesState extends EntityState<Favorite> {
 }
 
-export const initialState: FavoritesState = {
-  favorites: []
-};
+export const favoritesAdapter: EntityAdapter<Favorite> = createEntityAdapter<Favorite>();
+
+export const initialFavoritesState: FavoritesState = favoritesAdapter.getInitialState();
 
 export const reducer = createReducer(
-  initialState,
-  on(loadFavorites, (state) => ({
-    ...state,
-  })),
-  on(loadFavoritesSuccess, (state, { favorites }) => ({
-    ...state,
-    favorites: [...favorites]
-  })),
-  on(addArticleToFavoritesSuccess, (state, { favorite }) => ({
-    ...state,
-    favorites: [...state.favorites, favorite],
-    status: 'success'
-  })),
-  on(addArticleToFavoritesFailure, (state, { error }) => ({
-    ...state,
-    error: error,
-    status: 'error'
-  }))
+  initialFavoritesState,
+  on(favoritesActions.loadSuccess, (state, { favorites }) =>
+    favoritesAdapter.setAll(favorites, state)
+  ),
+  on(favoritesActions.addSuccess, (state, { favorite }) =>
+    favoritesAdapter.addOne(favorite, state)
+  ),
+  on(favoritesActions.removeSuccess, (state, { favoriteId }) =>
+    favoritesAdapter.removeOne(favoriteId, state)
+  )
 );

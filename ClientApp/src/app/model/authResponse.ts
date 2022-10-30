@@ -1,7 +1,5 @@
-export class AuthResponse {
-    constructor(
-        public isAuthSuccessful?: boolean,
-        public errorMessage?: string,
-        public token?: string
-    ) { }
+export interface AuthResponse {
+    isAuthSuccessful?: boolean;
+    errorMessage?: string;
+    token?: string
 }

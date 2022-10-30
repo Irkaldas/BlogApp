@@ -20,7 +20,7 @@ namespace BlogApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Favorite> GetFavorites([FromBody] string UserId)
+        public IEnumerable<Favorite> GetFavorites([FromQuery] string UserId)
         {
             return blogAppDbContext.Favorites.Where(f => f.UserId == UserId);
         }
@@ -39,7 +39,7 @@ namespace BlogApp.Controllers
             }
             else
             {
-                return BadRequest("Błąd błąd");
+                return BadRequest();
             }
 
 
@@ -49,7 +49,14 @@ namespace BlogApp.Controllers
         [Route("remove/{id?}")]
         public async Task<ActionResult> RemoveArticleFromFavorites(long id)
         {
-            Favorite newFavorite = new Favorite() { Id = id };
+            Favorite newFavorite = new Favorite()
+            {
+                Id = id,
+                ArticleId = default,
+                Article = default,
+                UserId = default
+            };
+
             blogAppDbContext.Favorites.Remove(newFavorite);
             try
             {

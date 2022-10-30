@@ -1,16 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Comment } from 'src/app/model/comment.model';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentComponent {
+export class CommentComponent implements DoCheck {
 
   constructor() { }
 
   @Input()
-  public comment: Comment = new Comment();
+  public comment: Comment = {};
+
+  ngDoCheck(): void {
+    console.log(`CHECK TRIGGERED FOR COMMENT WITH ID${this.comment.id}`);
+  }
 
 }

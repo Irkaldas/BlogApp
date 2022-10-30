@@ -5,9 +5,7 @@ export class AppFormGroup extends FormGroup {
     constructor(
         controls: { [key: string]: AppFormControl },
         validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null
-    ) {
-        super(controls, validatorOrOpts);
-    }
+    ) { super(controls, validatorOrOpts); }
 
     formControls(): AppFormControl[] {
         return Object.keys(this.controls)
@@ -21,7 +19,10 @@ export class AppFormGroup extends FormGroup {
 
 export class AppFormControl extends FormControl {
 
-    constructor(label: string, property: string, value: any, validator: any) {
+    constructor(
+        label: string, property: string,
+        value: any, validator: any
+    ) {
         super(value, validator);
         this.label = label;
         this.modelProperty = property;

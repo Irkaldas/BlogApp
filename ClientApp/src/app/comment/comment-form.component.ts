@@ -1,28 +1,30 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Comment } from '../model/comment.model';
 import { AppFormControl, AppFormGroup } from '../shared/app-form/app-form';
 import { AppState } from '../store/app.state';
-import { addComment } from '../store/comment/comment.actions';
+import { commentsActions } from '../store/comment/comment.actions';
 
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
   styleUrls: ['./comment-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommentFormComponent implements OnInit {
 
   constructor(
     private actieveRoute: ActivatedRoute,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>
+  ) { }
 
   public commentFormGroup: AppFormGroup = new AppFormGroup({});
   public maxCharacters: number = 200;
   public minCharacters: number = 5;
 
-  private newComment: Comment = new Comment();
+  private newComment: Comment = {};
 
   ngOnInit(): void {
     this.commentFormGroup = new AppFormGroup({
@@ -49,8 +51,8 @@ export class CommentFormComponent implements OnInit {
           this.newComment[c as keyof Comment] = this.commentFormGroup.controls[c].value;
         });
 
-      this.store.dispatch(addComment({ comment: this.newComment }));
-      this.newComment = new Comment();
+      this.store.dispatch(commentsActions.add({ comment: this.newComment }));
+      this.newComment = {};
       this.commentFormGroup.reset();
     }
   }

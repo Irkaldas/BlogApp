@@ -1,8 +1,7 @@
-.dialog-container {
+.content-container {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    max-width: 80%;
+    padding: 50px 100px;
 }
 
 a {
@@ -11,4 +10,15 @@ a {
     &:hover {
         color: #673ab7;
     }
+}
+
+.content-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.spacer {
+    flex: 1 1 auto;
 }

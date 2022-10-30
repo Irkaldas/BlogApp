@@ -1,0 +1,4 @@
+<div class="articles-cotainer">
+    <app-article *ngFor="let article of favoriteArticles$ | async; trackBy:getArticleKey" [article]="article">
+    </app-article>
+</div>

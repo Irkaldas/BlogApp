@@ -1,8 +1,6 @@
-export class Article {
-    constructor(
-        public id?: number,
-        public title?: string,
-        public body?: string,
-        public userId?: number, //FK
-    ) { }
+export interface Article {
+    id?: number;
+    title?: string;
+    body?: string;
+    userId?: number, //FK
 }

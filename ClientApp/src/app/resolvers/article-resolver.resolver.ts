@@ -12,7 +12,11 @@ import { ArticlesService } from '../services/articles.service';
   providedIn: 'root'
 })
 export class ArticleResolverResolver implements Resolve<any> {
-  constructor(private articlesService: ArticlesService, private router: Router) { }
+
+  constructor(
+    private articlesService: ArticlesService,
+    private router: Router
+  ) { }
 
   resolve(activatedRouteSnapshot: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return this.articlesService.GetArticle(activatedRouteSnapshot.params['id']).pipe(

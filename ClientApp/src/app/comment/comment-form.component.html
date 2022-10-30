@@ -5,14 +5,17 @@
             {{error}}
         </li>
     </ul>
-    <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Leave a comment</mat-label>
-        <textarea matInput #commentarea maxlength="200" name="Body" placeholder="Ex. It makes me feel..."
+    <div class="comment-form-input">
+        <label for="comment" [ngClass]="commentarea.value?.length ? '' : 'isEmpty'">Leave a comment...</label>
+        <textarea id="comment" #commentarea maxlength="200" name="Body" placeholder="Ex. It makes me feel..."
             formControlName="body"></textarea>
-        <mat-hint align="end">{{commentarea.value?.length || 0}}/{{maxCharacters}}</mat-hint>
-    </mat-form-field>
-
-    <button mat-flat-button color="primary" type="submit"
-        [disabled]="(commentarea.value?.length || 0) < minCharacters">Post comment</button>
-    <button mat-flat-button color="primary" type="reset">Cancel</button>
+        <div class="form-hint">
+            <span class="toolbar-spacer"></span>
+            <span>{{commentarea.value?.length || 0}}/{{maxCharacters}}</span>
+        </div>
+    </div>
+    <button class="gradient-btn" type="submit" [disabled]="(commentarea.value?.length || 0) < minCharacters">
+        Post comment
+    </button>
+    <button class="gradient-btn" type="reset">Cancel</button>
 </form>

@@ -1,4 +1,4 @@
-<mat-sidenav-container [hasBackdrop]="true" autosize="true" fullscreen>
+<!-- <mat-sidenav-container [hasBackdrop]="true" autosize="true" fullscreen>
     <mat-sidenav #sidenav mode="over" fixedInViewport="true" autoFocus="false">
         <mat-toolbar color="primary">
             Menu
@@ -30,8 +30,8 @@
                 <button mat-button (click)="showSearchBar=!showSearchBar">
                     <mat-icon>search</mat-icon>
                 </button>
-                <span class="toolbar-spacer">BLOG APP</span>
                 <ng-container *ngIf="isLoggedIn$ | async; else notLoggedIn">
+                    <span class="toolbar-spacer">Hello {{(userName$ | async) ?? "reader"}}!</span>
                     <button mat-icon-button>
                         <mat-icon>notifications</mat-icon>
                     </button>
@@ -42,22 +42,82 @@
                         Log Out <mat-icon>logout</mat-icon>
                     </button>
                 </ng-container>
-                <ng-template #notLoggedIn>
-                    <button mat-button (click)="openAuthDialog()">
-                        REGISTER / LOG IN <mat-icon>login</mat-icon>
-                    </button>
-                </ng-template>
             </ng-container>
-            <ng-template #searchBar>
-                <mat-form-field appearance="standard" class="toolbar-spacer">
-                    <mat-label>Search</mat-label>
-                    <input matInput>
-                </mat-form-field>
-                <button mat-button (click)="showSearchBar=!showSearchBar">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </ng-template>
         </mat-toolbar>
-        <router-outlet></router-outlet>
+        <div [@routeAnimations]="prepareRoute(outlet)">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
+
+<ng-template #searchBar>
+    <mat-form-field appearance="standard" class="toolbar-spacer">
+        <mat-label>Search</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <button mat-button (click)="showSearchBar=!showSearchBar">
+        <mat-icon>close</mat-icon>
+    </button>
+</ng-template>
+
+<ng-template #notLoggedIn>
+    <span class="toolbar-spacer">Hello reader!</span>
+    <button mat-button (click)="openAuthDialog()">
+        REGISTER / LOG IN <mat-icon>login</mat-icon>
+    </button>
+</ng-template> -->
+
+<div class="nav-container">
+    <div class="side-navbar" *ngIf="isOpen" [@toggleNavBar]>
+        <div class="side-navbar-content">
+            <div class="nav-toolbar">
+                <span>Menu</span><span class="material-icons" (click)="toggleNavBar()">close</span>
+            </div>
+            <ul>
+                <li [routerLink]="['']">
+                    <span class="material-icons">home</span><span>Home</span>
+                </li>
+                <ng-container *ngFor="let option of navBarOptions">
+                    <li *ngIf="isLoggedIn$ | async" [routerLink]="[option.route]">
+                        <span class="material-icons">{{ option.icon }}</span><span>{{ option.nav }}</span>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="backdrop" (click)="toggleNavBar()"></div>
+    </div>
+    <div class="nav-content">
+        <div class="nav-toolbar">
+            <span class="material-icons" (click)="toggleNavBar()">menu</span><span>Menu</span>
+            <ng-container *ngIf="!showSearchBar; else searchBar">
+                <span class="material-icons" (click)="showSearchBar=!showSearchBar">search</span>
+                <ng-container *ngIf="isLoggedIn$ | async; else notLoggedIn">
+                    <span class="toolbar-spacer">Hello {{(userName$ | async) ?? "reader"}}!</span>
+                    <span class="material-icons">notifications</span>
+                    <span class="material-icons">account_circle</span>
+                    <button (click)="logOut()" class="gradient-btn">
+                        Log Out <span class="material-icons">logout</span>
+                    </button>
+                </ng-container>
+            </ng-container>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<ng-template #searchBar>
+    <mat-form-field appearance="standard" class="toolbar-spacer">
+        <mat-label>Search</mat-label>
+        <input matInput>
+    </mat-form-field>
+    <button mat-button (click)="showSearchBar=!showSearchBar">
+        <mat-icon>close</mat-icon>
+    </button>
+</ng-template>
+
+<ng-template #notLoggedIn>
+    <span class="toolbar-spacer">Hello reader!</span>
+    <button (click)="openAuthDialog()" class="gradient-btn">
+        <a> REGISTER / LOG IN <span class="material-icons">login</span></a>
+    </button>
+</ng-template>

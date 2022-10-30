@@ -1,6 +1,4 @@
-export class registrationResponse {
-    constructor(
-        public isRegistrationSuccessfull?: boolean,
-        public errors?: string[]
-    ) { }
+export interface registrationResponse {
+    isRegistrationSuccessfull?: boolean;
+    errors?: string[];
 }

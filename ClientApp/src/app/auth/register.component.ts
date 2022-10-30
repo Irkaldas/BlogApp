@@ -13,7 +13,9 @@ import { CompareValidator } from '../shared/validators/compare.validator';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService
+  ) { }
 
   public registerFormGroup: AppFormGroup = new AppFormGroup({});
   public hide: boolean = true;
@@ -50,13 +52,8 @@ export class RegisterComponent implements OnInit {
         .forEach(c => {
           this.newUserRegistration[c as keyof UserRegistration] = this.registerFormGroup.controls[c].value;
         });
-      this.auth.Register(this.newUserRegistration).subscribe({
-        next: (_) => console.log("Successful registration"),
-        error: (err: HttpErrorResponse) => {
-          console.log("erorr occured");
-          console.log(err.error.errors)
-        }
-      })
+      this.auth.Register(this.newUserRegistration);
+
       this.registerFormGroup.reset();
       this.newUserRegistration = new UserRegistration();
     }

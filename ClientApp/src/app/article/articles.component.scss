@@ -3,10 +3,31 @@
 // pink-bluegrey
 // purple-green
 
-.articles-cotainer {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 1400px;
+// .articles-container {
+//     display: flex;
+//     flex-wrap: wrap;
+//     max-width: 1400px;
+//     justify-content: center;
+//     margin: 5rem auto 0 auto;
+//     gap: 10px;
+// }
+
+.articles-container-grid {
+    display: grid;
     justify-content: center;
-    margin: 5rem auto 0 auto;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 150px 0;
+    grid-gap: 10px;
+
+    //#546E7A
+    @media (min-width: 800px) {
+        grid-template-columns: repeat(3, 1fr);
+
+        app-article:nth-child(12n+8),
+        app-article:nth-child(12n+1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+    }
 }

@@ -10,7 +10,9 @@ import { FavoriteModule } from '../store/favorite/favorite.module';
 
 
 @NgModule({
-  declarations: [NavBarComponent],
+  declarations: [
+    NavBarComponent
+  ],
   imports: [
     CommonModule,
     ArticleModule,
@@ -19,6 +21,7 @@ import { FavoriteModule } from '../store/favorite/favorite.module';
     AuthModule,
     FavoriteModule
   ],
+  providers: [],
   exports: [NavBarComponent]
 })
 export class NavBarModule { }

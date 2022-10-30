@@ -8,13 +8,15 @@ import { User } from "../model/user.model";
 import { UserRegistration } from "../model/userRegistration.model";
 import { REST_URL } from "./articles.service";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthService {
 
     constructor(
         @Inject(REST_URL) private url: string,
-        private http: HttpClient) {
-    }
+        private http: HttpClient
+    ) { }
 
     Register(user: UserRegistration): Observable<registrationResponse> {
         return this.SendRequest<registrationResponse>("POST", `${this.url}/auth/register`, user);

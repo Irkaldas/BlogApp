@@ -1,19 +1,22 @@
 <form class="register-form" novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
     <ng-container *ngFor="let control of registerFormGroup.formControls()">
-        <mat-form-field appearance="fill">
-            <mat-label>{{control.label}}</mat-label>
-            <input matInput required class="form-control" name="{{control.modelProperty}}"
-                formControlName="{{control.modelProperty}}" [type]="hide && 
+        <div class="form-container">
+            <div class="form-content">
+                <label for="{{control.modelProperty}}"
+                    [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
+                <input #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}" [type]="hide && 
                 (control.modelProperty == 'password' || control.modelProperty == 'confirmPassword') 
-                ? 'password' : 'text'" />
-            <button *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
-                mat-icon-button matSuffix (click)="hide = !hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-            <mat-hint *ngFor="let error of control.getValidatorMessages()">
+                ? 'password' : 'text'" id="{{control.modelProperty}}" required />
+                <button class="form-icon-button"
+                    *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
+                    (click)="hide = !hide">
+                    <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+                </button>
+            </div>
+            <div class="form-hint" *ngFor="let error of control.getValidatorMessages()">
                 <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
-            </mat-hint>
-        </mat-form-field>
+            </div>
+        </div>
     </ng-container>
-    <button mat-flat-button color="primary">Register</button>
+    <button class="gradient-btn" type="submit"><a>Register</a></button>
 </form>

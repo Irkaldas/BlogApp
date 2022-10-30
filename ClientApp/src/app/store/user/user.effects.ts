@@ -1,42 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { from, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { catchError, map, switchMap, tap, exhaustMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { loginUser, loginUserFailure, loginUserSuccess, logoutUser } from './user.actions';
-
-
+import { AppState } from '../app.state';
+import { favoritesActions } from '../favorite/favorite.actions';
+import { userActions } from './user.actions';
 
 @Injectable()
 export class UserEffects {
     constructor(
         private actions$: Actions,
-        private authService: AuthService
+        private authService: AuthService,
+        private store: Store<AppState>
     ) { }
 
     loginUser$ = createEffect(() => {
         return this.actions$.pipe(
-            ofType(loginUser),
-            switchMap((actionParameter) =>
+            ofType(userActions.login),
+            exhaustMap((actionParameter) =>
                 this.authService.Login(actionParameter.user)
                     .pipe(
-                        tap((res: any) => {
-                            localStorage.setItem("token", res.authResponse.token);
-                            console.log("tap");
-                        }),
-                        map((res) =>
-                            loginUserSuccess({ user: res.user, authResponse: res.authResponse })
-                        ),
-                        catchError((error) => of(loginUserFailure({ error: error })))
+                        map((res: any) =>
+                            userActions.loginSuccess({ user: res.user, authResponse: res.authResponse }),
+                        )
                     )
-            ))
-    })
+            )
+        )
+    });
 
     logOutUser$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(logoutUser),
+            ofType(userActions.logout),
             tap(() => {
-                localStorage.removeItem("token");
+                userActions.logoutSuccess();
             }),
         ), { dispatch: false });
 }
