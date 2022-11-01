@@ -11,8 +11,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites.component';
 
 @NgModule({
-  declarations: [ArticleComponent, ArticlesComponent,
-    ArticleDetailsComponent, ArticleFormComponent, FavoritesComponent],
+  declarations: [
+    ArticleComponent,
+    ArticlesComponent,
+    ArticleDetailsComponent,
+    ArticleFormComponent,
+    FavoritesComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,

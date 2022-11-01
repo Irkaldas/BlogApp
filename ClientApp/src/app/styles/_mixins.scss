@@ -1,0 +1,19 @@
+@mixin setFlex($display: flex, $flex-direction: row, $flex-wrap: nowrap,
+    $justify-content: center, $align-items: center) {
+    display: $display;
+    flex-direction: $flex-direction;
+    flex-wrap: $flex-wrap;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+@mixin setGrid() {
+    display: grid;
+    justify-content: center;
+}
+
+@mixin onHoverCursorPointer {
+    &:hover {
+        cursor: pointer;
+    }
+}

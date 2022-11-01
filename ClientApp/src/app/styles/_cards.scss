@@ -1,0 +1,92 @@
+@use './buttons';
+@use './mixins';
+@use './variables';
+
+
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.article-card {
+    padding: 70px 90px 70px 50px;
+    height: 100%;
+    margin: 0;
+
+    &_left {
+        padding-right: 50px;
+        padding-left: 90px;
+    }
+
+    &_mini {
+        padding: 50px;
+        transition: all 0.5s ease-in-out;
+        border: 1px solid $border-color;
+
+        &:hover {
+            box-shadow: $shadow-box;
+            transform: translateY(-1px);
+        }
+
+        p:not(.user-name),
+        .gradient-btn,
+        em {
+            display: none;
+        }
+    }
+}
+
+.article-card-mini {
+    @extend .article-card;
+
+
+    .article-title {
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+
+
+}
+
+.card-top {
+    @include setFlex($display: inline-flex, $justify-content: start);
+    gap: 10px;
+    min-height: 70px;
+    width: 100%;
+
+    p {
+        margin: 0px;
+        padding: 0px;
+        font-weight: 500;
+    }
+}
+
+.article-title {
+    font-family: $font-family;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 3rem;
+    margin: 0;
+    transition: 0.25s ease-in-out;
+
+    &:hover {
+        color: dodgerblue;
+    }
+}
+
+.card-bot {
+
+    p {
+        width: 0;
+        min-width: 100%;
+        margin: 5px 5px;
+        min-height: calc(2rem * 4);
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-indent: 1rem;
+        line-height: 2rem;
+    }
+}
