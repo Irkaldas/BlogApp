@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -19,7 +18,6 @@ export class ArticleEffects {
     private actions$: Actions,
     private articlesService: ArticlesService,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar,
     private store: Store<AppState>
   ) { }
 

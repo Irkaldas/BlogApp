@@ -1,0 +1,29 @@
+@use './variables' as *;
+@use './mixins' as *;
+@use './commons' as *;
+
+$tag-color: #546E7A;
+$tag-color-hover: #343b3f;
+$tag-background-color: #F5F7F8;
+$tag-transition-time: 0.2s;
+
+.tags {
+    @include setFlex($justify-content: start);
+    gap: 10px;
+    margin: 10px 0;
+
+    .tag {
+        @extend %onHoverCursorPointer;
+        display: inline-block;
+        color: $tag-color;
+        background-color: $tag-background-color;
+        text-transform: uppercase;
+        transition:
+            color $tag-transition-time ease-in-out,
+            background-color $tag-transition-time ease-in-out;
+
+        &:hover {
+            color: $tag-color-hover;
+        }
+    }
+}

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
@@ -22,8 +21,7 @@ export class ArticleDetailsComponent implements OnDestroy {
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private store: Store<AppState>
   ) { }
 
   public article$ = this.store.select(selectArticleWithId(this.activeRoute.snapshot.params["id"]));
@@ -45,11 +43,11 @@ export class ArticleDetailsComponent implements OnDestroy {
       newFavorite.articleId = article?.id);
     if (newFavorite.articleId != null && newFavorite.userId != null) {
       this.store.dispatch(favoritesActions.add({ favorite: newFavorite }));
-    } else {
-      this.snackBar.openFromComponent(SnackBarComponent, {
-        duration: 5 * 1000,
-        data: { message: "Couldn't add item to favorite list.", err: true }
-      });
+      // } else {
+      //   this.snackBar.openFromComponent(SnackBarComponent, {
+      //     duration: 5 * 1000,
+      //     data: { message: "Couldn't add item to favorite list.", err: true }
+      //   });
     }
   }
 

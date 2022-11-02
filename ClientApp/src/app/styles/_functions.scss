@@ -1,5 +1,5 @@
-@use './variables' as var;
+@use './variables' as *;
 
 @function convertPxToRem($pixels) {
-    @return #{$pixels/var.$root-font-size}rem;
+    @return ($pixels / 16)+rem;
 }

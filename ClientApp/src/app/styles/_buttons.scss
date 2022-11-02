@@ -1,9 +1,10 @@
-@use './variables';
-@use './mixins';
+@use './variables' as *;
+@use './mixins' as *;
+@use './commons' as *;
+@use './functions' as *;
 
 $button_transition: 0.25 ease-in-out;
 $font_weight: 500;
-
 
 .gradient-btn {
     @extend %onHoverBtn;
@@ -17,6 +18,7 @@ $font_weight: 500;
     transition: $button_transition;
 
     &-outline {
+        @extend .gradient-btn;
         background-image: $gradient-white, $gradient-color;
     }
 
@@ -25,12 +27,13 @@ $font_weight: 500;
         .btn-content {
             @include setFlex();
             font-weight: $font_weight;
+            padding: convertPxToRem(10) convertPxToRem(50);
         }
     }
 }
 
 .favorite-btn {
-    @extend %onHoverBtn;
+    @extend %onHoverCursorPointer;
     @include setFlex($display: inline-flex);
     border-radius: 50%;
     border: transparent;
@@ -39,7 +42,7 @@ $font_weight: 500;
 
 %onHoverBtn {
     &:hover {
-        @include onHoverCursorPointer;
+        @extend %onHoverCursorPointer;
         color: white;
         background-image: $gradient-color, $gradient-color;
         transform: translateY(-1px);

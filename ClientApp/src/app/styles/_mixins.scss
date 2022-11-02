@@ -7,13 +7,7 @@
     align-items: $align-items;
 }
 
-@mixin setGrid() {
+@mixin setGrid($justify-content: center) {
     display: grid;
-    justify-content: center;
-}
-
-@mixin onHoverCursorPointer {
-    &:hover {
-        cursor: pointer;
-    }
+    justify-content: $justify-content;
 }

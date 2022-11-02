@@ -37,13 +37,15 @@
         || index == 8 
         ? 'article-card-left'
         : 'article-card-mini'">
-    <div class="card-top">
+    <div class="article-card-media">
         <img class="user-avatar"
             src="https://as1.ftcdn.net/v2/jpg/01/16/24/44/1000_F_116244459_pywR1e0T3H7FPk3LTMjG6jsL3UchDpht.jpg">
-        <em>by</em>
-        <p class="user-name">Kapitan Bomba</p>
-        <em>on</em>
-        <p class="article-date">20.04.2020</p>
+        <span class="media-info">
+            <em>by</em>
+            <span class="user-name">Kapitan Bomba</span>
+            <em>on</em>
+            <span class="article-date">20.04.2020</span>
+        </span>
         <span class="spacer"></span>
         <ng-container *ngIf="isLoggedIn$ | async">
             <ng-container *ngIf="!(isFavorite$ | async); else notFavorite">
@@ -53,8 +55,8 @@
             </ng-container>
         </ng-container>
     </div>
-    <div class="card-mid">
-        <h1 class="article-title" [routerLink]="['article', article.id]">
+    <div class="article-card-header">
+        <h1 class="article-card-title" [routerLink]="['article', article.id]">
             {{article.title | titlecase}}
         </h1>
         <div class="tags">
@@ -62,18 +64,15 @@
             <a class="tag">sport</a>
         </div>
     </div>
-    <div class="card-bot">
-        <p>
+    <div class="article-card-content">
+        <p class="article-card-content-text">
             {{article.body | slice:0:200}}...
         </p>
-        <div class="gradient-btn" [routerLink]="['article', article.id]">
-            <a>Continue reading </a>
-        </div>
+        <button class="gradient-btn-outline" [routerLink]="['article', article.id]">
+            <a class="btn-content">Continue reading </a>
+        </button>
     </div>
 </div>
-
-
-
 <ng-template #notFavorite>
     <button class="favorite-btn">
         <span class="material-icons">favorite</span>

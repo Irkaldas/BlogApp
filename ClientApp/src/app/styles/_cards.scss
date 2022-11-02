@@ -1,28 +1,27 @@
-@use './buttons';
-@use './mixins';
-@use './variables';
-
-
+@use './buttons' as *;
+@use './mixins' as *;
+@use './variables' as *;
+@use './commons' as *;
+@use './functions' as *;
 
 .user-avatar {
+    @extend %onHoverCursorPointer;
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 
 .article-card {
-    padding: 70px 90px 70px 50px;
-    height: 100%;
-    margin: 0;
 
-    &_left {
-        padding-right: 50px;
-        padding-left: 90px;
+    padding: 70px 90px 70px 50px;
+
+    &-left {
+        padding: 70px 50px 70px 90px;
     }
 
-    &_mini {
+    &-mini {
         padding: 50px;
-        transition: all 0.5s ease-in-out;
+        transition: all 0.25s ease-in-out;
         border: 1px solid $border-color;
 
         &:hover {
@@ -30,46 +29,31 @@
             transform: translateY(-1px);
         }
 
-        p:not(.user-name),
-        .gradient-btn,
-        em {
+
+        .article-card-content,
+        .media-info>*:not(.user-name) {
             display: none;
         }
     }
 }
 
-.article-card-mini {
-    @extend .article-card;
-
-
-    .article-title {
-        font-size: 2rem;
-        line-height: 2rem;
-    }
-
-
-
-}
-
-.card-top {
-    @include setFlex($display: inline-flex, $justify-content: start);
+.article-card-media {
+    @include setFlex($display: inline-flex);
     gap: 10px;
-    min-height: 70px;
     width: 100%;
 
-    p {
-        margin: 0px;
-        padding: 0px;
+    .media-info {
+        @include setFlex($display: inline-flex);
+        gap: 10px;
         font-weight: 500;
     }
 }
 
-.article-title {
+.article-card-title {
+    @extend %onHoverCursorPointer;
     font-family: $font-family;
     font-size: 3rem;
     font-weight: 700;
-    line-height: 3rem;
-    margin: 0;
     transition: 0.25s ease-in-out;
 
     &:hover {
@@ -77,16 +61,14 @@
     }
 }
 
-.card-bot {
-
-    p {
+.article-card-content {
+    &-text {
         width: 0;
         min-width: 100%;
-        margin: 5px 5px;
-        min-height: calc(2rem * 4);
+        padding-bottom: convertPxToRem(80);
         font-size: 1.2rem;
         font-weight: 400;
-        text-indent: 1rem;
         line-height: 2rem;
+        text-indent: 1.2rem;
     }
 }

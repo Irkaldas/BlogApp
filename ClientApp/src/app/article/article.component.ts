@@ -9,7 +9,6 @@ import { takeUntil, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { favoritesActions } from '../store/favorite/favorite.actions';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -22,7 +21,6 @@ export class ArticleComponent implements OnChanges, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
   ) { }
 
   @Input() article: Article = {};
@@ -53,10 +51,10 @@ export class ArticleComponent implements OnChanges, OnDestroy {
     if (newFavorite.articleId != null && newFavorite.userId != null) {
       this.store.dispatch(favoritesActions.add({ favorite: newFavorite }));
     } else {
-      this.snackBar.openFromComponent(SnackBarComponent, {
-        duration: 5 * 1000,
-        data: { message: "Couldn't add item to favorite list.", err: true }
-      });
+      // this.snackBar.openFromComponent(SnackBarComponent, {
+      //   duration: 5 * 1000,
+      //   data: { message: "Couldn't add item to favorite list.", err: true }
+      // });
     }
   }
 

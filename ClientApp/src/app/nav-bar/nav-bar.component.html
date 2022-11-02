@@ -106,12 +106,12 @@
 </div>
 
 <ng-template #searchBar>
-    <mat-form-field appearance="standard" class="toolbar-spacer">
-        <mat-label>Search</mat-label>
+    <form appearance="standard" class="toolbar-spacer">
+        <label>Search</label>
         <input matInput>
-    </mat-form-field>
+    </form>
     <button mat-button (click)="showSearchBar=!showSearchBar">
-        <mat-icon>close</mat-icon>
+        <span class="material-icons">close</span>
     </button>
 </ng-template>
 
