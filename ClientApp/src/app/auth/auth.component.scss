@@ -3,11 +3,11 @@
 
 
 .content-container {
-
     padding: 50px 100px;
 }
 
-a {
+.dialog-switch {
+    @extend %onHoverCursorPointer;
     color: #f44336;
 
     &:hover {
@@ -19,7 +19,3 @@ a {
     @include setFlex();
     padding-bottom: 10px;
 }
-
-// .spacer {
-//     flex: 1 1 auto;
-// }

@@ -11,3 +11,10 @@
     display: grid;
     justify-content: $justify-content;
 }
+
+@mixin positionAbsoluteElem($top: 0%, $left: 0%) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    transform: translate(-$left, -$top);
+}
