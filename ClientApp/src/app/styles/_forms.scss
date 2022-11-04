@@ -9,7 +9,7 @@
     background-color: transparent;
     margin: 0px 10px;
     margin-top: 10px;
-    transition: 0.25s ease-in-out;
+    transition: $transition;
 }
 
 .form-input {
@@ -23,7 +23,7 @@
 
     &:focus {
         border-bottom: double 1px transparent;
-        border-image-source: $gradient-color;
+        border-image-source: $gradient-primary;
         border-image-slice: 1;
     }
 }
@@ -31,11 +31,13 @@
 .form-field-container {
     margin-bottom: 10px;
     border-radius: 5px 5px 0px 0px;
-    overflow: hidden;
+
+    & .form-content {
+        position: relative;
+    }
 
     &:focus-within .form-label,
     .form-label:not(.isEmpty) {
-        margin-top: -0.6rem;
         line-height: 0.6rem;
         font-size: 0.6rem;
     }
@@ -50,18 +52,6 @@
 
     &-warn {
         @extend .form-hint;
-        color: #fd1d1d;
-    }
-
-    &,
-    &-warn {
-
-        &[align="start"] {
-            float: left;
-        }
-
-        &[align="end"] {
-            float: right;
-        }
+        color: $warn-color;
     }
 }

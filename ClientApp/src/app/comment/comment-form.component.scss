@@ -1,5 +1,5 @@
-@use '../styles/buttons';
-@use '../styles/forms';
+@use '../styles/buttons' as *;
+@use '../styles/forms' as *;
 @use '../styles/variables' as *;
 
 .form-label {
@@ -18,16 +18,22 @@
         overflow: auto;
         outline: none;
         resize: none;
+        border: double 1px $border-color;
 
         &::placeholder {
-            opacity: 1;
-            color: #999b9c;
+            opacity: 0;
         }
 
         &:focus {
             border: double 1px transparent;
-            border-image-source: $gradient-color;
+            border-image-source: $gradient-primary;
             border-image-slice: 1;
+
+            &::placeholder {
+                opacity: 1;
+                color: #999b9c;
+            }
+
         }
     }
 }
@@ -37,6 +43,8 @@
         @extend .form-field-container;
 
         &:focus-within .form-label,
-        .form-label:not(.isEmpty) {}
+        .form-label:not(.isEmpty) {
+            margin-top: -0.3rem;
+        }
     }
 }

@@ -19,8 +19,7 @@ $tag-transition-time: 0.2s;
         background-color: $tag-background-color;
         text-transform: uppercase;
         transition:
-            color $tag-transition-time ease-in-out,
-            background-color $tag-transition-time ease-in-out;
+            $transition;
 
         &:hover {
             color: $tag-color-hover;

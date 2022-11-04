@@ -21,8 +21,8 @@
 
     &-mini {
         padding: 50px;
-        transition: all 0.25s ease-in-out;
-        border: 1px solid $border-color;
+        transition: $transition;
+        border: $border-style;
 
         &:hover {
             box-shadow: $shadow-box;
@@ -54,7 +54,7 @@
     font-family: $font-family;
     font-size: 3rem;
     font-weight: 700;
-    transition: 0.25s ease-in-out;
+    transition: $transition;
 
     &:hover {
         color: dodgerblue;
