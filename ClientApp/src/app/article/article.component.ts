@@ -35,8 +35,10 @@ export class ArticleComponent implements OnChanges, OnDestroy {
   private readonly destroy$ = new Subject();
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.isFavorite$ = this.store.select(selectIsFavorite(this.article.id as number));
-    this.favoriteId$ = this.store.select(selectFavoriteId(this.article.id as number));
+    if (this.article != undefined) {
+      this.isFavorite$ = this.store.select(selectIsFavorite(this.article.id as number));
+      this.favoriteId$ = this.store.select(selectFavoriteId(this.article.id as number));
+    }
   }
 
   addArticleToFavorites(): void {
