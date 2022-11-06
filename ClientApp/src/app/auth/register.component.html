@@ -1,0 +1,22 @@
+<form novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
+    <div class="form-field-container" *ngFor="let control of registerFormGroup.formControls()">
+        <div class="form-content">
+            <label class="form-label" for="{{control.modelProperty}}"
+                [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
+            <input class="form-input" #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}"
+                [type]="hide && 
+                (control.modelProperty == 'password' || control.modelProperty == 'confirmPassword') 
+                ? 'password' : 'text'" id="{{control.modelProperty}}" required />
+            <button class="form-icon-btn"
+                *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
+                (click)="hide = !hide">
+                <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+            </button>
+        </div>
+        <div class="form-hint-warn" *ngFor="let error of control.getValidatorMessages()">
+            <span *ngIf="control.dirty && control.invalid">{{error}}</span>
+            <span class="spacer"></span>
+        </div>
+    </div>
+    <button class="gradient-btn-form" type="submit"><span class="btn-content">Register</span></button>
+</form>
