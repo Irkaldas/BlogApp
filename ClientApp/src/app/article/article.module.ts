@@ -24,6 +24,8 @@ import { FavoritesComponent } from './favorites.component';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [
+  ],
   exports: [ArticlesComponent, ArticleDetailsComponent, ArticleFormComponent]
 })
 export class ArticleModule { }

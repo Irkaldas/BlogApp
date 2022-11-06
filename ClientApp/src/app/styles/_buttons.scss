@@ -56,17 +56,21 @@ $font_weight: 500;
 
 .icon-btn {
     @extend %onHoverCursorPointer;
+    @include setFlex();
     border-radius: 50%;
+    padding: 5px;
     border: transparent;
     background-color: transparent;
+
+    &:hover {
+        background-color: $border-color;
+    }
 }
 
 .thumb-up-btn,
 .thumb-down-btn {
-    @include setFlex();
+    @extend .icon-btn;
     justify-content: flex-end;
-    background-color: transparent;
-    border-color: transparent;
     gap: 5px;
 }
 

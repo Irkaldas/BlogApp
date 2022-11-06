@@ -10,7 +10,7 @@
                 </li>
                 <ng-container *ngFor="let option of navBarOptions">
                     <li class="side-navbar-list-item" *ngIf="isLoggedIn$ | async" [routerLink]="[option.route]">
-                        <span class="material-icons icon-btn">{{ option.icon }}</span><span>{{ option.nav }}</span>
+                        <span class="material-icons">{{ option.icon }}</span><span>{{ option.nav }}</span>
                     </li>
                 </ng-container>
             </ul>
