@@ -1,0 +1,21 @@
+@use '../styles/commons' as *;
+@use '../styles/mixins' as *;
+
+
+.content-container {
+    padding: 50px 100px;
+}
+
+.dialog-switch {
+    @extend %onHoverCursorPointer;
+    color: #f44336;
+
+    &:hover {
+        color: #673ab7;
+    }
+}
+
+.content-header {
+    @include setFlex();
+    padding-bottom: 10px;
+}
