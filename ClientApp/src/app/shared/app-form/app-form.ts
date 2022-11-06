@@ -1,7 +1,7 @@
-import { AbstractControl, AbstractControlOptions, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { AbstractControl, AbstractControlOptions, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 
 
-export class AppFormGroup extends UntypedFormGroup {
+export class AppFormGroup extends FormGroup {
     constructor(
         controls: { [key: string]: AppFormControl },
         validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null
@@ -17,7 +17,7 @@ export class AppFormGroup extends UntypedFormGroup {
     }
 }
 
-export class AppFormControl extends UntypedFormControl {
+export class AppFormControl extends FormControl {
 
     constructor(
         label: string, property: string,
