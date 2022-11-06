@@ -1,0 +1,19 @@
+@use '../styles/mixins' as *;
+
+.articles-container-grid {
+    @include setGrid();
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 150px 0;
+    grid-gap: 10px;
+
+    @media (min-width: 800px) {
+        grid-template-columns: repeat(3, 1fr);
+
+        app-article:nth-child(12n+8),
+        app-article:nth-child(12n+1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+    }
+}

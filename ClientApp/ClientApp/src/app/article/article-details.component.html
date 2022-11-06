@@ -1,0 +1,25 @@
+<div class="article-details-container">
+    <ng-container *ngIf="article$ | async as article; else loading">
+        <h1>{{article.title | titlecase}}</h1>
+        <p>{{article.body | titlecase}}</p>
+        <h4>{{article.id}}</h4>
+        <ng-container *ngIf="isLoggedIn$ | async">
+            <ng-container *ngIf="!(isFavorite$ | async); else notFavorite">
+                <button mat-icon-button (click)="addArticleToFavorites()">
+                    <span class="material-icons">favorite_outline</span>
+                </button>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+    <app-comments></app-comments>
+</div>
+
+<ng-template #notFavorite>
+    <button mat-icon-button (click)="removeArticleFromFavorites()">
+        <span class="material-icons icon-btn">favorite</span>
+    </button>
+</ng-template>
+
+<ng-template #loading>
+    <div>Loading article...</div>
+</ng-template>
