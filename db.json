@@ -1,0 +1,138 @@
+{
+  "articles": [
+    {
+      "id": "1",
+      "title": "What is Lorem Ipsum?",
+      "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "title": "Why do we use it?",
+      "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+      "userId": "1"
+    },
+    {
+      "id": "3",
+      "title": "Where does it come from?",
+      "body": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
+      "userId": "2"
+    },
+    {
+      "id": "4",
+      "title": "Where can I get some?",
+      "body": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "userId": "3"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "body": "Sunt Aut Facere Repellat Provident Occaecati Excepturi Optio Reprehenderit",
+      "upVotes": "20",
+      "downVotes": "10",
+      "userId": "1",
+      "articleId": "1"
+    },
+    {
+      "id": "2",
+      "body": "Ea Molestias Quasi Exercitationem Repellat Qui Ipsa Sit Aut",
+      "upVotes": "130",
+      "downVotes": "30",
+      "userId": "1",
+      "articleId": "2"
+    },
+    {
+      "id": "3",
+      "body": "Nesciunt Quas Odio",
+      "upVotes": "1337",
+      "downVotes": "420",
+      "userId": "2",
+      "articleId": "3"
+    },
+    {
+      "id": "4",
+      "body": "Qui Est Esse",
+      "upVotes": "997",
+      "downVotes": "111",
+      "userId": "2",
+      "articleId": "4"
+    },
+    {
+      "id": "5",
+      "body": "Eum Et Est Occaecati",
+      "upVotes": "123",
+      "downVotes": "345",
+      "userId": "3",
+      "articleId": "1"
+    },
+    {
+      "id": "6",
+      "body": "Dolorem Eum Magni Eos Aperiam Quia",
+      "upVotes": "2457",
+      "downVotes": "21",
+      "userId": "3",
+      "articleId": "2"
+    },
+    {
+      "id": "7",
+      "body": "Dolorem Eum Magni Eos Aperiam Quia",
+      "upVotes": "333",
+      "downVotes": "555",
+      "userId": "4",
+      "articleId": "3"
+    },
+    {
+      "id": "8",
+      "body": "Dolorem Eum Magni Eos Aperiam Quia",
+      "upVotes": "1324",
+      "downVotes": "823",
+      "userId": "4",
+      "articleId": "4"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Kapitan Bomba",
+      "email": "bomba@gmail.com",
+      "password": "$2a$12$yir.7d.1gWsvNcFPIdf8Gu52XWUL4br4a7l7Qbid6QadL1TClXOMa"
+    },
+    {
+      "id": "2",
+      "name": "Sułtan kosmitów",
+      "email": "sultan@gmail.com",
+      "password": "$2a$12$nCgditb8basEYck00Xi2guSooymzK7n8P71uC.G2dC/kSssTSCNgS"
+    },
+    {
+      "id": "3",
+      "name": "Grande Diabolo 1.2",
+      "email": "diabel@gmail.com",
+      "password": "$2a$12$8hK4sq6uThIPOStoQCNuC.Oz0gLnerGGE7591yCQQOyq4.52Iz1n6"
+    },
+    {
+      "id": "4",
+      "name": "Generał Gwiezdnej Floty",
+      "email": "ggw@gmail.com",
+      "password": "$2a$12$IMUHHydGrdk/excw5UrBBuPDMzKPbdk1S8Sz9.73.XRcARfe1i.fy"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "1",
+      "articleId": "1",
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "articleId": "2",
+      "userId": "1"
+    },
+    {
+      "id": "3",
+      "articleId": "3",
+      "userId": "2"
+    }
+  ],
+  "followed": []
+}

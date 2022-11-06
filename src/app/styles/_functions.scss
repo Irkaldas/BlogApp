@@ -1,0 +1,5 @@
+@use './variables' as *;
+
+@function convertPxToRem($pixels) {
+    @return (calc($pixels / 16))+rem;
+}
