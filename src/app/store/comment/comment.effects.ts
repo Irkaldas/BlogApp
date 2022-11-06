@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { EMPTY, from, of, scheduled } from 'rxjs';
@@ -15,7 +14,6 @@ export class CommentEffects {
   constructor(
     private actions$: Actions,
     private commentsService: CommentsService,
-    private snackBar: MatSnackBar
   ) { }
 
   loadComments$ = createEffect(() => {
@@ -50,9 +48,9 @@ export class CommentEffects {
   })
 
   private openCommentSnackBar(message: string, err: boolean): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: 5 * 1000,
-      data: { message, err }
-    })
+    // this.snackBar.openFromComponent(SnackBarComponent, {
+    //   duration: 5 * 1000,
+    //   data: { message, err }
+    // })
   }
 }

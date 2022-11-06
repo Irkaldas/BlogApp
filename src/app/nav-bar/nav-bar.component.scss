@@ -1,20 +1,8 @@
-// span {
-//     text-align: center;
-// }
-
-// .sticky {
-//     position: fixed;
-//     /* Ensure that content doesn't overlap the toolbar */
-//     z-index: 1000;
-//     top: 0;
-// }
-
-// button {
-//     margin: 2px;
-// }
-//-----------------------------------------
-
-@import '../article/article.component.scss';
+@use '../styles/buttons' as *;
+@use '../styles/forms' as *;
+@use '../styles/mixins' as *;
+@use '../styles/functions' as *;
+@use '../styles/variables' as *;
 
 .side-navbar {
     position: fixed;
@@ -23,99 +11,68 @@
     bottom: 0;
     left: 0;
     right: 0;
-    transition: 0.25s ease-in-out;
+    transition: $transition;
 
     .nav-toolbar {
         justify-content: space-between;
-        position: static !important;
-    }
-
-    &.sidebar-close {
-        transform: translateX(-100%);
+        position: static;
     }
 
     .backdrop {
         background: rgba(0, 0, 0, 0.5);
         width: 100%;
         height: 100%;
-
-        &.collapsed {
-            background: transparent !important;
-        }
     }
 
-    .side-navbar-content {
+    &-content {
         position: absolute;
-        width: 180px;
         top: 0;
         bottom: 0;
         background-color: white;
+    }
 
-        ul {
-            padding: 0px;
+    &-list-item {
+        @include setFlex();
+        justify-content: flex-start;
+        height: 40px;
+        width: 100%;
+        transition: $transition;
+        user-select: none;
+        padding: 0 20px;
+        white-space: nowrap;
 
-            li {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                align-items: center;
-                height: 40px;
-                width: 100%;
-                transition: all 0.5s ease-in-out;
-                user-select: none;
-                padding: 0 20px;
-                white-space: nowrap;
-
-                &:hover {
-                    box-shadow: 0 3px 20px 0 rgba(84, 110, 122, 0.1);
-                    border-top: 1px solid #E7EBED;
-                    border-bottom: 1px solid #E7EBED;
-                    cursor: pointer;
-                }
-            }
+        &:hover {
+            box-shadow: $shadow-box;
+            border-top: $border-style;
+            border-bottom: $border-style;
+            cursor: pointer;
         }
     }
+
 }
 
-
 .nav-toolbar {
+    @include setFlex();
     position: fixed;
     z-index: 1000;
     padding: 0 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
     width: 100%;
     height: 50px;
-    border-bottom: 1px solid #E7EBED;
+    border-bottom: $border-style;
     font-size: 1.5rem;
     gap: 10px;
     white-space: nowrap;
     background-color: white;
     top: 0;
-
-    .material-icons {
-        cursor: pointer;
-    }
-}
-
-.nav-content {
-    margin: 0 auto;
-}
-
-.toolbar-spacer {
-    flex: 1 1 auto;
 }
 
 .gradient-btn {
-    @extend .gradient-btn;
-    height: 40px;
-    background-image: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045),
-        linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
-    color: white;
 
-    a {
-        padding: 0 10px;
+    &,
+    &-outline,
+    &-form {
+        .btn-content {
+            padding: 0 convertPxToRem(20);
+        }
     }
 }

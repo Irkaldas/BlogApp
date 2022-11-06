@@ -1,22 +1,22 @@
-<form class="register-form" novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
-    <ng-container *ngFor="let control of registerFormGroup.formControls()">
-        <div class="form-container">
-            <div class="form-content">
-                <label for="{{control.modelProperty}}"
-                    [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
-                <input #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}" [type]="hide && 
+<form novalidate [formGroup]="registerFormGroup" (ngSubmit)="register()">
+    <div class="form-field-container" *ngFor="let control of registerFormGroup.formControls()">
+        <div class="form-content">
+            <label class="form-label" for="{{control.modelProperty}}"
+                [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
+            <input class="form-input" #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}"
+                [type]="hide && 
                 (control.modelProperty == 'password' || control.modelProperty == 'confirmPassword') 
                 ? 'password' : 'text'" id="{{control.modelProperty}}" required />
-                <button class="form-icon-button"
-                    *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
-                    (click)="hide = !hide">
-                    <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
-                </button>
-            </div>
-            <div class="form-hint" *ngFor="let error of control.getValidatorMessages()">
-                <ng-container *ngIf="control.dirty && control.invalid">{{error}}</ng-container>
-            </div>
+            <button class="form-icon-btn"
+                *ngIf="control.modelProperty == 'password' || control.modelProperty == 'confirmPassword'"
+                (click)="hide = !hide">
+                <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+            </button>
         </div>
-    </ng-container>
-    <button class="gradient-btn" type="submit"><a>Register</a></button>
+        <div class="form-hint-warn" *ngFor="let error of control.getValidatorMessages()">
+            <span *ngIf="control.dirty && control.invalid">{{error}}</span>
+            <span class="spacer"></span>
+        </div>
+    </div>
+    <button class="gradient-btn-form" type="submit"><span class="btn-content">Register</span></button>
 </form>

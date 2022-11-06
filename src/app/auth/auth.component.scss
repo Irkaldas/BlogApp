@@ -1,10 +1,13 @@
+@use '../styles/commons' as *;
+@use '../styles/mixins' as *;
+
+
 .content-container {
-    display: flex;
-    flex-direction: column;
     padding: 50px 100px;
 }
 
-a {
+.dialog-switch {
+    @extend %onHoverCursorPointer;
     color: #f44336;
 
     &:hover {
@@ -13,12 +16,6 @@ a {
 }
 
 .content-header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.spacer {
-    flex: 1 1 auto;
+    @include setFlex();
+    padding-bottom: 10px;
 }

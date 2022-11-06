@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -19,7 +18,6 @@ export class FavoriteEffects {
   constructor(
     private actions$: Actions,
     private favoritesService: FavoritesService,
-    private snackBar: MatSnackBar,
     private store: Store<AppState>
   ) { }
 
@@ -67,10 +65,10 @@ export class FavoriteEffects {
   )
 
   private openCommentSnackBar(message: string, err: boolean): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: 5 * 1000,
-      data: { message, err }
-    });
+    // this.snackBar.openFromComponent(SnackBarComponent, {
+    //   duration: 5 * 1000,
+    //   data: { message, err }
+    // });
   }
 }
 

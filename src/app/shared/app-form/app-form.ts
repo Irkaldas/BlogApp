@@ -51,7 +51,6 @@ export class AppFormControl extends FormControl {
                         errorMessages.push(`${this.label} must have correct format. `);
                         break;
                     case "notMatch":
-                        console.log(error);
                         errorMessages.push(`Passwords must match. `);
                         break;
                 }

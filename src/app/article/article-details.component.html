@@ -6,7 +6,7 @@
         <ng-container *ngIf="isLoggedIn$ | async">
             <ng-container *ngIf="!(isFavorite$ | async); else notFavorite">
                 <button mat-icon-button (click)="addArticleToFavorites()">
-                    <mat-icon>favorite_outline</mat-icon>
+                    <span class="material-icons">favorite_outline</span>
                 </button>
             </ng-container>
         </ng-container>
@@ -16,7 +16,7 @@
 
 <ng-template #notFavorite>
     <button mat-icon-button (click)="removeArticleFromFavorites()">
-        <mat-icon>favorite</mat-icon>
+        <span class="material-icons icon-btn">favorite</span>
     </button>
 </ng-template>
 

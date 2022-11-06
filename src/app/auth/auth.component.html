@@ -3,7 +3,7 @@
         <div class="content-header">
             <span>Sign in to continue.</span>
             <span class="spacer"></span>
-            <span>Not a member?<a (click)="isLoginDialog=!isLoginDialog">
+            <span>Not a member?<a class="dialog-switch" (click)="isLoginDialog=!isLoginDialog">
                     Register now!</a></span>
         </div>
         <app-login></app-login>
@@ -13,7 +13,7 @@
     <div class="content-header">
         <span>Register </span>
         <span class="spacer"></span>
-        <span>Are you a member?<a (click)="isLoginDialog=!isLoginDialog">
+        <span>Are you a member?<a class="dialog-switch" (click)="isLoginDialog=!isLoginDialog">
                 Login now!</a></span>
     </div>
     <app-register></app-register>

@@ -1,95 +1,50 @@
-@import '../nav-bar/nav-bar.component.scss';
+@use '../styles/buttons' as *;
+@use '../styles/forms' as *;
+@use '../styles/variables' as *;
 
-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border: none;
-    overflow: auto;
-    outline: none;
-    resize: none;
-
-    &::placeholder {
-        opacity: 0;
-        font-size: 1rem;
+.form-label {
+    &-comment {
+        @extend .form-label;
+        background-color: white;
     }
 }
 
-.comment-form {
-    margin: 10px 0;
-}
+.form-input {
+    &-comment {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        border: none;
+        overflow: auto;
+        outline: none;
+        resize: none;
+        border: double 1px $border-color;
 
-.comment-form-input {
-    position: relative;
-    border-radius: 5px;
-    margin: 10px 0;
-    border: 1px solid #E7EBED;
+        &::placeholder {
+            opacity: 0;
+        }
 
-    &:focus-within {
-        border-color: transparent;
-        background-image: linear-gradient(white, white),
-            linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
-        background-origin: border-box;
-        background-clip: content-box, border-box;
+        &:focus {
+            border: double 1px transparent;
+            border-image-source: $gradient-primary;
+            border-image-slice: 1;
 
-        textarea {
             &::placeholder {
                 opacity: 1;
                 color: #999b9c;
             }
+
         }
     }
-
-    &:focus-within label,
-    label:not(.isEmpty) {
-        margin-top: calc(-0.75rem);
-        line-height: 1.5rem;
-        font-size: 0.75rem;
-    }
-
-    span {
-        font-size: 0.75rem;
-    }
-
 }
 
-label {
-    pointer-events: none;
-    position: absolute;
-    background-color: white;
-    line-height: 3rem;
-    margin: 0px 5px;
-    padding: 0px 5px;
-    transition: 0.25s ease-in-out;
-}
+.form-field-container {
+    &-comment {
+        @extend .form-field-container;
 
-ul {
-    margin: 0;
-    padding: 0 10px;
-    list-style-type: none;
-
-    &.error-container {
-        color: #f44336
-    }
-}
-
-.form-hint {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    float: right;
-    margin-bottom: 5px;
-    color: #999b9c;
-}
-
-.gradient-btn {
-    height: auto;
-    margin: 0 5px;
-
-    &[disabled] {
-        background-image: linear-gradient(#999b9c, #999b9c),
-            linear-gradient(#999b9c, #999b9c);
-        color: black;
+        &:focus-within .form-label,
+        .form-label:not(.isEmpty) {
+            margin-top: -0.3rem;
+        }
     }
 }

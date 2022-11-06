@@ -13,7 +13,7 @@ export const articleDetails: Routes = [{
 
 const childRoutes: Routes = [
     {
-        path: "crateArticle", component: ArticleFormComponent
+        path: "createArticle", component: ArticleFormComponent
     },
     {
         path: "favorite", component: FavoritesComponent

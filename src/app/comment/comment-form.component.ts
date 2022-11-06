@@ -28,7 +28,7 @@ export class CommentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.commentFormGroup = new AppFormGroup({
-      body: new AppFormControl("Body", "body", "",
+      body: new AppFormControl("Comment", "body", "",
         Validators.compose([
           Validators.required,
           Validators.minLength(this.minCharacters),

@@ -29,7 +29,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     { nav: "Favorite articles", icon: "favorite", route: "favorite" },
     { nav: "Followed users", icon: "supervised_user_circle", route: "followed" },
     { nav: "My profile", icon: "account_circle", route: "profile" },
-    { nav: "Create article", icon: "article", route: "crateArticle" }
+    { nav: "Create article", icon: "article", route: "createArticle" }
   ];
 
   public userName$ = this.store.select(selectUserName);
