@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { ArticleFormComponent } from './article-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FavoritesComponent } from './favorites.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    CKEditorModule
   ],
   providers: [
   ],

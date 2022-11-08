@@ -2,7 +2,7 @@
     <div class="form-field-container" *ngFor="let control of registerFormGroup.formControls()">
         <div class="form-content">
             <label class="form-label" for="{{control.modelProperty}}"
-                [ngClass]="form.value?.length ? '' : 'isEmpty'">{{control.label}}</label>
+                [ngClass]="form.value.length ? '' : 'isEmpty'">{{control.label}}</label>
             <input class="form-input" #form name="{{control.modelProperty}}" formControlName="{{control.modelProperty}}"
                 [type]="hide && 
                 (control.modelProperty == 'password' || control.modelProperty == 'confirmPassword') 
