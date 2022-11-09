@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import * as Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import * as ClassicEditor from '../build/ckeditor.js';
 
 @Component({
   selector: 'app-article-form',
@@ -13,11 +12,10 @@ export class ArticleFormComponent implements OnInit {
 
   public Editor = ClassicEditor;
 
-
   public config = {
-
     placeholder: 'Write your article here!'
   }
+
 
   ngOnInit(): void {
   }
