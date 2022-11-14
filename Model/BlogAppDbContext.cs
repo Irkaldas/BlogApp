@@ -14,6 +14,6 @@ namespace BlogApp.Model
         public DbSet<Article> Articles { get; set; } = default!;
         public DbSet<Comment> Comments { get; set; } = default!;
         public DbSet<Favorite> Favorites { get; set; } = default!;
-
+        public DbSet<Image> Images { get; set; } = default!;
     }
 }

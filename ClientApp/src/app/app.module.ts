@@ -18,6 +18,7 @@ import { ArticleModule } from './store/article/article.module';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { DialogService } from './shared/dialog/dialog.service';
 import { DialogContentAnchorDirective } from './shared/dialog/dialog-content-anchor.directive';
+import { REST_URL } from './services/articles.service';
 
 @NgModule({
   declarations: [

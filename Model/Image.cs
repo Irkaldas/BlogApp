@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace BlogApp.Model
 {
-    public class User : IdentityUser
+    public class Image
     {
-        public string? FullName { get; set; } = String.Empty;
+        public long? Id { get; set; }
+        public byte[]? ImageData { get; set; }
     }
 }

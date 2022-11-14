@@ -11,8 +11,8 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace BlogApp.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IMapper _mapper;
