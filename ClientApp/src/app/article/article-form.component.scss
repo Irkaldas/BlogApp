@@ -1,13 +1,15 @@
 @use '../styles/buttons' as *;
 @use '../styles/mixins' as *;
+@use '../styles/forms' as *;
+@use '../styles/tags' as *;
 
 .ckeditor-container {
     margin-bottom: 10px;
 }
 
-.media-container {
-    @include setFlex();
-    justify-content: flex-start;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+// .media-container {
+//     @include setFlex();
+//     justify-content: flex-start;
+//     gap: 10px;
+//     margin-bottom: 10px;
+// }

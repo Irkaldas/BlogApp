@@ -1,15 +1,36 @@
-<div class="article-form">
-    <form>
-        <div class="media-container">
-            <label>Title</label>
-            <input placeholder="Write your article title HERE!">
-            <label>Tags</label>
-            <input placeholder="Add at least 2 tag">
+<form novalidate class="article-form" [formGroup]="articleFormGroup" (ngSubmit)="addArticle()">
+    <div class="form-field-container">
+        <div class="form-content">
+            <label class="form-label" for="title">Title</label>
+            <input #titleInput class="form-input" [ngClass]="titleInput.value.length ? '' : 'isEmpty'" name="title"
+                formControlName="title" id="title" required placeholder="Write your article title HERE!">
         </div>
-        <div class="ckeditor-container">
-            <ckeditor [editor]="Editor" [config]="config" data="<p></p>">
-            </ckeditor>
+        <div class="form-hint-warn" *ngFor="let error of articleFormGroup.getValidatorMessages('title')">
+            <ng-container *ngIf="articleFormGroup.controls['title'].invalid && 
+                    articleFormGroup.controls['title'].dirty">
+                {{error}}
+            </ng-container>
         </div>
-        <button class="gradient-btn-outline"><span class="btn-content">Submit</span></button>
-    </form>
-</div>
+    </div>
+    <div class="form-field-container">
+        <span class="tag" #tag *ngFor="let tag of tags$ | async">
+            {{tag}}
+        </span>
+        <div class="form-content">
+            <label class="form-label" for="tags">Tags</label>
+            <input #tagsInput class="form-input" [ngClass]="tagsInput.value.length ? '' : 'isEmpty'" name="tags"
+                formControlName="tags" id="tags" required placeholder="Add at least 3 tags!"
+                (keyup)="tagListener($event)">
+        </div>
+        <div class="form-hint-warn" *ngFor="let error of articleFormGroup.getValidatorMessages('tags')">
+            <ng-container *ngIf="articleFormGroup.controls['tags'].invalid && 
+            articleFormGroup.controls['tags'].dirty">{{error}}</ng-container>
+        </div>
+    </div>
+    <div class="ckeditor-container">
+        <ckeditor tagName="textarea" formControlName="body" [(ngModel)]="editorData" [editor]="Editor" [config]="config"
+            required>
+        </ckeditor>
+    </div>
+    <button class="gradient-btn-outline" type="submit"><span class="btn-content">Submit</span></button>
+</form>
