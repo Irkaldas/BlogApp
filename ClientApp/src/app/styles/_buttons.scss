@@ -59,8 +59,8 @@ $font_weight: 500;
     @include setFlex();
     border-radius: 50%;
     padding: 5px;
-    border: transparent;
-    background-color: transparent;
+    border: none;
+    background-color: none;
 
     &:hover {
         background-color: $border-color;

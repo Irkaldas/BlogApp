@@ -51,7 +51,13 @@ export class AppFormControl extends UntypedFormControl {
                         errorMessages.push(`${this.label} must have correct format. `);
                         break;
                     case "notMatch":
-                        errorMessages.push(`Passwords must match. `);
+                        errorMessages.push(`Passwords must match.`);
+                        break;
+                    case "minTags":
+                        errorMessages.push(`You must minimum of ${this.errors['minTags'].minTags} tags.`);
+                        break;
+                    case "maxTags":
+                        errorMessages.push(`You you cannot add more than ${this.errors['maxTags'].maxTags} tags.`);
                         break;
                 }
             }

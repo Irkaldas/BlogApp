@@ -9,6 +9,7 @@ import { Article } from "../model/article.model";
 import { Tag } from "../model/tag.model";
 import { REST_URL } from '../services/articles.service';
 import { AppFormControl, AppFormGroup } from "../shared/app-form/app-form";
+import { MaxTagValidator, MinTagValidator } from "../shared/validators/tag.validator";
 import { AppState } from "../store/app.state";
 import { selectUserId } from "../store/user/user.selectors";
 
@@ -26,8 +27,6 @@ export class ArticleFormComponent implements OnInit {
     @Inject(REST_URL) private url: string,
     private store: Store<AppState>
   ) { }
-
-  @ViewChildren('tag', { read: ElementRef }) tags!: QueryList<ElementRef>;
 
   public articleFormGroup: AppFormGroup = new AppFormGroup({});
   public Editor = ClassicEditor;
@@ -55,10 +54,12 @@ export class ArticleFormComponent implements OnInit {
       title: new AppFormControl("Title", "title", "",
         Validators.compose([
           Validators.required,
+          Validators.minLength(5)
         ])),
       tags: new AppFormControl("Tags", "tags", "",
-        Validators.compose([
-          Validators.required,
+        Validators.compose([,
+          MinTagValidator(2, this.tags$),
+          MaxTagValidator(5, this.tags$)
         ])),
       body: new AppFormControl("Body", "body", "",
         Validators.compose([
@@ -69,17 +70,26 @@ export class ArticleFormComponent implements OnInit {
 
   tagListener(event: any): void {
     if (event.key == " ") {
-      const nextTagToAdd = event.target.value;
-      const updatedTags = [...this.tags$.value, nextTagToAdd];
-      this.tags$.next(updatedTags);
+      const nextTagToAdd = event.target.value.trim();
+      const tags = [...this.tags$.value];
+
+      if (!tags.find(t => t == nextTagToAdd) && nextTagToAdd.length > 0) {
+        const updatedTags = [...tags, nextTagToAdd]
+        this.tags$.next(updatedTags);
+      }
+
       event.target.value = "";
     }
   }
-
+  removeTag(index: number): void {
+    const updatedTags = [...this.tags$.value];
+    updatedTags.splice(index, 1);
+    this.tags$.next(updatedTags);
+  }
   addArticle(): void {
-    console.log("Printing form values");
-
-    if (this.articleFormGroup.valid) {
+    if (this.articleFormGroup.valid &&
+      this.editorData.length > 0 &&
+      this.tags$.value.length > 0) {
 
       let newArticle: Article = {
         title: this.articleFormGroup.controls['title'].value,
@@ -89,10 +99,14 @@ export class ArticleFormComponent implements OnInit {
       this.userId$.pipe(take(1)).subscribe(userId =>
         newArticle.userId = userId);
 
-      let articleTags: Tag[];
-      this.tags.forEach(t =>
-        articleTags.push(t.nativeElement.innerText));
-    }
+      let articleTags: Tag[] = [];
+      this.tags$.value.forEach(t => {
+        articleTags.push({
+          name: t
+        });
+      });
+    };
 
   }
 }
+

@@ -2,14 +2,40 @@
 @use '../styles/mixins' as *;
 @use '../styles/forms' as *;
 @use '../styles/tags' as *;
+@use '../styles/variables' as *;
 
 .ckeditor-container {
     margin-bottom: 10px;
 }
 
-// .media-container {
-//     @include setFlex();
-//     justify-content: flex-start;
-//     gap: 10px;
-//     margin-bottom: 10px;
-// }
+.tags-wrapper {
+    @include setFlex($justify-content: flex-start);
+    background-color: #E7EBED;
+
+    &:focus-within {
+        border-bottom: double 1px transparent;
+        border-image-source: $gradient-primary;
+        border-image-slice: 1;
+    }
+
+    .form-content {
+        width: 100%;
+    }
+}
+
+.tags,
+.tags>.tag {
+    background-color: #E7EBED;
+}
+
+.tags {
+    margin: 0;
+}
+
+.form-input.tag {
+    border: none;
+
+    &:focus {
+        border: none;
+    }
+}

@@ -17,8 +17,8 @@
             </div>
         </ng-container>
     </div>
-    <button class="gradient-btn" type="submit" [disabled]="(commentarea.value.length || 0) < minCharacters">
+    <button class="gradient-btn" type="submit" [disabled]="!commentFormGroup.valid">
         Post comment
     </button>
     <button class="gradient-btn" type="reset">Cancel</button>
-</form>
+</form>{{commentarea.valid}}

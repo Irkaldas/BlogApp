@@ -18,5 +18,7 @@
             <span class="spacer"></span>
         </div>
     </div>
-    <button class="gradient-btn-form" type="submit"><span class="btn-content">Register</span></button>
+    <button class="gradient-btn-form" type="submit" [disabled]="!registerFormGroup.valid">
+        <span class="btn-content">Register</span>
+    </button>
 </form>

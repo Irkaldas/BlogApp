@@ -13,14 +13,20 @@
         </div>
     </div>
     <div class="form-field-container">
-        <span class="tag" #tag *ngFor="let tag of tags$ | async">
-            {{tag}}
-        </span>
-        <div class="form-content">
-            <label class="form-label" for="tags">Tags</label>
-            <input #tagsInput class="form-input" [ngClass]="tagsInput.value.length ? '' : 'isEmpty'" name="tags"
-                formControlName="tags" id="tags" required placeholder="Add at least 3 tags!"
-                (keyup)="tagListener($event)">
+        <div class="tags-wrapper">
+            <div class="tags" *ngIf="tags$ | async">
+                <span class="tag" #tag *ngFor="let tag of tags$ | async; let i = index">
+                    {{tag}}
+                    <button class="icon-btn" type="button" (click)="removeTag(i)">
+                        <span class="material-icons">close</span></button>
+                </span>
+            </div>
+            <div class="form-content">
+                <label class="form-label" for="tags">Tags</label>
+                <input #tagsInput class="form-input tag" [ngClass]="tagsInput.value.length ? '' : 'isEmpty'" name="tags"
+                    formControlName="tags" id="tags" required placeholder="Add at least 3 tags!"
+                    (keypress)="tagListener($event)">
+            </div>
         </div>
         <div class="form-hint-warn" *ngFor="let error of articleFormGroup.getValidatorMessages('tags')">
             <ng-container *ngIf="articleFormGroup.controls['tags'].invalid && 
@@ -32,5 +38,6 @@
             required>
         </ckeditor>
     </div>
-    <button class="gradient-btn-outline" type="submit"><span class="btn-content">Submit</span></button>
+    <button class="gradient-btn-outline" type="submit" [disabled]="!articleFormGroup.valid"><span
+            class="btn-content">Submit</span></button>
 </form>
