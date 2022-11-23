@@ -28,8 +28,9 @@
             {{article.title | titlecase}}
         </h1>
         <div class="tags">
-            <a class="tag">muzyka</a>
-            <a class="tag">sport</a>
+            <a class="tag" id="{{tag.id}}" *ngFor="let tag of article.tags">
+                {{tag.name}}
+            </a>
         </div>
     </div>
     <div class="article-card-content">

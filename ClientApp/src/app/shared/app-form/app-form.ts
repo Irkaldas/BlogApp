@@ -54,7 +54,7 @@ export class AppFormControl extends UntypedFormControl {
                         errorMessages.push(`Passwords must match.`);
                         break;
                     case "minTags":
-                        errorMessages.push(`You must minimum of ${this.errors['minTags'].minTags} tags.`);
+                        errorMessages.push(`You must add minimum of ${this.errors['minTags'].minTags} tags.`);
                         break;
                     case "maxTags":
                         errorMessages.push(`You you cannot add more than ${this.errors['maxTags'].maxTags} tags.`);

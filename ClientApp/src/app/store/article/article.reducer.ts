@@ -20,4 +20,7 @@ export const articleReducer = createReducer(
   on(articlesActions.loadSuccess, (state, { articles }) =>
     articlesAdapter.setAll(articles, { ...state, hasLoaded: true })
   ),
+  on(articlesActions.postArticleSuccess, (state, { article }) =>
+    articlesAdapter.addOne(article, state)
+  )
 )

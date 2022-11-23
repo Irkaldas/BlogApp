@@ -19,6 +19,7 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import { DialogService } from './shared/dialog/dialog.service';
 import { DialogContentAnchorDirective } from './shared/dialog/dialog-content-anchor.directive';
 import { REST_URL } from './services/articles.service';
+import { SanitizeHtmlPipe } from './shared/pipe/sanitizeHTML.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { REST_URL } from './services/articles.service';
     ErrorComponent,
     SnackBarComponent,
     DialogComponent,
-    DialogContentAnchorDirective
+    DialogContentAnchorDirective,
+
   ],
   imports: [
     BrowserModule,

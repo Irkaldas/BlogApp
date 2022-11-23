@@ -9,6 +9,7 @@ import { ArticleFormComponent } from './article-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavoritesComponent } from './favorites.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SanitizeHtmlPipe } from '../shared/pipe/sanitizeHTML.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ArticlesComponent,
     ArticleDetailsComponent,
     ArticleFormComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    SanitizeHtmlPipe
   ],
   imports: [
     CommonModule,

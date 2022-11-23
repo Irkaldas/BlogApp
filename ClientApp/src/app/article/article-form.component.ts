@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit, Inject, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { BehaviorSubject, } from "rxjs";
-import { take } from "rxjs/operators";
+import { BehaviorSubject, of, Subject, Subscription, } from "rxjs";
+import { take, takeUntil } from "rxjs/operators";
 import * as ClassicEditor from '../ckeditor-classic-custom-build/build/ckeditor.js';
 import { Article } from "../model/article.model";
 import { Tag } from "../model/tag.model";
@@ -11,6 +11,7 @@ import { REST_URL } from '../services/articles.service';
 import { AppFormControl, AppFormGroup } from "../shared/app-form/app-form";
 import { MaxTagValidator, MinTagValidator } from "../shared/validators/tag.validator";
 import { AppState } from "../store/app.state";
+import { articlesActions } from "../store/article/article.actions";
 import { selectUserId } from "../store/user/user.selectors";
 
 @Component({
@@ -18,9 +19,9 @@ import { selectUserId } from "../store/user/user.selectors";
   templateUrl: './article-form.component.html',
   styleUrls: ['./article-form.component.scss']
 })
-export class ArticleFormComponent implements OnInit {
+export class ArticleFormComponent implements OnInit, OnDestroy {
 
-  //private url: string = "https://localhost:7095/api/image";
+
 
   constructor(
     private http: HttpClient,
@@ -43,11 +44,10 @@ export class ArticleFormComponent implements OnInit {
       }
     }
   }
-
-  public editorData: string = "";
   public tags$: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<string>>([]);
 
   private userId$ = this.store.select(selectUserId);
+  private readonly destroy$ = new Subject();
 
   ngOnInit(): void {
     this.articleFormGroup = new AppFormGroup({
@@ -61,11 +61,18 @@ export class ArticleFormComponent implements OnInit {
           MinTagValidator(2, this.tags$),
           MaxTagValidator(5, this.tags$)
         ])),
-      body: new AppFormControl("Body", "body", "",
+      body: new AppFormControl("Article content", "body", "",
         Validators.compose([
           Validators.required,
         ]))
     })
+    this.tags$.pipe(
+      takeUntil(this.destroy$)).
+      subscribe(tags => {
+        tags.length >= 5
+          ? this.articleFormGroup.get('tags')?.disable()
+          : this.articleFormGroup.get('tags')?.enable();
+      })
   }
 
   tagListener(event: any): void {
@@ -73,11 +80,10 @@ export class ArticleFormComponent implements OnInit {
       const nextTagToAdd = event.target.value.trim();
       const tags = [...this.tags$.value];
 
-      if (!tags.find(t => t == nextTagToAdd) && nextTagToAdd.length > 0) {
+      if (!tags.find(tag => tag == nextTagToAdd) && nextTagToAdd.length > 0) {
         const updatedTags = [...tags, nextTagToAdd]
         this.tags$.next(updatedTags);
       }
-
       event.target.value = "";
     }
   }
@@ -87,26 +93,33 @@ export class ArticleFormComponent implements OnInit {
     this.tags$.next(updatedTags);
   }
   addArticle(): void {
-    if (this.articleFormGroup.valid &&
-      this.editorData.length > 0 &&
-      this.tags$.value.length > 0) {
 
+    if (this.articleFormGroup.valid) {
       let newArticle: Article = {
         title: this.articleFormGroup.controls['title'].value,
-        body: this.editorData
+        body: this.articleFormGroup.controls['body'].value
       }
 
-      this.userId$.pipe(take(1)).subscribe(userId =>
-        newArticle.userId = userId);
+      this.userId$.pipe(
+        takeUntil(this.destroy$),
+        take(1))
+        .subscribe(userId =>
+          newArticle.userId = userId);
 
-      let articleTags: Tag[] = [];
-      this.tags$.value.forEach(t => {
-        articleTags.push({
-          name: t
+      newArticle.tags = new Array<Tag>();
+      this.tags$.value.forEach(tagName => {
+        newArticle.tags?.push({
+          name: tagName
         });
       });
+      console.log(this.articleFormGroup.controls['body'].value);
+      this.store.dispatch(articlesActions.postArticle({ article: newArticle }));
     };
+  }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 

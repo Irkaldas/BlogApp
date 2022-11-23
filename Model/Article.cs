@@ -10,10 +10,10 @@ namespace BlogApp.Model
     {
         public long? Id { get; set; }
         public string? Title { get; set; }
-        public string? Preview { get; set; }
         public string? Body { get; set; }
         public long? UserId { get; set; }
-        public IEnumerable<Comment>? Comments { get; set; }
-        public IEnumerable<Favorite>? Favorites { get; set; }
+        public IEnumerable<Comment> Comments { get; set; } = Enumerable.Empty<Comment>();
+        public IEnumerable<Favorite> Favorites { get; set; } = Enumerable.Empty<Favorite>();
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

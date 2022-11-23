@@ -25,6 +25,10 @@ export class ArticlesService {
         return this.SendRequest<Article>("GET", `${this.url}/article/${articleId}`);
     }
 
+    PostArticle(article: Article): Observable<Article> {
+        return this.SendRequest<Article>("POST", `${this.url}/article/`, article);
+    }
+
     SendRequest<T>(method: string, url: string, body?: T): Observable<T> {
         return this.http.request<T>(method, url, {
             body: body

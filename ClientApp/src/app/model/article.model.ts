@@ -1,8 +1,9 @@
+import { Tag } from "./tag.model";
+
 export interface Article {
     id?: number;
     title?: string;
-    prewiev?: string;
     body?: string;
     userId?: string, //FK
-    tags?: number[]
+    tags?: Tag[]
 }

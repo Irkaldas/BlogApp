@@ -26,7 +26,6 @@ export class ArticleComponent implements OnChanges, OnDestroy {
   @Input() article: Article = {};
   @Input() index: number = 0;
 
-  public article$ = new BehaviorSubject<Article>({});
   public isLoggedIn$ = this.store.select(selectIsUserLoggedIn);
   public isFavorite$ = new Observable<boolean>();
 

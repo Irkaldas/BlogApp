@@ -24,7 +24,7 @@
             <div class="form-content">
                 <label class="form-label" for="tags">Tags</label>
                 <input #tagsInput class="form-input tag" [ngClass]="tagsInput.value.length ? '' : 'isEmpty'" name="tags"
-                    formControlName="tags" id="tags" required placeholder="Add at least 3 tags!"
+                    formControlName="tags" id="tags" placeholder="Add at least 2 tags!"
                     (keypress)="tagListener($event)">
             </div>
         </div>
@@ -34,9 +34,12 @@
         </div>
     </div>
     <div class="ckeditor-container">
-        <ckeditor tagName="textarea" formControlName="body" [(ngModel)]="editorData" [editor]="Editor" [config]="config"
-            required>
+        <ckeditor tagName="textarea" formControlName="body" [editor]="Editor" [config]="config" required>
         </ckeditor>
+        <div class="form-hint-warn" *ngFor="let error of articleFormGroup.getValidatorMessages('body')">
+            <ng-container *ngIf="articleFormGroup.controls['body'].invalid && 
+            articleFormGroup.controls['body'].dirty">{{error}}</ng-container>
+        </div>
     </div>
     <button class="gradient-btn-outline" type="submit" [disabled]="!articleFormGroup.valid"><span
             class="btn-content">Submit</span></button>

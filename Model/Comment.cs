@@ -12,8 +12,8 @@ namespace BlogApp.Model
     {
         public long? Id { get; set; }
         public string? Body { get; set; }
-        public long? UpVotes { get; set; }
-        public long? DownVotes { get; set; }
+        public long UpVotes { get; set; }
+        public long DownVotes { get; set; }
         public long? UserId { get; set; }
         public long? ArticleId { get; set; }
         [JsonIgnore]
