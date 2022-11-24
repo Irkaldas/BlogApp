@@ -23,15 +23,8 @@ namespace BlogApp.Controllers
                     .Where(c => c.ArticleId == id)
                     .ToListAsync();
 
-            if (comments.Count > 0)
-            {
-                return Ok(comments);
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving comments from the database");
-            }
+            return comments.Count > 0 ? Ok(comments) : BadRequest("No comments found.");
+
         }
 
         [HttpPost]

@@ -8,6 +8,7 @@ import { selectIsUserLoggedIn, selectUserName } from '../store/user/user.selecto
 import { Subject } from 'rxjs';
 import { toggleNavBar } from '../shared/animation/nav-bar-animation/nav-bar-animation';
 import { DialogService } from '../shared/dialog/dialog.service';
+import { tagsActions } from '../store/tag/tag.actions';
 
 @Component({
   selector: 'app-nav-bar',
@@ -37,6 +38,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(articlesActions.load());
+    this.store.dispatch(tagsActions.load());
   }
 
   logOut(): void {

@@ -11,7 +11,9 @@ export interface CommentsState extends EntityState<Comment> {
 
 export const commentsAdapter: EntityAdapter<Comment> = createEntityAdapter<Comment>();
 
-export const initialCommentsState: CommentsState = commentsAdapter.getInitialState();
+export const initialCommentsState: CommentsState = commentsAdapter.getInitialState({
+
+});
 
 export const commentReducer = createReducer(
   initialCommentsState,
@@ -22,35 +24,9 @@ export const commentReducer = createReducer(
     commentsAdapter.addOne(comment, state)
   ),
 )
-
-
-// export const commentReducer = createReducer(
-//   initialCommentsState,
-//   on(addComment, (state) => ({
-//     ...state, status: 'loading'
-//   })),
-//   on(addCommentSuccess, (state, { comment }) => ({
-//     ...state,
-//     comments: [...state.comments, comment],
-//     status: 'success',
-//     isLoaded: true
-//   })),
-//   on(addCommentFailure, (state, { error }) => ({
-//     ...state,
-//     error: error,
-//     status: 'error',
-//   })),
-//   on(loadComments, (state) => ({
-//     ...state, status: 'loading'
-//   })),
-//   on(loadCommentsSuccess, (state, { comments }) => ({
-//     ...state,
-//     comments: comments,
-//     status: 'success'
-//   })),
-//   on(loadCommentsFailure, (state, { error }) => ({
-//     ...state,
-//     error: error,
-//     status: 'error',
-//   }))
-// )
+export const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = commentsAdapter.getSelectors();

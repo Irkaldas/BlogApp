@@ -4,7 +4,8 @@
     @include setGrid();
 
     @media (min-width: 800px) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
 
         app-article:nth-child(12n+8),
         app-article:nth-child(12n+1) {

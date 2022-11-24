@@ -42,6 +42,7 @@ namespace BlogApp.Controllers
             await blogAppDbContext.SaveChangesAsync();
             return Ok();
         }
+
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> PostImage()

@@ -12,8 +12,13 @@
 }
 
 .article-card {
-
     padding: 70px 90px 70px 50px;
+
+    &,
+    &-left,
+    &-mini {
+        height: 100%;
+    }
 
     &-left {
         padding: 70px 50px 70px 90px;

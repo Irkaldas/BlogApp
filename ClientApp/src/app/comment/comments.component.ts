@@ -25,7 +25,6 @@ export class CommentsComponent {
   public showComments: boolean = false;
 
   ngOnInit() {
-    this.loadComments();
   }
 
   public loadComments(): void {
