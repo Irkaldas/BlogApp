@@ -87,17 +87,20 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
       event.target.value = "";
     }
   }
+
   removeTag(index: number): void {
     const updatedTags = [...this.tags$.value];
     updatedTags.splice(index, 1);
     this.tags$.next(updatedTags);
   }
+
   addArticle(): void {
 
     if (this.articleFormGroup.valid) {
       let newArticle: Article = {
         title: this.articleFormGroup.controls['title'].value,
-        body: this.articleFormGroup.controls['body'].value
+        body: this.articleFormGroup.controls['body'].value,
+        date: new Date().toString()
       }
 
       this.userId$.pipe(
@@ -112,7 +115,7 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
           name: tagName
         });
       });
-      console.log(this.articleFormGroup.controls['body'].value);
+      console.log(newArticle);
       this.store.dispatch(articlesActions.postArticle({ article: newArticle }));
     };
   }

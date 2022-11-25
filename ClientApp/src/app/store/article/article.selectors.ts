@@ -18,7 +18,7 @@ export const selectArticleWithId = (articleId: number) => createSelector(
     (articles: Article[]) => articles.find(article => article.id == articleId)
 )
 
-export const selectHasLoaded = createSelector(
-    selectArticlesState,
-    (articleState: fromArticles.ArticlesState) => articleState.hasLoaded
-)
+// export const selectHasLoaded = createSelector(
+//     selectArticlesState,
+//     (articleState: fromArticles.ArticlesState) => articleState.hasLoaded
+// )

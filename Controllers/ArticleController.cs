@@ -15,10 +15,14 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Article> GetArticles()
+    public async Task<IActionResult> GetArticles()
     {
-        return blogAppDbContext.Articles
-            .Include(a => a.Tags);
+        return Ok(
+                new
+                {
+                    Articles = blogAppDbContext.Articles.Include(a => a.Tags),
+                    totalArticles = await blogAppDbContext.Articles.CountAsync()
+                });
     }
 
     [HttpGet("{id}")]

@@ -15,7 +15,7 @@ export class FavoritesService {
     ) { }
 
     GetFavorites(userId: string): Observable<Favorite[]> {
-        return this.http.request<Favorite[]>("GET", `${this.url}/favorite?userId=${userId}`);
+        return this.SendRequest<Favorite[]>("GET", `${this.url}/favorite?userId=${userId}`);
     }
 
     AddArticleToFavorites(favorite: Favorite): Observable<Favorite> {

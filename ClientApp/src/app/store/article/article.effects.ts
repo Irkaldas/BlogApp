@@ -8,7 +8,7 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
 import { AppState } from '../app.state';
 import { articlesActions } from './article.actions';
-import { selectHasLoaded } from './article.selectors';
+//import { selectHasLoaded } from './article.selectors';
 
 
 
@@ -25,8 +25,8 @@ export class ArticleEffects {
   loadArticles$ = createEffect(() =>
     this.actions$.pipe(
       ofType(articlesActions.load),
-      concatLatestFrom(() => this.store.select(selectHasLoaded)),
-      filter(([action, hasLoaded]) => !hasLoaded),
+      //concatLatestFrom(() => this.store.select(selectHasLoaded)),
+      //filter(([action, hasLoaded]) => !hasLoaded),
       switchMap(() =>
         this.articlesService.GetArticles()
           .pipe(

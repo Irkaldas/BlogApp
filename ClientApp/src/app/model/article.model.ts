@@ -5,5 +5,6 @@ export interface Article {
     title?: string;
     body?: string;
     userId?: string, //FK
-    tags?: Tag[]
+    tags?: Tag[],
+    date?: string
 }

@@ -6,13 +6,21 @@ import { articlesActions } from './article.actions';
 export const articleFeatureKey = 'articles';
 
 export interface ArticlesState extends EntityState<Article> {
-  hasLoaded: boolean;
+  page: number,
+  articlesPerPage: number,
+  totalArticles: number,
+  get totalPages(): number
 }
 
 export const articlesAdapter: EntityAdapter<Article> = createEntityAdapter<Article>();
 
 export const initialArticleState: ArticlesState = articlesAdapter.getInitialState({
-  hasLoaded: false
+  page: 1,
+  articlesPerPage: 9,
+  totalArticles: 0,
+  get totalPages() {
+    return Math.ceil(this.totalArticles / this.articlesPerPage);
+  }
 });
 
 export const articleReducer = createReducer(
