@@ -1,8 +1,23 @@
+<div class="sorting-drop-down">
+    <ul>
+        <li *ngFor="let sortType of sortTypes">
+            {{sortType}}
+        </li>
+    </ul>
+</div>
 <div class="articles-container-grid">
     <app-article *ngFor="let article of articles$ | async; trackBy:getArticleKey; let i = index" [article]="article"
         [index]="i+1">
     </app-article>
 </div>
-<div class="pagination">
-
+<div class="pagination-container">
+    <ul class="pagination">
+        <li *ngIf="activePage > 1">Previous</li>
+        <li *ngFor="let page of pages$ | async; let i = index" [class.active]="activePage == page">
+            <a (click)="page != '...' ? getPagination(page) : ''">
+                {{page}}
+            </a>
+        </li>
+        <li *ngIf="activePage < totalPages">Next</li>
+    </ul>
 </div>

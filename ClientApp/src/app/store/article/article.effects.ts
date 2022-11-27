@@ -30,8 +30,10 @@ export class ArticleEffects {
       switchMap(() =>
         this.articlesService.GetArticles()
           .pipe(
-            map((articles) =>
-              articlesActions.loadSuccess({ articles: articles })
+            map((articles) => {
+              console.log(articles);
+              return articlesActions.loadSuccess({ articles: articles })
+            }
             ),
           )
       ),
