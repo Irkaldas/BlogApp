@@ -11,5 +11,5 @@ export interface Pagination {
 
 export type CollectionType = 'all' | 'tag' | 'favorites';
 
-const sortTypes = ['descending', 'ascending'] as const;
-export type SortTypes = typeof sortTypes;
+export const sortTypes = ['newest', 'oldest'] as const;
+export type SortTypes = typeof sortTypes[number];

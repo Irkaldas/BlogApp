@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { BehaviorSubject, Subscription } from "rxjs";
+import { BehaviorSubject, observable, Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 import { Article } from "src/app/model/article.model";
 import { AppState } from "../store/app.state";
-import { articlesActions } from "../store/article/article.actions";
 import { selectAllArticles } from "../store/article/article.selectors";
-import { favoritesActions } from "../store/favorite/favorite.actions";
-import { selectUserData } from "../store/user/user.selectors";
+import { Pagination, sortTypes, SortTypes } from 'src/app/model/pagination.model';
+import { paginationActions } from "../store/pagination/pagination.actions";
+import { ArticleComponent } from "./article.component";
+import { selectPage, selectPageArticles } from "../store/pagination/pagination.selectors";
 
-import { SortTypes } from 'src/app/model/pagination.model';
 @Component({
     selector: "articles-component",
     templateUrl: "articles.component.html",
@@ -23,39 +23,46 @@ export class ArticlesComponent implements OnInit {
         private store: Store<AppState>
     ) { }
 
-    public totalPages: number = 100;
-    public pages$: BehaviorSubject<Array<string>> = new BehaviorSubject<Array<any>>([]);
+    public articles$: Observable<Article[]> = new Observable<Article[]>();
+    public pages$: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);
+    public pageInfo$: Observable<Pagination | undefined> = new Observable<Pagination | undefined>();
     public activePage: number = 1;
-    public articles$ = this.store.select(selectAllArticles);
-    public sortTypes: SortTypes = ['descending', 'ascending'];
+    public sortTypes = typeof sortTypes;
+    public sortBy: SortTypes = 'newest';
+    public search: string = '';
 
     getPagination(activatedPage: number): void {
+
         this.activePage = activatedPage;
+        let totalPages: number = 0;
 
-        //this.store.dispatch();
-        let newPagination: any[] = new Array<any>();
+        this.store.dispatch(paginationActions.loadPage({ page: this.activePage, search: this.search, sortType: this.sortBy }));
+        this.pageInfo$ = this.store.select(selectPage(this.activePage, this.sortBy, this.search))
+            .pipe(
+                tap((pageInfo) => totalPages = pageInfo?.totalPages as number));
+        this.articles$ = this.store.select(selectPageArticles(this.activePage, this.sortBy, this.search));
+
+        let newPages: any[] = new Array<any>();
         let left = this.activePage - 2 > 1 ? this.activePage - 2 : 1;
-        let right = this.activePage + 2 < this.totalPages ? this.activePage + 2 : this.totalPages;
+        let right = this.activePage + 2 < totalPages ? this.activePage + 2 : totalPages;
 
-        if (left > 1) newPagination.push(1);
-        if (left > 2) newPagination.push('...');
+        if (left > 1) newPages.push(1);
+        if (left > 2) newPages.push('...');
 
         Array.from({ length: 5 }, (v, k) => k + left).forEach((pageNumber) => {
             if (pageNumber <= right) {
-                newPagination.push(pageNumber);
+                newPages.push(pageNumber);
             }
         });
 
-        if (right < this.totalPages - 1) newPagination.push('...');
-        if (right < this.totalPages) newPagination.push(this.totalPages);
+        if (right < totalPages - 1) newPages.push('...');
+        if (right < totalPages) newPages.push(totalPages);
 
-        this.pages$.next(newPagination);
+        this.pages$.next(newPages);
     }
-
 
     ngOnInit(): void {
         this.getPagination(this.activePage);
-        this.store.dispatch(articlesActions.load());
     }
 
     getArticleKey(index: number, article: Article) {

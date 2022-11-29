@@ -15,12 +15,13 @@ public class ArticleController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetArticles()
+    public async Task<IActionResult> GetArticles(long id, string sortType, string search)
     {
         return Ok(
                 new
                 {
-                    Articles = blogAppDbContext.Articles.Include(a => a.Tags),
+                    Articles = await blogAppDbContext.Articles.OrderByDescending(a => a.Id)
+                    .Include(a => a.Tags).ToListAsync(),
                     totalArticles = await blogAppDbContext.Articles.CountAsync()
                 });
     }

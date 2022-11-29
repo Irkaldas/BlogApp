@@ -1,14 +1,11 @@
-import { createAction, createActionGroup, props } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
-
-import { Pagination, Sort } from '../../model/pagination.model';
-import { Article } from 'src/app/model/article.model';
+import { createActionGroup, props } from '@ngrx/store';
+import { SortTypes } from '../../model/pagination.model';
 
 export const paginationActions = createActionGroup({
   source: 'Pagination API',
   events: {
-    'Load Page': props<{ page: number, sort: Sort, search: String }>(),
-    'Load Page Success': props<{ articles: Article[] }>()
+    'Load Page': props<{ page: number, sortType: SortTypes, search: String }>(),
+    'Load Page Success': props<{ page: number, sortType: SortTypes, search: String, articlesIds: number[] }>()
   }
 }
 );

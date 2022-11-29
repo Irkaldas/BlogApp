@@ -18,6 +18,8 @@
                 {{page}}
             </a>
         </li>
-        <li *ngIf="activePage < totalPages">Next</li>
+        <ng-container *ngIf="(pageInfo$ | async) as pageInfo">
+            <li *ngIf="activePage < pageInfo.totalPages">Next</li>
+        </ng-container>
     </ul>
 </div>

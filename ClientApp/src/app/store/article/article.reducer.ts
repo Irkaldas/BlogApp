@@ -1,7 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { Article } from 'src/app/model/article.model';
-import { Pagination } from 'src/app/model/pagination.model';
 import { articlesActions } from './article.actions';
 
 export const articleFeatureKey = 'articles';

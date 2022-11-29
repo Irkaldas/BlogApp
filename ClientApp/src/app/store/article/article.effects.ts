@@ -7,6 +7,8 @@ import { catchError, map, switchMap, filter, tap } from 'rxjs/operators';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
 import { AppState } from '../app.state';
+import { paginationActions } from '../pagination/pagination.actions';
+import { selectPage } from '../pagination/pagination.selectors';
 import { articlesActions } from './article.actions';
 //import { selectHasLoaded } from './article.selectors';
 
@@ -25,13 +27,13 @@ export class ArticleEffects {
   loadArticles$ = createEffect(() =>
     this.actions$.pipe(
       ofType(articlesActions.load),
-      //concatLatestFrom(() => this.store.select(selectHasLoaded)),
-      //filter(([action, hasLoaded]) => !hasLoaded),
-      switchMap(() =>
-        this.articlesService.GetArticles()
+      concatLatestFrom((payload) => this.store.select(selectPage(payload.page, payload.sortType, payload.search))),
+      filter(([_, isPageLoaded]) => isPageLoaded != undefined),
+      switchMap(([payload]) =>
+        this.articlesService.GetArticles(payload.page, payload.sortType, payload.search)
           .pipe(
             map((articles) => {
-              console.log(articles);
+              paginationActions.loadPageSuccess({ ...payload, articlesIds: articles.map(a => a.id) as number[] });
               return articlesActions.loadSuccess({ articles: articles })
             }
             ),

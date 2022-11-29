@@ -13,9 +13,9 @@ export const selectAllArticles = createSelector(
     selectAll
 )
 
-export const selectArticleWithId = (articleId: number) => createSelector(
+export const selectArticlesWithIds = (articleIds: number[]) => createSelector(
     selectAllArticles,
-    (articles: Article[]) => articles.find(article => article.id == articleId)
+    (articles: Article[]) => articles.find(article => !articleIds.includes(article.id as number))
 )
 
 // export const selectHasLoaded = createSelector(

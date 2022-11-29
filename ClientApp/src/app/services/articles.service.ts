@@ -4,6 +4,7 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Article } from "../model/article.model";
 import { Favorite } from "../model/favorite.model";
+import { SortTypes } from "../model/pagination.model";
 
 export const REST_URL = new InjectionToken("rest_url");
 
@@ -17,8 +18,8 @@ export class ArticlesService {
         private http: HttpClient
     ) { }
 
-    GetArticles(): Observable<Article[]> {
-        return this.SendRequest<Article[]>("GET", `${this.url}/article`);
+    GetArticles(page: number, sortType: SortTypes, search: String): Observable<Article[]> {
+        return this.SendRequest<Article[]>("GET", `${this.url}/article/${page}?sortType=${sortType}&search=${search}`);
     }
 
     GetArticle(articleId: number): Observable<Article> {
